@@ -650,7 +650,7 @@ var LESSONS = [
 },
 {
   id:"expressoes", name:"O que dizer na aula", pick:{topic:"expressoes"},
-  hook:"Tres de estas expresiones significan casi lo contrario de lo que parecen si las lees con oído español. Mira las parejas y busca cuál te habría engañado.",
+  hook:"Tres de estas expresiones significan casi lo contrario de lo que parecen si las escuchas con oído español. Mira las parejas y busca cuál te habría engañado.",
   pairs:[["Claro, dígame.","Pois não!"],
          ["Con permiso (para pasar).","Com licença."],
          ["Perdón (por algo que hice).","Desculpe."]],
@@ -1034,7 +1034,7 @@ var GEN = [
   var s = r(GOSTAR), n = r(NOUNS);
   return {q:s[0]+" "+s[1]+" ___ "+n[1]+".", g:s[2]+" "+n[2]+".",
     c:["do","da","dos","das"], a:DE[n[0]],
-    h:"¿Qué artículo lleva "+n[1]+"? Ahora fúndelo con de.",
+    h:"¿Qué artículo lleva "+n[1]+"? Ahora fusiónalo con de.",
     e:"de + "+n[0]+" = "+DE[n[0]]+". Ojo: el género del español puede no coincidir con el del portugués."};
 }},
 { id:"g-gostar-inf", t:"gostar", w:["de-inf"], make:function(){
@@ -1067,7 +1067,7 @@ var GEN = [
   var n = r(PLACES);
   return {q:p[0]+n[1]+".", g:p[4]+n[2]+".",
     c:p[3], a:p[2][n[0]],
-    h:n[1]+" lleva el artículo "+n[0]+". Ahora fúndelo con "+p[1]+".",
+    h:n[1]+" lleva el artículo "+n[0]+". Ahora fusiónalo con "+p[1]+".",
     e:p[1]+" + "+n[0]+" = "+p[2][n[0]]+"."};
 }},
 { id:"g-paises", t:"paises", w:["contr"], make:function(){
