@@ -153,3 +153,46 @@ test('a topic id is safe to drop into a class attribute', () => {
   const bad = TOPICS.filter(t => !/^[a-z][a-z0-9-]{0,31}$/.test(t.id)).map(t => t.id);
   assert.deepStrictEqual(bad, [], 'unsafe topic ids: ' + bad.join(', '));
 });
+
+test('every category has its own colour', () => {
+  // same trap as the topics above, one level up
+  const { HTML } = require('./_app');
+  const block = HTML.slice(HTML.indexOf('var CATS'), HTML.indexOf('function catList'));
+  const ids = [...block.matchAll(/\{id:"([a-z0-9-]+)"/g)].map(m => m[1]);
+  const missing = ids.filter(id => !HTML.includes('.c-' + id + ' ') &&
+                                   !HTML.includes('.c-' + id + '{'));
+  assert.deepStrictEqual(missing, [],
+    'no --hue defined for: ' + missing.join(', ') + ' (add a .c-<id> rule)');
+});
+
+test('no colour is written down outside the palette block', () => {
+  // the whole point of that block is that there is one place to change a
+  // colour. A hex anywhere else is a second copy, and a second copy drifts:
+  // the HUES list did exactly that, silently, for five topics.
+  const { HTML } = require('./_app');
+  const rest = HTML.slice(HTML.indexOf('</style>'));
+  const loose = rest.match(/#[0-9A-Fa-f]{6}\b|\brgba?\([\d.,\s]+\)/g) || [];
+  assert.deepStrictEqual(loose, [],
+    'colour outside the palette block: ' + loose.join(', ') +
+    ' (give it a name in :root and use var())');
+});
+
+test('the copies CSS cannot reach still agree with --ground', () => {
+  // a <meta> attribute and a JSON manifest cannot read a custom property, so
+  // these three are copies by necessity rather than by choice. This is the
+  // only thing stopping them drifting apart.
+  const fs = require('fs');
+  const path = require('path');
+  const { HTML } = require('./_app');
+
+  const hex = s => (s || '').toUpperCase();
+  const ground = hex((HTML.match(/--ground:\s*(#[0-9A-Fa-f]{6})/) || [])[1]);
+  assert.ok(ground, '--ground not found in the palette block');
+
+  const meta = hex((HTML.match(/name="theme-color"\s+content="(#[0-9A-Fa-f]{6})"/) || [])[1]);
+  const mf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'manifest.webmanifest'), 'utf8'));
+
+  assert.strictEqual(meta, ground, 'the theme-color meta has drifted from --ground');
+  assert.strictEqual(hex(mf.theme_color), ground, 'manifest theme_color has drifted from --ground');
+  assert.strictEqual(hex(mf.background_color), ground, 'manifest background_color has drifted from --ground');
+});

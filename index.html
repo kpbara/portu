@@ -14,8 +14,86 @@
 <meta name="apple-mobile-web-app-title" content="Treino">
 <meta name="mobile-web-app-capable" content="yes">
 <style>
-  html{background:#F6F5F1}
-  body{margin:0;background:#F6F5F1}
+  /* =================== the palette ===================
+     Every colour in the app is declared in this block and nowhere else. No
+     rule further down names a colour, and the JavaScript names none at all.
+     It sits up here in the <head> so the page has its background before
+     anything else has loaded.
+
+     Adding an assunto? Add one line to the .t- list and you are done. The
+     tile, the swatch dot on its category card, the lesson row and the
+     question card all read --hue off the element they are on, so there is no
+     second list anywhere to keep in step. npm test fails if you miss one.
+
+     Two copies live outside CSS because the platform gives us no choice: the
+     theme-color meta above, and background_color/theme_color in
+     manifest.webmanifest. A test holds all three to --ground. */
+  :root{
+    /* brighter than the old photocopy grey, still warm paper rather than white */
+    --ground:#F6F5F1;
+    --groundGlass:rgba(246,245,241,.95);  /* the sticky bars, under their blur */
+    --card:#FFFFFF;
+    --ink:#171A16;
+    --onInk:#FBFBF9;                      /* type sitting on a dark button */
+    --muted:#71756B;
+
+    /* the ink, thinned: rules, tracks, washes, and the shadow under a button */
+    --line:rgba(23,26,22,.13);
+    --line2:rgba(23,26,22,.24);
+    --wash:rgba(23,26,22,.05);            /* behind a block of code */
+    --press:rgba(23,26,22,.07);           /* a flat button, held down */
+    --track:rgba(23,26,22,.10);           /* the unfilled part of a progress bar */
+    --sink:rgba(0,0,0,.42);               /* the 4px that makes a button pressable */
+    --mutedSoft:rgba(113,117,107,.08);    /* a feedback box with no verdict */
+
+    /* the pen colours, lifted. Amber is the highlighter: it carries the
+       brightness without breaking the student-worksheet idea. */
+    --green:#2E7D5B;  --greenSoft:#E7F4EC;
+    --red:#C8453A;    --redSoft:#FCEBE9;
+    --amber:#E3A22A;  --amberSoft:#FCF2DD;
+    --blue:#2F5BA8;   --blueSoft:#EAF0FB;
+
+    --serif: Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --r:14px;         /* the app's corner radius */
+    --pad:16px;
+  }
+
+  html{background:var(--ground)}
+  body{margin:0;background:var(--ground)}
+
+  /* ---------- one hue per assunto ----------
+     Muted on purpose: fourteen saturated colours on one screen is a toy. These
+     sit at roughly the same lightness so no single tile jumps out, and each is
+     used three ways - a soft tint behind the tile, a firmer border, and the
+     progress bar itself.
+
+     Order matters: the fallback line has to come first, or it would win over
+     the rules below it and paint everything grey. */
+  .tile,.row,.qwrap,.cat{--hue:var(--muted)}
+  .t-interrog   {--hue:#3D5A99}
+  .t-gostar     {--hue:#B8433A}
+  .t-estarcom   {--hue:#1F7A6B}
+  .t-serestar   {--hue:#8A4372}
+  .t-artigos    {--hue:#B58318}
+  .t-prep       {--hue:#5B4A9E}
+  .t-paises     {--hue:#6B7A2E}
+  .t-fonetica   {--hue:#C06239}
+  .t-antonimos  {--hue:#3F6675}
+  .t-nosagente  {--hue:#45774A}
+  .t-possessivos{--hue:#7D4E86}
+  .t-expressoes {--hue:#2E7D8F}
+  .t-alfabeto   {--hue:#8A6A1F}
+  .t-numeros    {--hue:#9E3F66}
+
+  /* The four fixed categories, each borrowing the hue of a topic it holds. A
+     topic with no .t- line of its own inherits its category's colour here
+     rather than going grey - the cascade gives us that fallback for free. */
+  .c-verbos     {--hue:#B8433A}
+  .c-palavras   {--hue:#3D5A99}
+  .c-som        {--hue:#C06239}
+  .c-vocab      {--hue:#6B7A2E}
+  .c-outros     {--hue:var(--muted)}
 </style>
 </head>
 <body>
@@ -37,27 +115,7 @@ window.addEventListener("appinstalled", function(){
 <div id="app"></div>
 
 <style>
-  :root{
-    /* brighter than the old photocopy grey, still warm paper rather than white */
-    --ground:#F6F5F1;
-    --card:#FFFFFF;
-    --ink:#171A16;
-    --muted:#71756B;
-    --line:rgba(23,26,22,.13);
-    --line2:rgba(23,26,22,.24);
-
-    /* the pen colours, lifted. Amber is the highlighter: it carries the
-       brightness without breaking the student-worksheet idea. */
-    --green:#2E7D5B;  --greenSoft:#E7F4EC;
-    --red:#C8453A;    --redSoft:#FCEBE9;
-    --amber:#E3A22A;  --amberSoft:#FCF2DD;
-    --blue:#2F5BA8;   --blueSoft:#EAF0FB;
-
-    --serif: Georgia, "Times New Roman", serif;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --r:14px;         /* the app's corner radius */
-    --pad:16px;
-  }
+  /* the palette lives in the <head>, above - nothing down here names a colour */
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
   /* full bleed. The old bordered card read as a page inside something else. */
@@ -74,7 +132,7 @@ window.addEventListener("appinstalled", function(){
   /* ---------- the bar that stays put ---------- */
   .bar{
     position:sticky;top:0;z-index:20;
-    background:rgba(246,245,241,.92);
+    background:var(--groundGlass);
     backdrop-filter:saturate(1.6) blur(10px);
     -webkit-backdrop-filter:saturate(1.6) blur(10px);
     border-bottom:1px solid var(--line);
@@ -103,10 +161,10 @@ window.addEventListener("appinstalled", function(){
     font-size:22px;line-height:1;border-radius:9px;
     display:flex;align-items:center;justify-content:center;
   }
-  .x:active{background:rgba(23,26,22,.07)}
+  .x:active{background:var(--press)}
   .prog{
     flex:1;height:9px;border-radius:999px;
-    background:rgba(23,26,22,.10);
+    background:var(--track);
     overflow:hidden;
   }
   .prog span{
@@ -155,9 +213,9 @@ window.addEventListener("appinstalled", function(){
     width:100%;
     padding:15px 16px;
     background:var(--ink);
-    color:#FBFBF9;
+    color:var(--onInk);
     border:none;
-    border-bottom:4px solid rgba(0,0,0,.42);
+    border-bottom:4px solid var(--sink);
     border-radius:12px;
     font-size:16px;font-weight:600;letter-spacing:.01em;
     transition:transform .06s, border-width .06s, filter .12s;
@@ -168,8 +226,8 @@ window.addEventListener("appinstalled", function(){
     border:1.5px solid var(--line2);border-bottom-width:4px;
     font-weight:500;
   }
-  .cta.go{background:var(--ink);border-bottom-color:rgba(0,0,0,.45)}
   .cta + .cta{margin-top:10px}
+  .mark + .cta, .tail + .cta{margin-top:16px}
 
   .opt{
     display:block;width:100%;text-align:left;
@@ -196,7 +254,6 @@ window.addEventListener("appinstalled", function(){
   .qwrap{
     background:var(--card);
     border:1px solid var(--line);
-    border-top:3px solid var(--hue);
     border-radius:var(--r);
     padding:20px var(--pad) 22px;
     margin-top:16px;
@@ -230,12 +287,11 @@ window.addEventListener("appinstalled", function(){
     font-family:var(--serif);font-size:15.5px;line-height:1.5;
     margin:14px 0 0;padding:14px 15px;
     border-radius:12px;
-    background:rgba(113,117,107,.08);
-    border-left:4px solid var(--muted);
+    background:var(--mutedSoft);
   }
-  .mark.hint{background:var(--blueSoft);border-left-color:var(--blue)}
-  .mark.ok{background:var(--greenSoft);border-left-color:var(--green)}
-  .mark.no{background:var(--redSoft);border-left-color:var(--red)}
+  .mark.hint{background:var(--blueSoft)}
+  .mark.ok{background:var(--greenSoft)}
+  .mark.no{background:var(--redSoft)}
   .mark b{font-weight:400;border-bottom:1.5px solid currentColor}
   .mark .lead{
     display:block;font-family:var(--sans);
@@ -246,49 +302,23 @@ window.addEventListener("appinstalled", function(){
   .mark.no .lead{color:var(--red)}
   .mark.hint .lead{color:var(--blue)}
 
-  /* ---------- one hue per assunto ----------
-     Muted on purpose: eleven saturated colours on one screen is a toy. These
-     sit at roughly the same lightness so no single tile jumps out, and each is
-     used three ways — a soft tint behind the tile, a firmer border, and the
-     progress bar itself.
-
-     Every topic needs an entry: without one it falls back to --muted and reads
-     as unfinished next to the rest. The last two arrived with handouts 12
-     and 13. */
-  .tile,.row,.qwrap{--hue:var(--muted)}
-  .t-interrog   {--hue:#3D5A99}
-  .t-gostar     {--hue:#B8433A}
-  .t-estarcom   {--hue:#1F7A6B}
-  .t-serestar   {--hue:#8A4372}
-  .t-artigos    {--hue:#B58318}
-  .t-prep       {--hue:#5B4A9E}
-  .t-paises     {--hue:#6B7A2E}
-  .t-fonetica   {--hue:#C06239}
-  .t-antonimos  {--hue:#3F6675}
-  .t-nosagente  {--hue:#45774A}
-  .t-possessivos{--hue:#7D4E86}
-  .t-expressoes   {--hue:#2E7D8F}
-  .t-alfabeto     {--hue:#8A6A1F}
-  .t-numeros      {--hue:#9E3F66}
-
   /* ---------- topics as a grid, not a wall of rows ---------- */
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
   .tile{
     background:var(--card);
     border:1px solid var(--line);
-    border-bottom:3px solid var(--hue);
     border-radius:12px;
     padding:12px 12px 11px;
     text-align:left;
     display:flex;flex-direction:column;gap:7px;
     min-height:76px;
     color:var(--ink);
-    transition:transform .06s, border-width .06s;
+    transition:transform .06s;
   }
-  .tile:active{transform:translateY(1px);border-bottom-width:2px}
+  .tile:active{transform:translateY(1px)}
   .tile .nm{font-size:13.5px;line-height:1.3;flex:1;font-weight:500}
   .tile .bot{display:flex;align-items:center;gap:7px}
-  .tile .bar{flex:1;height:5px;border-radius:999px;background:rgba(23,26,22,.10);overflow:hidden}
+  .tile .bar{flex:1;height:5px;border-radius:999px;background:var(--track);overflow:hidden}
   .tile .bar span{display:block;height:100%;border-radius:999px;background:var(--hue)}
   .tile .nm{color:var(--ink)}
   .tile .key{
@@ -373,8 +403,8 @@ window.addEventListener("appinstalled", function(){
   .shape{
     font-family:ui-monospace,Menlo,Consolas,monospace;
     font-size:11.5px;line-height:1.55;white-space:pre;overflow-x:auto;
-    background:rgba(23,26,22,.05);border-radius:10px;
-    border-left:4px solid var(--muted);padding:12px;margin:10px 0 0;
+    background:var(--wash);border-radius:10px;
+    padding:12px;margin:10px 0 0;
   }
   .inst{
     margin-top:16px;padding:16px var(--pad);
@@ -391,7 +421,7 @@ window.addEventListener("appinstalled", function(){
   /* ---------- the tab bar ---------- */
   .tabs{
     position:fixed;left:0;right:0;bottom:0;z-index:30;
-    background:rgba(246,245,241,.95);
+    background:var(--groundGlass);
     backdrop-filter:saturate(1.6) blur(12px);
     -webkit-backdrop-filter:saturate(1.6) blur(12px);
     border-top:1px solid var(--line);
@@ -411,7 +441,7 @@ window.addEventListener("appinstalled", function(){
   .tabs .badge{
     position:absolute;transform:translate(13px,-4px);
     min-width:16px;height:16px;border-radius:999px;
-    background:var(--red);color:#fff;
+    background:var(--red);color:var(--card);
     font-size:10px;font-weight:700;line-height:16px;text-align:center;
     padding:0 4px;
   }
@@ -436,7 +466,8 @@ window.addEventListener("appinstalled", function(){
     flex:none;display:grid;grid-template-columns:1fr 1fr;gap:2px;
     width:22px;height:22px;
   }
-  .cat .swatch i{display:block;border-radius:2px;background:var(--muted)}
+  .cat .swatch i{display:block;border-radius:2px;background:var(--hue)}
+  .cat .swatch i.empty{background:transparent}
   .cat .txt{flex:1;min-width:0}
   .cat .nm{font-size:16px;font-weight:600;display:block}
   .cat .meta{font-size:12.5px;color:var(--muted)}
@@ -1259,16 +1290,17 @@ function matches(L, x){
    a future pack introduces that is not listed falls into Outros, so nothing is
    ever lost if I forget to file it. */
 var CATS = [
-  {id:"verbos",   name:"Verbos",            hue:"#B8433A",
+  {id:"verbos",   name:"Verbos",
    topics:["gostar","estarcom","serestar","nosagente"]},
-  {id:"palavras", name:"Palavras pequenas", hue:"#3D5A99",
+  {id:"palavras", name:"Palavras pequenas",
    topics:["interrog","artigos","prep","possessivos","paises"]},
-  {id:"som",      name:"Som e letras",      hue:"#C06239",
+  {id:"som",      name:"Som e letras",
    topics:["fonetica","alfabeto"]},
-  {id:"vocab",    name:"Vocabul\u00e1rio",       hue:"#6B7A2E",
+  {id:"vocab",    name:"Vocabul\u00e1rio",
    topics:["antonimos","expressoes","numeros"]}
 ];
-var OUTROS = {id:"outros", name:"Outros", hue:"#71756B", topics:[]};
+/* Each one's colour is .c-<id> in the palette block, not a field here. */
+var OUTROS = {id:"outros", name:"Outros", topics:[]};
 
 function catList(){
   var placed = {};
@@ -1699,17 +1731,17 @@ window.addEventListener("portu-installed", function(){
 
 /* Presentation only, so it stays out of the item bank: a pack can add a topic
    without anyone having to pick a colour for it, and it falls back to grey. */
-var HUES = {interrog:"#3D5A99", gostar:"#B8433A", estarcom:"#1F7A6B",
-            serestar:"#8A4372", artigos:"#B58318", prep:"#5B4A9E",
-            paises:"#6B7A2E", fonetica:"#C06239", antonimos:"#3F6675"};
-function hueOf(topicId){ return HUES[topicId] || ""; }
-
-function hueClass(topicId){
+function hueClass(id, prefix){
   /* The pattern is here to stop a pack-supplied id from injecting anything
      into the class attribute — not to enumerate the topics. It used to be an
      allowlist of the original nine, which meant every topic added afterwards
-     silently fell back to grey while the rest kept their colour. */
-  return /^[a-z][a-z0-9-]{0,31}$/.test(topicId || "") ? " t-" + topicId : "";
+     silently fell back to grey while the rest kept their colour. A second
+     such list, HUES, sat beside this one painting the swatch dots on the
+     category cards, and went stale in exactly the same way: it still held
+     the original nine when there were fourteen. It is gone. This class is
+     now the only bridge between an id and a colour, and the colour itself
+     lives in the palette block at the top of the file. */
+  return /^[a-z][a-z0-9-]{0,31}$/.test(id || "") ? " " + (prefix || "t-") + id : "";
 }
 
 var TAB = "treinar";
@@ -1845,11 +1877,11 @@ function tabAssuntos(fl){
       var tl = lessonForTopic(t.id);
       if(tl && fl[tl.id]) pend += fl[tl.id];
     });
-    h += '<button class="cat" data-cat="' + c.id + '" style="--hue:' + c.hue + '">';
+    h += '<button class="cat' + hueClass(c.id, "c-") + '" data-cat="' + c.id + '">';
     h += '<span class="swatch">';
     for(var i = 0; i < 4; i++){
       var t = ts[i];
-      h += '<i style="background:' + (t ? (hueOf(t.id) || c.hue) : 'transparent') + '"></i>';
+      h += '<i class="' + (t ? hueClass(t.id).trim() : 'empty') + '"></i>';
     }
     h += '</span>';
     h += '<span class="txt"><span class="nm">' + esc(c.name) + '</span>'
@@ -2018,7 +2050,7 @@ function answer(v, btn){
   fb.innerHTML = '<div class="mark no stamp"><span class="lead">Resposta</span><b>'+esc(it.a)+'</b> — '+esc(it.e)+'</div>'
     + again
     + (L && !ses.lesson ? '<button class="cta ghost" data-lesson="1">Rever a regra: '+esc(L.name)+'</button>' : '')
-    + '<button class="cta" data-next="1" style="margin-top:8px">Continuar</button>';
+    + '<button class="cta" data-next="1">Continuar</button>';
   document.querySelector("[data-next]").onclick = next;
   var lb = document.querySelector("[data-lesson]");
   if(lb) lb.onclick = function(){
