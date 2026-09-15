@@ -225,6 +225,32 @@ test('a topic id is safe to drop into a class attribute', () => {
   assert.deepStrictEqual(bad, [], 'unsafe topic ids: ' + bad.join(', '));
 });
 
+test('esc() closes the attribute case, not just the text case', () => {
+  // esc() output lands inside attribute values as well as between tags, so the
+  // quote has to come back as an entity. Escaping only the angle brackets just
+  // moves the injection one character along: a value carrying a " ends the
+  // attribute and everything after it is parsed as markup.
+  const { HTML } = require('./_app');
+  const esc = new Function(
+    HTML.slice(HTML.indexOf('function esc('), HTML.indexOf('function line(')) +
+    '; return esc;')();
+  assert.strictEqual(esc('a"b'), 'a&quot;b');
+  assert.strictEqual(esc('<b>&'), '&lt;b&gt;&amp;');
+  assert.strictEqual(esc('x" onclick="y'), 'x&quot; onclick=&quot;y');
+});
+
+test('no data attribute takes an interpolated value raw', () => {
+  // a pack mints topic ids out of its own item fields
+  // (p.topics.push({id:it.t, name:it.t})), so none of these values are ours.
+  // This is the same guard hueClass() applies to the class attribute, for the
+  // data-* attributes it does not cover.
+  const { HTML } = require('./_app');
+  const bad = [...HTML.matchAll(/data-[a-z]+="'\s*\+\s*(?!esc\()([A-Za-z_][\w.]*)/g)]
+    .map(m => m[1]);
+  assert.deepStrictEqual(bad, [],
+    'raw value in a data attribute: ' + bad.join(', ') + ' (wrap it in esc())');
+});
+
 test('every category has its own colour', () => {
   // same trap as the topics above, one level up
   const { HTML } = require('./_app');

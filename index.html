@@ -1304,7 +1304,12 @@ function mastery(tid){
   });
   return Math.round(got/pool.length*100);
 }
-function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+/* The quote matters as much as the angle brackets. esc() output goes into
+   attribute values as well as between tags -- data-topic, data-c -- and a
+   pack-supplied string carrying a " would close the attribute early, so the
+   rest of the button gets parsed as markup. String() because ids and list
+   indices arrive here as numbers. */
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function line(q){ return esc(q).replace(/___/g,'<span class="blank">&nbsp;</span>'); }
 
 /* ---------------- session ---------------- */
@@ -1491,7 +1496,7 @@ function assunto(id){
     h += '<h2 class="sec">Erros que aparecem aqui</h2>';
     h += '<div class="card flush"><div class="rows">';
     rel.forEach(function(E){
-      h += '<button class="row' + lessonHue(E) + '" data-lesson="' + E.id + '">'
+      h += '<button class="row' + lessonHue(E) + '" data-lesson="' + esc(E.id) + '">'
          + '<span class="key"></span><span class="nm">' + esc(E.name) + '</span>'
          + '<span class="go">\u203a</span></button>';
     });
@@ -1599,7 +1604,7 @@ function packs(note){
   if(PACKS.length){
     h += '<div class="topics">';
     PACKS.forEach(function(p,i){
-      h += '<button class="topic" data-rm="'+i+'"><span class="n">×</span><span class="nm">'+esc(p.name)+'</span><span class="pct">'+(p.items||[]).length+'</span></button>';
+      h += '<button class="topic" data-rm="'+esc(i)+'"><span class="n">×</span><span class="nm">'+esc(p.name)+'</span><span class="pct">'+(p.items||[]).length+'</span></button>';
     });
     h += '</div>';
     h += '<p class="tail">Toque num pacote para removê-lo.</p>';
@@ -1812,7 +1817,7 @@ var ICON = {
 
 function tabBar(pend){
   function one(id, label, badge){
-    return '<button data-tab="' + id + '" class="' + (TAB === id ? "on" : "") + '">'
+    return '<button data-tab="' + esc(id) + '" class="' + (TAB === id ? "on" : "") + '">'
          + ICON[id]
          + (badge ? '<span class="badge">' + badge + '</span>' : '')
          + '<span>' + label + '</span></button>';
@@ -1911,7 +1916,7 @@ function tabFalhas(fl, pend){
      + 'Cada um explica a regra e depois treina s\u00f3 ela.</p>';
   h += '<div class="card flush"><div class="rows">';
   errs.forEach(function(L){
-    h += '<button class="row' + lessonHue(L) + '" data-lesson="' + L.id + '">'
+    h += '<button class="row' + lessonHue(L) + '" data-lesson="' + esc(L.id) + '">'
        + (fl[L.id] ? '<span class="dot"></span>' : '<span class="key"></span>')
        + '<span class="nm">' + esc(L.name) + '</span>'
        + (fl[L.id] ? '<span class="tag">' + fl[L.id] + '</span>' : '<span class="go">\u203a</span>')
@@ -1935,7 +1940,7 @@ function tabAssuntos(fl){
       var tl = lessonForTopic(t.id);
       if(tl && fl[tl.id]) pend += fl[tl.id];
     });
-    h += '<button class="cat' + hueClass(c.id, "c-") + '" data-cat="' + c.id + '">';
+    h += '<button class="cat' + hueClass(c.id, "c-") + '" data-cat="' + esc(c.id) + '">';
     h += '<span class="swatch">';
     for(var i = 0; i < 4; i++){
       var t = ts[i];
@@ -1962,7 +1967,7 @@ function categoria(id){
   catTopics(c).forEach(function(t){
     var m = mastery(t.id);
     var tl = lessonForTopic(t.id), tpend = tl ? (fl[tl.id] || 0) : 0;
-    h += '<button class="tile' + hueClass(t.id) + '" data-topic="' + t.id + '">'
+    h += '<button class="tile' + hueClass(t.id) + '" data-topic="' + esc(t.id) + '">'
        + '<span class="key"></span>'
        + (tpend ? '<span class="pin"></span>' : '')
        + '<span class="nm">' + esc(t.name) + '</span>'
@@ -2162,7 +2167,7 @@ function done(){
       h += '</div><h2 class="sec">Rever antes da pr\u00f3xima rodada</h2>';
       h += '<div class="card flush"><div class="rows">';
       rel.forEach(function(L){
-        h += '<button class="row" data-l="'+L.id+'"><span class="dot"></span><span class="nm">'+esc(L.name)+'</span><span class="go">\u203a</span></button>';
+        h += '<button class="row" data-l="'+esc(L.id)+'"><span class="dot"></span><span class="nm">'+esc(L.name)+'</span><span class="go">\u203a</span></button>';
       });
       h += '</div></div><div class="card">';
     }
