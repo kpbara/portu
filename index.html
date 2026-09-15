@@ -537,6 +537,15 @@ var LESSONS = [
   trap:"Olvidar el de delante de un infinitivo, y equivocarse de género en la contracción, son dos errores distintos. Revísalos por separado: primero, ¿hay un de? Después, ¿qué artículo lleva el sustantivo?"
 },
 {
+  id:"escala", name:"Quanto você gosta", pick:{topic:"gostar"},
+  hook:"El español gradúa esto con un poco, mucho y demasiado. Mira las tres parejas: una de ellas traduce con una palabra que en español sería una queja. ¿Cuál es, y qué quiere decir de verdad en portugués?",
+  pairs:[["Me gusta un poco.","Gosto um pouco."],
+         ["Me gusta muchísimo.","Gosto demais."],
+         ["Me encanta el pan de queso.","Adoro pão de queijo."]],
+  rule:"De menos a más: não gosto, gosto um pouco, gosto, gosto muito, gosto demais, adoro, amo. Hacia abajo la escala sigue con não gosto nada, detesto y odeio. Para me encanta, el brasileño dice adoro; amo vale también para cosas, no solo para personas.",
+  trap:"Demais no es demasiado. En español demasiado avisa de que algo se pasó de la raya; gosto demais es un elogio, un escalón por encima de gosto muito. Y el de de gostar no se contagia: adorar, amar, detestar y odiar van directos a la cosa — adoro pão de queijo, nunca adoro de pão de queijo."
+},
+{
   id:"onde-aonde", name:"Onde ou aonde", pick:{tag:"onde-aonde"},
   hook:"Aonde no es un onde más elegante. Parte la palabra en dos: a + onde. ¿Qué suele hacer esa a pequeña delante de un lugar?",
   pairs:[["¿Dónde viven?","Onde eles moram?"],
@@ -1276,15 +1285,31 @@ var app = document.getElementById("app");
 var ses = null;
 var SIZE = 10;
 
-function matches(L, x){
-  if(L.pick.topic && x.t === L.pick.topic) return true;
-  if(L.pick.tag && (x.w||[]).indexOf(L.pick.tag) > -1) return true;
-  if(L.pick.tags && (x.w||[]).some(function(t){ return L.pick.tags.indexOf(t) > -1; })) return true;
+function tagHit(p, x){
+  if(p.tag) return (x.w||[]).indexOf(p.tag) > -1;
+  if(p.tags) return (x.w||[]).some(function(t){ return p.tags.indexOf(t) > -1; });
   return false;
+}
+function matches(L, x){
+  var p = L.pick, onTopic = !!(p.topic && x.t === p.topic);
+  /* A pick that names a topic *and* tags is scoped: it teaches those slips as
+     they appear inside that one assunto. Read as an OR instead, "Gostar precisa
+     de" claimed every contraction in the bank, so a crase item was answered
+     with a lesson about gostar + de. */
+  if(p.topic && (p.tag || p.tags)) return onTopic && tagHit(p, x);
+  return onTopic || tagHit(p, x);
+}
+/* How squarely a lesson sits on one item. A tag is the item's own note that it
+   trips that slip, so it outranks merely sharing an assunto; matching on both
+   is the most specific of all. */
+function fit(L, x){
+  return (L.pick.topic && x.t === L.pick.topic ? 1 : 0) + (tagHit(L.pick, x) ? 2 : 0);
 }
 /* A lesson that names only a topic teaches that assunto and belongs inside it.
    One that names a tag targets a slip that appears across several assuntos, so
-   it has nowhere to nest and stays on the home screen. */
+   it has nowhere to nest and stays on the home screen. One that names both is
+   the third kind: the slip as it shows up inside that one assunto, and it never
+   reaches past it. */
 /* Four categories, fixed. New assuntos go inside one of these rather than
    onto the home screen, which is what stops the app growing sideways. Anything
    a future pack introduces that is not listed falls into Outros, so nothing is
@@ -1351,8 +1376,14 @@ function lessonHue(L){
 function lessonPool(L){
   return SITEMS.filter(function(x){ return matches(L,x); });
 }
+/* Best fit first: the screens that offer one lesson take [0]. Declaration
+   order only breaks ties, so a lesson added later cannot quietly outrank one
+   that was already sitting squarely on the item. */
 function lessonsFor(it){
-  return LESS.filter(function(L){ return matches(L,it); });
+  return LESS.map(function(L, i){ return {L:L, i:i}; })
+             .filter(function(r){ return matches(r.L, it); })
+             .sort(function(a, b){ return fit(b.L, it) - fit(a.L, it) || a.i - b.i; })
+             .map(function(r){ return r.L; });
 }
 /* lessons with unresolved misses on record */
 function flagged(){

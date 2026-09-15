@@ -47,8 +47,18 @@ with no hue renders grey.
 **Lessons are two kinds, and the UI depends on the difference.** A lesson whose
 `pick` has only a `topic` teaches that one assunto and lives inside it. A lesson
 with `pick.tag` or `pick.tags` describes a slip that cuts across assuntos, and
-lives in the Falhas tab. Currently nine of the first kind and seven of the
-second.
+lives in the Falhas tab. Currently ten of the first kind and seven of the
+second. Four assuntos still have no lesson of the first kind, so their screen
+opens straight onto the drill button.
+
+**Naming both narrows, it does not widen.** `pick:{tags:[…],topic:"gostar"}` means
+those slips *as they appear in gostar*, and the lesson never claims an item from
+another assunto. Written as an OR it did: "Gostar precisa de" listed the `contr`
+tag, so it swallowed every contraction in the bank and — being declared first —
+was the lesson a crase question offered on a wrong answer. A wrong answer offers
+`lessonsFor(it)[0]`, and that list comes back best fit first: a lesson matching
+the item's tag beats one that only shares its assunto, and one matching both
+beats either. Declaration order is only the tiebreak.
 
 **Rounds are `SIZE = 10`**, drawn from 200 static items plus 12 generators and
 weighted toward what this device got wrong.

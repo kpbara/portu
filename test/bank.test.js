@@ -4,7 +4,8 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { B, LESSONS, TOPICS, WEAK, answers, validate } = require('./_app');
+const { B, LESSONS, TOPICS, WEAK, GEN, answers, validate, lessons } = require('./_app');
+const { matches, lessonsFor } = lessons;
 
 const id = it => it.id || it.t;
 
@@ -43,12 +44,63 @@ test('weak tags are drawn from the ones actually observed on paper', () => {
 });
 
 test('every lesson can find items to drill', () => {
-  const matches = (L, x) =>
-    (L.pick.topic && x.t === L.pick.topic) ||
-    (L.pick.tag && (x.w || []).includes(L.pick.tag)) ||
-    (L.pick.tags && (x.w || []).some(t => L.pick.tags.includes(t)));
   const empty = LESSONS.filter(L => !B.some(x => matches(L, x))).map(L => L.id);
   assert.deepStrictEqual(empty, [], 'lessons that would drill nothing: ' + empty.join(', '));
+});
+
+/* ---------------- which lesson an item offers ---------------- */
+
+// A wrong answer offers one lesson — lessonsFor(it)[0] — on the retry card and
+// again in the round summary. These pin that it is the lesson the item is
+// actually about. It was not: "Chegamos ___ duas horas" offered "Gostar precisa
+// de", because that lesson's pick listed the contr tag and was declared first.
+
+test('the lesson an item offers never belongs to another assunto', () => {
+  const bad = B.concat(GEN)
+    .map(x => [x, lessonsFor(x)[0]])
+    .filter(([x, L]) => L && L.pick.topic && L.pick.topic !== x.t)
+    .map(([x, L]) => x.id + ' → ' + L.id + ' (teaches ' + L.pick.topic + ', item is ' + x.t + ')');
+  assert.deepStrictEqual(bad, [], 'off-topic lesson offered: ' + bad.join('; '));
+});
+
+test('a crase item is sent to the contraction lesson, not to gostar', () => {
+  const crase = B.find(x => x.id === 'artigos-65');
+  assert.ok(crase, 'artigos-65 has gone from the bank');
+  assert.strictEqual(lessonsFor(crase)[0].id, 'contr');
+});
+
+test('a pick that names a topic as well as tags stays inside that topic', () => {
+  // the tags narrow the assunto, they do not reach outside it
+  const scoped = LESSONS.filter(L => L.pick.topic && (L.pick.tag || L.pick.tags));
+  const strays = scoped.flatMap(L =>
+    B.concat(GEN).filter(x => matches(L, x) && x.t !== L.pick.topic)
+      .map(x => L.id + ' claims ' + x.id));
+  assert.deepStrictEqual(strays, [], 'lesson reaching outside its topic: ' + strays.join('; '));
+});
+
+test('the lessons an item matches come back best fit first', () => {
+  // A tag is the item's own note about which slip it trips, so it beats merely
+  // sharing an assunto, and a lesson that matches on both beats either. Without
+  // this ordering the offer falls back to whichever lesson was declared first,
+  // which is how the crase item ended up with the gostar lesson.
+  const bad = B.concat(GEN)
+    .map(x => [x, lessonsFor(x).map(L => lessons.fit(L, x))])
+    .filter(([, fits]) => fits.some((f, i) => i > 0 && f > fits[i - 1]))
+    .map(([x, fits]) => x.id + ' [' + fits.join(',') + ']');
+  assert.deepStrictEqual(bad, [], 'lessons offered out of fit order: ' + bad.join('; '));
+});
+
+test('a gostar sentence needing de is sent to the gostar lesson', () => {
+  // the other side of the same coin: contr also matches here, but gostar-de
+  // sits on both the assunto and the tag, so it is the squarer fit
+  assert.strictEqual(lessonsFor(B.find(x => x.id === 'gostar-33'))[0].id, 'gostar-de');
+});
+
+test('the scale item has a lesson of its own to offer', () => {
+  // gostar-36 carries no tag, so every tagged lesson misses it. It used to be
+  // handed "Gostar precisa de", which says nothing about adoro or demais, and
+  // for a while afterwards it had nothing at all.
+  assert.strictEqual(lessonsFor(B.find(x => x.id === 'gostar-36'))[0].id, 'escala');
 });
 
 test('a Portuguese sentence to complete always shows its Spanish', () => {

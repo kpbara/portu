@@ -65,4 +65,10 @@ const answers = new Function([
 /* pack validation */
 const validate = new Function(fnSource('validate') + '; return validate;')();
 
-module.exports = { HTML, B, LESSONS, TOPICS, WEAK, GEN, answers, validate };
+/* lesson picking, exactly as the app does it. LESS is the runtime copy of
+   LESSONS that packs extend, so it is handed in rather than re-declared. */
+const lessons = new Function('LESS', [
+  fnSource('tagHit'), fnSource('matches'), fnSource('fit'), fnSource('lessonsFor'),
+].join('\n') + '; return {matches, fit, lessonsFor};')(LESSONS);
+
+module.exports = { HTML, B, LESSONS, TOPICS, WEAK, GEN, answers, validate, lessons };
