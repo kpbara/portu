@@ -267,3 +267,32 @@ test('the copies CSS cannot reach still agree with --ground', () => {
   assert.strictEqual(hex(mf.theme_color), ground, 'manifest theme_color has drifted from --ground');
   assert.strictEqual(hex(mf.background_color), ground, 'manifest background_color has drifted from --ground');
 });
+
+test('no box wears a coloured bar on one edge', () => {
+  // "the vibe coded line": a hue stripe across the top of the question card, a
+  // green or red bar down the side of the feedback boxes, and the same again
+  // under every topic tile. All three went on 15/9 - the boxes close with a
+  // uniform hairline now, and the colour is carried by the label, the key dot
+  // and the progress fill, which were already saying it.
+  //
+  // A thick *neutral* border-bottom is not this and is meant to stay: it is the
+  // press affordance, shrinking to 2px on :active while the element nudges down.
+  // So is a 1px hairline separating rows, and .blank's underline, which is the
+  // whole point of a fill-in-the-blank.
+  const { HTML } = require('./_app');
+
+  const decls = [...HTML.matchAll(/border-(top|right|bottom|left)(-width|-color)?\s*:\s*([^;}]+)/g)]
+    .map(m => ({ edge: m[1], value: m[3].trim(), text: m[0].trim() }));
+
+  const bad = decls.filter(d => {
+    if (d.edge === 'left' || d.edge === 'right') return true;  // only ever decoration here
+    if (d.value.includes('var(--hue)')) return true;           // a tinted edge, any side
+    if (d.edge === 'top') {                                    // a stripe across the top
+      return parseFloat((d.value.match(/^([\d.]+)px/) || [])[1]) >= 2;
+    }
+    return false;                                              // bottom: the press depth
+  }).map(d => d.text);
+
+  assert.deepStrictEqual(bad, [], 'coloured bar on one edge: ' + bad.join(' | ') +
+    ' -- if a new component genuinely needs one, that is a decision to make on purpose');
+});
