@@ -97,10 +97,29 @@ test('a gostar sentence needing de is sent to the gostar lesson', () => {
 });
 
 test('the scale item has a lesson of its own to offer', () => {
-  // gostar-36 carries no tag, so every tagged lesson misses it. It used to be
-  // handed "Gostar precisa de", which says nothing about adoro or demais, and
-  // for a while afterwards it had nothing at all.
+  // gostar-36 carries no tag of its own until the escala one, so every other
+  // lesson misses it. It used to be handed "Gostar precisa de", which says
+  // nothing about adoro or demais.
   assert.strictEqual(lessonsFor(B.find(x => x.id === 'gostar-36'))[0].id, 'escala');
+});
+
+test('no gostar item falls through without a lesson', () => {
+  // gostar is one of the five assuntos with no lesson of its own, so nothing
+  // catches an item there by topic alone: add one without a tag and its
+  // wrong-answer card offers no way back to a rule. Every other assunto has a
+  // topic lesson underneath to land on.
+  const loose = B.filter(x => x.t === 'gostar' && !lessonsFor(x).length).map(x => x.id);
+  assert.deepStrictEqual(loose, [],
+    'gostar items matching no lesson: ' + loose.join(', ') + ' (give each one a tag)');
+});
+
+test('the scale lesson drills the scale, not the whole assunto', () => {
+  const escala = LESSONS.find(L => L.id === 'escala');
+  const pool = B.concat(GEN).filter(x => matches(escala, x));
+  const strays = pool.filter(x => !(x.w || []).includes('escala')).map(x => x.id);
+  assert.deepStrictEqual(strays, [], 'in the drill but not about the scale: ' + strays.join(', '));
+  assert.ok(pool.length >= 6,
+    `the drill button offers 6 items and the pool holds ${pool.length}`);
 });
 
 test('a Portuguese sentence to complete always shows its Spanish', () => {

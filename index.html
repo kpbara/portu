@@ -514,7 +514,10 @@ var TOPICS = [
   {id:"numeros", name:"Os números"}
 ];
 
-var WEAK = ["p1sg","onde-aonde","que-oque","de-inf","contr","porque","posse"];
+/* The slips seen in the notebook, plus escala — which is not a slip but the
+   six items about how far up the scale you are, so the lesson that teaches
+   them can claim exactly those and drill nothing else. */
+var WEAK = ["p1sg","onde-aonde","que-oque","de-inf","contr","porque","posse","escala"];
 
 /* short remedial lessons. pick = which items drill it afterwards */
 var LESSONS = [
@@ -537,7 +540,7 @@ var LESSONS = [
   trap:"Olvidar el de delante de un infinitivo, y equivocarse de género en la contracción, son dos errores distintos. Revísalos por separado: primero, ¿hay un de? Después, ¿qué artículo lleva el sustantivo?"
 },
 {
-  id:"escala", name:"Quanto você gosta", pick:{topic:"gostar"},
+  id:"escala", name:"Quanto você gosta", pick:{topic:"gostar",tag:"escala"},
   hook:"El español gradúa esto con un poco, mucho y demasiado. Mira las tres parejas: una de ellas traduce con una palabra que en español sería una queja. ¿Cuál es, y qué quiere decir de verdad en portugués?",
   pairs:[["Me gusta un poco.","Gosto um pouco."],
          ["Me gusta muchísimo.","Gosto demais."],
@@ -715,7 +718,12 @@ var B = [
 {id:"gostar-33",t:"gostar",k:"w",q:"Escríbelo en portugués: “Me gusta mucho el pão de queijo.”",g:"",a:"gosto muito do pão de queijo",alt:["eu gosto muito do pão de queijo"],h:"Empieza por el sujeto eu, después gostar, después de + o.",e:"Gosto muito do pão de queijo.",w:["p1sg","contr"]},
 {id:"gostar-34",t:"gostar",k:"w",q:"Escríbelo en portugués: “A ellos les gusta el fútbol.”",g:"",a:"eles gostam do futebol",alt:["gostam do futebol","eles gostam de futebol","gostam de futebol"],h:"¿Quién es el que siente el gusto? Ese es tu sujeto.",e:"Eles gostam do futebol.",w:["contr"]},
 {id:"gostar-35",t:"gostar",k:"w",q:"Escríbelo en portugués: “No me gusta bailar.”",g:"",a:"eu não gosto de dançar",alt:["não gosto de dançar"],h:"Al final hay un infinitivo. ¿Qué tiene que ir antes?",e:"Eu não gosto de dançar.",w:["p1sg","de-inf"]},
-{id:"gostar-36",t:"gostar",k:"mc",q:"Más fuerte que gosto muito:",g:"",c:["adoro","gosto um pouco","gosto","não gosto"],a:"adoro",h:"¿Dónde termina la escala?",e:"não gosto < um pouco < gosto < muito < demais < adoro/amo.",w:[]},
+{id:"gostar-36",t:"gostar",k:"mc",q:"Más fuerte que gosto muito:",g:"",c:["adoro","gosto um pouco","gosto","não gosto"],a:"adoro",h:"¿Dónde termina la escala?",e:"não gosto < um pouco < gosto < muito < demais < adoro/amo.",w:["escala"]},
+{id:"escala-1",t:"gostar",k:"mc",q:"Eu gosto ___ de viajar, é o que mais amo fazer.",g:"Me gusta muchísimo viajar.",c:["demais","demasiado","um pouco","nada"],a:"demais",h:"La frase es un elogio. ¿Cuál de estas sube un escalón por encima de muito?",e:"Gosto demais está por encima de gosto muito. No es el demasiado del español, que avisaría de un exceso.",w:["escala"]},
+{id:"escala-2",t:"gostar",k:"mc",q:"Eu adoro ___ pão de queijo.",g:"Me encanta el pan de queso.",c:["(nada)","de","do","da"],a:"(nada)",h:"El de es de gostar. ¿Lo pide también adorar?",e:"Adorar, amar, detestar y odiar van directos a la cosa: adoro pão de queijo. Solo gostar lleva de.",w:["escala"]},
+{id:"escala-3",t:"gostar",k:"mc",q:"Entre não gosto e odeio, o que fica no meio?",g:"",c:["detesto","adoro","gosto um pouco","amo"],a:"detesto",h:"¿Cuál de estas cuatro cae del lado de lo que no te gusta?",e:"Hacia abajo la escala va: não gosto, não gosto nada, detesto, odeio. Adoro y amo quedan en el otro extremo.",w:["escala"]},
+{id:"escala-4",t:"gostar",k:"mc",q:"Gosto ___ de futebol: vejo um jogo por ano.",g:"Me gusta poco el fútbol...",c:["um pouco","muito","demais","bastante"],a:"um pouco",h:"Un partido al año no es mucha afición. ¿Qué escalón le corresponde?",e:"Gosto um pouco es el escalón tibio, justo encima de não gosto.",w:["escala"]},
+{id:"escala-5",t:"gostar",k:"w",q:"Escríbelo en portugués: “Me encanta viajar.”",g:"",a:"adoro viajar",alt:["eu adoro viajar"],h:"¿Qué palabra usa el brasileño para me encanta, y hace falta algo entre ella y el infinitivo?",e:"Adoro viajar. Sin de: ese de es solo de gostar.",w:["escala"]},
 {id:"estarcom-37",t:"estarcom",k:"mc",q:"___ fome.",g:"Tengo hambre.",c:["Estou com","Tenho","Sou com","Estou"],a:"Estou com",h:"El español usa tener. ¿El portugués usa el mismo verbo aquí?",e:"estar + com + sustantivo para lo que sientes ahora. Ter fome existe, pero suena formal y europeo; en Brasil lo normal es estar com.",w:["p1sg"]},
 {id:"estarcom-38",t:"estarcom",k:"mc",q:"Ela ___ sono.",g:"Tiene sueño.",c:["está com","tem","é com","está"],a:"está com",h:"Misma estructura que antes. ¿Qué forma de estar va con ela?",e:"estar com sono.",w:[]},
 {id:"estarcom-39",t:"estarcom",k:"mc",q:"Eu ___ dor de cabeça.",g:"Tengo dolor de cabeza.",c:["estou com","está com","tenho","sou com"],a:"estou com",h:"¿Qué forma de estar le corresponde a eu?",e:"Estou com dor de cabeça.",w:["p1sg"]},
