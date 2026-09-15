@@ -1,0 +1,8 @@
+{
+  "name": "portu",
+  "private": true,
+  "description": "Treino de portugues. No build step and no dependencies - this file exists only to name the test command.",
+  "scripts": {
+    "test": "node --test \"test/*.test.js\""
+  }
+}

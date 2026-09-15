@@ -1,0 +1,14 @@
+# OS noise
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# editor noise
+*.swp
+*~
+
+# local dev config (machine-specific paths)
+.claude/
+
+# porting reference only — names the teacher and the graded score, stays local
+reference/
