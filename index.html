@@ -1786,6 +1786,15 @@ function tabTreinar(fl, pend){
           + (state.days > 1 ? 's' : '') + ' de estudo'
           + (pend ? ' \u00b7 <b>' + pend + '</b> para revisar' : '')) + '</p>';
   h += '<button class="cta go" data-go="all">Come\u00e7ar uma rodada</button>';
+  if(first){
+    /* Spanish, deliberately, same as the install card: this is read before
+       any Portuguese is learned. Only shown before the first round, since
+       that is the one moment a new user needs to hear it. */
+    h += '<p class="tail">No se recopila nada: sin cuentas, sin anal\u00edtica, '
+       + 'sin servidor propio. El progreso vive en cada tel\u00e9fono. Si el '
+       + 'contenido se actualiza, lo ver\u00e1s la pr\u00f3xima vez que abras o '
+       + 'refresques la p\u00e1gina.</p>';
+  }
   h += '</div>';
 
   h += installCard();
