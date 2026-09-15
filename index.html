@@ -624,9 +624,9 @@ var LESSONS = [
 {
   id:"fonetica", name:"O que muda no som", pick:{topic:"fonetica"},
   hook:"Leer portugués con sonidos del español es justo lo que deja el acento pegado. Cinco cambios hacen casi todo el trabajo: prueba primero a leer dia, tomate, Brasil, sal y carro en voz alta.",
-  pairs:[["dia, verdade","la d antes de i, o de una e final, se vuelve dj"],
-         ["tomate, tio","la t en los mismos casos se vuelve tch"],
-         ["Brasil, música","la s entre vocales se vuelve z"]],
+  pairs:[["la d antes de i, o de una e final, se vuelve dj","dia, verdade"],
+         ["la t en los mismos casos se vuelve tch","tomate, tio"],
+         ["la s entre vocales se vuelve z","Brasil, música"]],
   rule:"Además: la l al final de sílaba se vuelve u (sal, azul); la r inicial y la rr suenan como la j española (rádio, carro), mientras que una r simple entre vocales es la r normal del español (cara); la m y la n finales nasalizan la vocal que llevan delante.",
   trap:"La b y la v nunca se confunden, al contrario que en español. Y la x tiene cuatro valores: peixe (ch), táxi (cs), máximo (s), exame (z)."
 },
@@ -1181,6 +1181,25 @@ function validate(p){
       it.c.forEach(function(x){ if(!uniq[x]){ uniq[x] = 1; n++; } });
       if(n !== it.c.length) return "Item "+(i+1)+": há opções repetidas.";
     }
+  }
+  /* Lessons render with no fallback (esc(L.hook), L.pairs.forEach ...), so a
+     lesson missing any of these throws the moment someone opens it. */
+  var seenL = {};
+  for(var li=0;li<(p.lessons||[]).length;li++){
+    var l = p.lessons[li];
+    if(!l || typeof l !== "object") return "Aula "+(li+1)+": não é um objeto.";
+    if(!l.id) return "Aula "+(li+1)+": falta o id.";
+    if(seenL[l.id]) return "Aula "+(li+1)+": id repetido (“"+l.id+"”).";
+    seenL[l.id] = 1;
+    if(!l.name) return "Aula "+(li+1)+": falta o name.";
+    if(!l.pick || !(l.pick.topic || l.pick.tag || l.pick.tags))
+      return "Aula "+(li+1)+": falta pick.topic, pick.tag ou pick.tags.";
+    if(!l.hook) return "Aula "+(li+1)+": falta o hook.";
+    if(!Array.isArray(l.pairs) || !l.pairs.length ||
+       !l.pairs.every(function(pr){ return Array.isArray(pr) && pr.length === 2; }))
+      return "Aula "+(li+1)+": pairs precisa ser uma lista de pares [espanhol, português].";
+    if(!l.rule) return "Aula "+(li+1)+": falta o rule.";
+    if(!l.trap) return "Aula "+(li+1)+": falta o trap.";
   }
   return null;
 }
@@ -1946,7 +1965,7 @@ function categoria(id){
     h += '<button class="tile' + hueClass(t.id) + '" data-topic="' + t.id + '">'
        + '<span class="key"></span>'
        + (tpend ? '<span class="pin"></span>' : '')
-       + '<span class="nm">' + t.name + '</span>'
+       + '<span class="nm">' + esc(t.name) + '</span>'
        + '<span class="bot"><span class="bar"><span style="width:' + m + '%"></span></span>'
        + '<span class="pct">' + m + '%</span></span></button>';
   });
