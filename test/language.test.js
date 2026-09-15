@@ -19,7 +19,8 @@ const ENGLISH = new RegExp('\\b(' + [
   'only', 'here', 'this', 'that', 'your', 'you', 'for', 'from', 'when', 'where',
   'how', 'same', 'both', 'never', 'always', 'write', 'think', 'start', 'compare',
   'say', 'ends?', 'means?', 'subject', 'answer', 'question', 'gender', 'article',
-  'infinitive', 'stress', 'vowel', 'word', 'sentence', 'stands', 'attaches?',
+  'infinitive', 'stress', 'vowels?', 'word', 'sentence', 'stands', 'attaches?',
+  'becomes?', 'between',
 ].join('|') + ')\\b', 'i');
 
 /* "de + o = do" and friends are formulas, not prose */
@@ -51,7 +52,13 @@ test('no English left in the question prompts', () => {
 
 test('no English left in the lessons', () => {
   const found = [];
-  LESSONS.forEach(L => ['hook', 'rule', 'trap'].forEach(k => scan(`${L.id}.${k}`, L[k], found)));
+  LESSONS.forEach(L => {
+    ['hook', 'rule', 'trap'].forEach(k => scan(`${L.id}.${k}`, L[k], found));
+    (L.pairs || []).forEach((pr, i) => {
+      scan(`${L.id}.pairs[${i}][0]`, pr[0], found);
+      scan(`${L.id}.pairs[${i}][1]`, pr[1], found);
+    });
+  });
   assert.deepStrictEqual(found.slice(0, 8), []);
 });
 
@@ -88,8 +95,23 @@ test('the Spanish is Latin American, not peninsular', () => {
   B.forEach(it => [it.h, it.e, it.g].forEach(t => {
     if (t && PENINSULAR.test(t)) found.push(`${it.id}: ${t.slice(0, 60)}`);
   }));
-  LESSONS.forEach(L => ['hook', 'rule', 'trap'].forEach(k => {
-    if (PENINSULAR.test(L[k] || '')) found.push(`${L.id}.${k}`);
-  }));
-  assert.deepStrictEqual(found, []);
+  LESSONS.forEach(L => {
+    ['hook', 'rule', 'trap'].forEach(k => {
+      if (PENINSULAR.test(L[k] || '')) found.push(`${L.id}.${k}`);
+    });
+    (L.pairs || []).forEach(pr => pr.forEach(t => {
+      if (t && PENINSULAR.test(t)) found.push(`${L.id}.pairs: ${t.slice(0, 60)}`);
+    }));
+  });
+  // sentence makers are random, same as the English check above
+  GEN.forEach(g => {
+    for (let n = 0; n < 300; n++) {
+      const it = g.make();
+      [it.h, it.e, it.g].forEach(t => {
+        if (t && PENINSULAR.test(t)) found.push(`${g.id}#${n}: ${t.slice(0, 60)}`);
+      });
+      if (found.length > 8) return;
+    }
+  });
+  assert.deepStrictEqual(found.slice(0, 8), []);
 });
