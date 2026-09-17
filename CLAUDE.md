@@ -22,12 +22,20 @@ share **one checkout**. There is no lock. Assume you are not alone.
 
 ## `main` is the only line of work
 
-`origin/claude/nonsensical-expressions-334tbn` is the pre-squash history and
-**shares no common ancestor with `main`** (`git merge-base` exits 1). It cannot
-be merged — only cherry-picked, and `index.html` has diverged far enough that
-cherry-picks conflict. If something useful appears there, **reimplement it on
-`main`** rather than porting the commit. Do not merge it, and do not delete it
-without asking: it is the only copy of the original development history.
+There is one branch and one root commit. It was not always so: until 2026-09-17
+the repo also carried `claude/nonsensical-expressions-334tbn`, the pre-squash
+history, which shared **no common ancestor** with `main` — `git merge-base` exited
+1. Two disconnected histories in one repo meant nothing could be merged, only
+cherry-picked, and an agent working on the far side kept producing fixes that had
+to be reimplemented by hand.
+
+That branch is gone. Its full history is preserved in
+`../portu-archive-2026-09-17.bundle` (47 commits, both histories, verified
+restorable with `git clone`). Nothing in it is needed: every fix it carried was
+reimplemented on `main` first.
+
+If a second root or an unrelated branch ever appears again, that is the failure
+to catch early — not something to merge around.
 
 ## Before you push
 
