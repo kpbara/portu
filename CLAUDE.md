@@ -31,7 +31,7 @@ without asking: it is the only copy of the original development history.
 
 ## Before you push
 
-Run `npm test` (59 tests, `node --test`). They are not only about data — several
+Run `npm test` (60 tests, `node --test`). They are not only about data — several
 guard decisions that are easy to undo by accident:
 
 - every colour lives in the palette block; a hex anywhere else fails

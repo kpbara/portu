@@ -105,7 +105,7 @@ packs are written to that browser's own storage and reach nobody else.
 npm test
 ```
 
-59 checks, no dependencies — just Node's built-in runner. They read the live
+60 checks, no dependencies — just Node's built-in runner. They read the live
 `index.html`, so they test what actually ships rather than a copy. Run them
 before publishing anything.
 

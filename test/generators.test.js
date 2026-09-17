@@ -83,6 +83,24 @@ test('the Spanish gloss is built from the same slots as the Portuguese', () => {
   assert.deepStrictEqual(bad.slice(0, 5), []);
 });
 
+test('the Spanish gloss agrees in gender too', () => {
+  // "Tengo novecientos hermanas": the gloss took the masculine Spanish number
+  // whatever the noun, in the one item whose whole point is that the number
+  // follows the noun. Spanish hundreds inflect exactly like the Portuguese
+  // ones, so the translation was contradicting the rule it was teaching.
+  const FEM_NOUN = ['hermanas', 'personas', 'casas', 'sillas', 'amigas'];
+  const MASC_NOUN = ['hermanos', 'libros', 'reales', 'carros', 'amigos'];
+  const FEM_NUM = ['doscientas', 'trescientas', 'quinientas', 'seiscientas', 'novecientas'];
+  const MASC_NUM = ['doscientos', 'trescientos', 'quinientos', 'seiscientos', 'novecientos'];
+  const has = (text, words) => words.some(w => text.includes(w));
+  const bad = [];
+  each((it, where) => {
+    if (has(it.g, FEM_NOUN) && has(it.g, MASC_NUM)) bad.push(where + ': ' + it.g);
+    if (has(it.g, MASC_NOUN) && has(it.g, FEM_NUM)) bad.push(where + ': ' + it.g);
+  });
+  assert.deepStrictEqual(bad.slice(0, 5), []);
+});
+
 test('nothing leaks a template placeholder into the visible text', () => {
   const bad = [];
   each((it, where) => {

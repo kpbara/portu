@@ -1072,16 +1072,19 @@ var LETRAS = [
   ["Z","zê"]
 ];
 
-/* numbers that change with gender, which Spanish never asks you to do.
-   digits, [masculine, feminine], Spanish, and two wrong spellings that a
-   Spanish speaker might reach for — so every distractor is genuinely wrong. */
+/* numbers that change with gender. digits, [masculine, feminine] in
+   Portuguese, the same pair in Spanish, and two wrong spellings that a
+   Spanish speaker might reach for — so every distractor is genuinely wrong.
+   The Spanish is a pair because Spanish inflects here too: the hundreds agree
+   in both languages and only dos stays put. Writing it as one masculine form
+   produced "Tengo novecientos hermanas" in the one item about agreement. */
 var NUMEROS = [
-  ["2",   ["dois","duas"],             "dos",         ["dos","duos"]],
-  ["200", ["duzentos","duzentas"],     "doscientos",  ["doscentos","duascentas"]],
-  ["300", ["trezentos","trezentas"],   "trescientos", ["trescentos","tricentos"]],
-  ["500", ["quinhentos","quinhentas"], "quinientos",  ["cincocentos","quinentos"]],
-  ["600", ["seiscentos","seiscentas"], "seiscientos", ["seiscientos","seicentos"]],
-  ["900", ["novecentos","novecentas"], "novecientos", ["nuevecentos","novencentos"]]
+  ["2",   ["dois","duas"],             ["dos","dos"],                 ["dos","duos"]],
+  ["200", ["duzentos","duzentas"],     ["doscientos","doscientas"],   ["doscentos","duascentas"]],
+  ["300", ["trezentos","trezentas"],   ["trescientos","trescientas"], ["trescentos","tricentos"]],
+  ["500", ["quinhentos","quinhentas"], ["quinientos","quinientas"],   ["cincocentos","quinentos"]],
+  ["600", ["seiscentos","seiscentas"], ["seiscientos","seiscientas"], ["seiscientos","seicentos"]],
+  ["900", ["novecentos","novecentas"], ["novecientos","novecientas"], ["nuevecentos","novencentos"]]
 ];
 var NUM_NOUNS = [
   ["irmãos","m","hermanos"],   ["irmãs","f","hermanas"],
@@ -1221,12 +1224,14 @@ var GEN = [
 }},
 { id:"g-numeros", t:"numeros", w:[], make:function(){
   var N = r(NUMEROS), s = r(NUM_NOUNS), fem = s[1] === "f";
-  var right = N[1][fem ? 1 : 0];
+  var right = N[1][fem ? 1 : 0], es = N[2][fem ? 1 : 0];
   return {q:"Tenho ___ " + s[0] + ". (" + N[0] + ")",
-    g:"Tengo " + N[2] + " " + s[2] + ".",
+    g:"Tengo " + es + " " + s[2] + ".",
     c:[right, N[1][fem ? 0 : 1], N[3][0], N[3][1]], a:right,
-    h:s[0] + " es " + (fem ? "femenino" : "masculino") + ", y en portugués el " + N[0] + " concuerda con el sustantivo.",
-    e:right + " " + s[0] + ". En español el número no cambia; en portugués sí cambia."};
+    h:"¿" + s[0] + " es masculino o femenino? El número tiene que seguirlo.",
+    e:N[2][0] === N[2][1]
+      ? right + " " + s[0] + ". Dos no se mueve nunca en español; en portugués sí: dois y duas."
+      : right + " " + s[0] + ". El español también concuerda — " + es + " " + s[2] + " — pero la forma portuguesa es otra."};
 }},
 /* the whole range, so the drill never runs out of numbers to ask about */
 { id:"g-contar", t:"numeros", w:[], make:function(){
