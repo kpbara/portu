@@ -31,7 +31,7 @@ without asking: it is the only copy of the original development history.
 
 ## Before you push
 
-Run `npm test` (58 tests, `node --test`). They are not only about data — several
+Run `npm test` (59 tests, `node --test`). They are not only about data — several
 guard decisions that are easy to undo by accident:
 
 - every colour lives in the palette block; a hex anywhere else fails
@@ -42,6 +42,8 @@ guard decisions that are easy to undo by accident:
   own item fields (`p.topics.push({id:it.t, name:it.t})`), so anything reaching
   an attribute is untrusted input
 - lessons are validated on load, because they render with no fallback
+- the Os números course still writes out every number from zero to twenty;
+  the rows of those four lessons are the lesson, and losing one is silent
 
 Content lives in Spanish (the teaching language) and Portuguese (what is being
 taught). Tests fail on English left in either, and on peninsular Spanish.

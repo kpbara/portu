@@ -666,14 +666,80 @@ var LESSONS = [
   rule:"Son 26 letras. Las que más se apartan del español: H es agá, W es dáblio, Y es ípsilon, X es xis y K es cá. El resto sigue el patrón bê, cê, dê, ê, éfe, gê... El verbo para deletrear es soletrar.",
   trap:"El ç no entra en el alfabeto: es un símbolo, no una letra, y suena como la s del español. Lo mismo el til (~), que nasaliza la vocal en vez de marcar dónde cae la fuerza."
 },
+/* Os números is the one assunto that needs more than one aula: you cannot
+   learn to count from three example pairs. Four parts, in order — the first
+   opens inside the assunto, the rest hang under Continuação. */
 {
-  id:"numeros", name:"Dois, duas e as centenas", pick:{topic:"numeros"},
-  hook:"En español, dos es dos y ya está: dos hermanos, dos hermanas. Mira estas parejas y fíjate en qué hace el portugués que el español nunca te pidió hacer.",
-  pairs:[["dos hermanos","dois irmãos"],
-         ["dos hermanas","duas irmãs"],
-         ["doscientas personas","duzentas pessoas"]],
-  rule:"El 1 y el 2 concuerdan en género: um/uma, dois/duas. Y las centenas también: duzentos/duzentas, trezentos/trezentas, quinhentos/quinhentas. Entre las partes de un número va siempre una e — cento e vinte e três. Cem va solo; acompañado se vuelve cento e...",
-  trap:"Quinhentos para 500 no se parece a nada del español, y es el que más se escapa. Dos más: 40 es quarenta, con qu; y al dictar un teléfono en Brasil el 6 se dice meia, de meia dúzia, para que no se confunda con três."
+  id:"numeros", name:"Do zero ao dez", pick:{topic:"numeros"},
+  hook:"Siete, nueve, diez, ocho: en español los cuatro llevan un diptongo. Mira cómo quedan en portugués y fíjate en qué le pasa a ese diptongo cada vez.",
+  pairs:[["0","zero"],
+         ["1","um / uma"],
+         ["2","dois / duas"],
+         ["3","três"],
+         ["4","quatro"],
+         ["5","cinco"],
+         ["6","seis"],
+         ["7","sete"],
+         ["8","oito"],
+         ["9","nove"],
+         ["10","dez"]],
+  rule:"El diptongo del español se deshace: siete es sete, nueve es nove, diez es dez. Y el ch de ocho se vuelve it: oito. Los demás ya te los sabes. Solo el 1 y el 2 cambian de género — um/uma, dois/duas — y concuerdan con lo que cuentan: uma casa, duas casas. Del 3 en adelante el número ya no se mueve nunca.",
+  trap:"Três lleva acento circunflejo, no agudo. Y al dictar un teléfono en Brasil el 6 casi nunca se dice seis: se dice meia, de meia dúzia, para que no se confunda con três al oírlo."
+},
+{
+  id:"numeros-dezenas", name:"Do onze ao cem", pick:{topic:"numeros"},
+  hook:"Del 11 al 15 hay que aprendérselos de memoria, pero del 16 al 19 no: los cuatro se arman solos con una misma receta. Mira dezesseis, dezessete, dezoito y dezenove, y descubre cuál es.",
+  pairs:[["11","onze"],
+         ["12","doze"],
+         ["13","treze"],
+         ["14","catorze"],
+         ["15","quinze"],
+         ["16","dezesseis"],
+         ["17","dezessete"],
+         ["18","dezoito"],
+         ["19","dezenove"],
+         ["20","vinte"],
+         ["21","vinte e um / vinte e uma"],
+         ["30","trinta"],
+         ["40","quarenta"],
+         ["50","cinquenta"],
+         ["60","sessenta"],
+         ["70","setenta"],
+         ["80","oitenta"],
+         ["90","noventa"],
+         ["100","cem"]],
+  rule:"Del 11 al 15 son propios: onze, doze, treze, catorze, quinze. Del 16 al 19 se arman con dez más la unidad, pegado todo: dezesseis, dezessete, dezoito, dezenove. Las decenas van vinte, trinta, quarenta, cinquenta, sessenta, setenta, oitenta, noventa. Y de 21 en adelante se junta la decena, una e y la unidad: vinte e um, trinta e dois, noventa e nove.",
+  trap:"Quarenta se escribe con qu, no con cu como en español, y cinquenta igual. Sessenta va con doble s. Ojo también con dezesseis: así es en Brasil; dezasseis es de Portugal y no es la forma del curso."
+},
+{
+  id:"numeros-centenas", name:"Cem, mil e o e", pick:{topic:"numeros"},
+  hook:"En español dices ciento veintitrés de corrido, sin nada en medio. El portugués mete algo entre cada parte del número, y lo mete siempre. Mira el 101 y el 123 y verás qué es.",
+  pairs:[["100","cem"],
+         ["101","cento e um"],
+         ["123","cento e vinte e três"],
+         ["200","duzentos / duzentas"],
+         ["300","trezentos / trezentas"],
+         ["500","quinhentos / quinhentas"],
+         ["900","novecentos / novecentas"],
+         ["1000","mil"]],
+  rule:"Cem va solo; en cuanto lo acompaña algo se vuelve cento: cento e um, cento e vinte e três. Esa e entre las partes es obligatoria. Las centenas concuerdan en género igual que dois y duas: duzentos reais, pero duzentas pessoas. Mil no lleva nada delante — se dice mil, nunca um mil. Más arriba sí vuelve: um milhão.",
+  trap:"Quinhentos para 500 no se parece a nada del español, y es el que más se escapa. Duzentos tampoco sale de dos: no es doscentos. Y el desliz de siempre es comerse la e, cento vinte e três en lugar de cento e vinte e três."
+},
+{
+  id:"numeros-ordinais", name:"Primeiro, segundo, terceiro", pick:{topic:"numeros"},
+  hook:"Segunda-feira, terça-feira, quarta-feira: los días de la semana en portugués son ordinales disfrazados. Mira la lista y busca el único que no encaja con el día que le tocaría.",
+  pairs:[["1º","primeiro / primeira"],
+         ["2º","segundo / segunda"],
+         ["3º","terceiro / terceira"],
+         ["4º","quarto / quarta"],
+         ["5º","quinto / quinta"],
+         ["6º","sexto / sexta"],
+         ["7º","sétimo / sétima"],
+         ["8º","oitavo / oitava"],
+         ["9º","nono / nona"],
+         ["10º","décimo / décima"]],
+  rule:"Los ordinales concuerdan en género y número, como cualquier adjetivo: o primeiro andar, a primeira vez, as primeiras aulas. Se usan para pisos, puestos y siglos. Del 11 en adelante casi nadie los dice al hablar: se dice página quinze, no décima quinta página.",
+  trap:"El 9º es nono, no noveno. Y el martes es terça-feira, con terça, aunque el ordinal sea terceiro: es la única de la serie que cambia de forma. La semana empieza en domingo, así que segunda-feira es el lunes."
 }
 ];
 function lessonById(id){
@@ -886,7 +952,17 @@ var B = [
 {id:"num-10",t:"numeros",k:"mc",q:"Ao ditar um telefone no Brasil, o número 6 costuma ser dito como:",g:"",c:["meia","seis","sêis","meio"],a:"meia",h:"Viene de meia dúzia. ¿Qué palabra se usa para que seis no se confunda con três?",e:"Meia = seis, de meia dúzia. Muy común al dictar números.",w:[]},
 {id:"num-11",t:"numeros",k:"mc",q:"O número 40 escreve-se:",g:"",c:["quarenta","cuarenta","quarrenta","quaranta"],a:"quarenta",h:"¿Empieza con qu, o con cu como en español?",e:"40 = quarenta.",w:[]},
 {id:"num-12",t:"numeros",k:"mc",q:"O número 1000 escreve-se:",g:"",c:["mil","um mil","mill","mils"],a:"mil",h:"Igual que en español. ¿Lleva algo delante, o va sola?",e:"1000 = mil. Se dice mil, nunca «um mil».",w:[]},
-{id:"num-13",t:"numeros",k:"w",q:"Escríbelo en portugués: «Tengo dos hijas.»",g:"",a:"tenho duas filhas",h:"Filhas es femenino. ¿Qué le pasa al 2 en portugués?",e:"Tenho duas filhas.",w:[]}
+{id:"num-13",t:"numeros",k:"w",q:"Escríbelo en portugués: «Tengo dos hijas.»",g:"",a:"tenho duas filhas",h:"Filhas es femenino. ¿Qué le pasa al 2 en portugués?",e:"Tenho duas filhas.",w:[]},
+{id:"num-14",t:"numeros",k:"mc",q:"O número 7 escreve-se:",g:"",c:["sete","siete","séte","sette"],a:"sete",h:"En español siete lleva diptongo. ¿Qué le pasa a ese diptongo al cruzar al portugués?",e:"7 = sete. El diptongo del español se deshace: siete, sete; nueve, nove; diez, dez.",w:[]},
+{id:"num-15",t:"numeros",k:"mc",q:"O número 14 escreve-se:",g:"",c:["catorze","catorce","quatorce","cuatorze"],a:"catorze",h:"Suena casi igual que en español. ¿Qué letra cambia al final?",e:"14 = catorze. Del 11 al 15 hay que aprendérselos: onze, doze, treze, catorze, quinze.",w:[]},
+{id:"num-16",t:"numeros",k:"mc",q:"O número 17 escreve-se:",g:"",c:["dezessete","dezasete","dezsete","dez e sete"],a:"dezessete",h:"Se arma con dez más sete, todo pegado. ¿Cuántas eses quedan en medio?",e:"17 = dezessete. Del 16 al 19: dezesseis, dezessete, dezoito, dezenove.",w:[]},
+{id:"num-17",t:"numeros",k:"mc",q:"O número 50 escreve-se:",g:"",c:["cinquenta","cincuenta","cinqüenta","cinquienta"],a:"cinquenta",h:"¿Va con qu como quatro, o con cu como en español?",e:"50 = cinquenta, con qu. Igual que quarenta.",w:[]},
+{id:"num-18",t:"numeros",k:"mc",q:"O número 60 escreve-se:",g:"",c:["sessenta","sesenta","secenta","seissenta"],a:"sessenta",h:"¿Lleva una s en medio como en español, o dos?",e:"60 = sessenta, con doble s.",w:[]},
+{id:"num-19",t:"numeros",k:"mc",q:"O número 32 lê-se:",g:"",c:["trinta e dois","trinta dois","treinta e dois","trinta e doze"],a:"trinta e dois",h:"El portugués une la decena y la unidad con algo que el español no pone. ¿Con qué?",e:"32 = trinta e dois. De 21 en adelante siempre va una e entre las partes.",w:[]},
+{id:"num-20",t:"numeros",k:"w",q:"Escríbelo en portugués: el número 15",g:"",a:"quinze",h:"Está entre catorze y dezesseis. ¿Cómo se escribe?",e:"15 = quinze.",w:[]},
+{id:"num-21",t:"numeros",k:"mc",q:"O ordinal de 3 é:",g:"",c:["terceiro","tercero","treceiro","terço"],a:"terceiro",h:"¿Cómo dirías el tercer piso en portugués: o ___ andar?",e:"3º = terceiro. Concuerda como un adjetivo: o terceiro andar, a terceira vez.",w:[]},
+{id:"num-22",t:"numeros",k:"mc",q:"O ordinal de 9 é:",g:"",c:["nono","noveno","novo","nonavo"],a:"nono",h:"En español es noveno. ¿El portugués lo alarga o lo acorta?",e:"9º = nono, nunca noveno.",w:[]},
+{id:"num-23",t:"numeros",k:"mc",q:"Os dias da semana vêm dos ordinais. A terça-feira corresponde a:",g:"",c:["terceiro","segundo","quarto","primeiro"],a:"terceiro",h:"Si la semana empieza en domingo, ¿qué lugar ocupa el martes?",e:"Terça-feira es el martes, el tercer día: sale de terceiro, aunque se diga terça.",w:[]}
 ];
 
 /* Ids are written into each item by hand and must never change: progress is
@@ -1015,6 +1091,32 @@ var NUM_NOUNS = [
   ["amigos","m","amigos"],     ["amigas","f","amigas"]
 ];
 
+/* The numbers themselves, which is the part no exercise used to ask about.
+   digits, the Portuguese, and — where there is one — the spelling a Spanish
+   speaker actually reaches for. The ones already identical in Spanish
+   (setenta, noventa) have no such slip, so they take a third real number as a
+   distractor instead of an invented one. */
+var CARDINAIS = [
+  ["0","zero","cero"],              ["1","um","un"],
+  ["2","dois","dos"],               ["3","três","tres"],
+  ["4","quatro","cuatro"],          ["5","cinco","sinco"],
+  ["6","seis","seiz"],              ["7","sete","siete"],
+  ["8","oito","ocho"],              ["9","nove","nueve"],
+  ["10","dez","diez"],              ["11","onze","once"],
+  ["12","doze","doce"],             ["13","treze","trece"],
+  ["14","catorze","catorce"],       ["15","quinze","quince"],
+  ["16","dezesseis","dezasseis"],   ["17","dezessete","dezasete"],
+  ["18","dezoito","dezeoito"],      ["19","dezenove","dezanove"],
+  ["20","vinte","veinte"],          ["21","vinte e um","vinte um"],
+  ["30","trinta","treinta"],        ["32","trinta e dois","trinta dois"],
+  ["40","quarenta","cuarenta"],     ["47","quarenta e sete","quarenta sete"],
+  ["50","cinquenta","cincuenta"],   ["60","sessenta","sesenta"],
+  ["68","sessenta e oito","sessenta oito"],
+  ["70","setenta"],                 ["80","oitenta","ochenta"],
+  ["90","noventa"],                 ["99","noventa e nove","noventa nove"],
+  ["100","cem","cen"],              ["1000","mil","um mil"]
+];
+
 function others(set, ans, n){
   var pool = set.filter(function(x){ return x !== ans; });
   var out = [ans];
@@ -1125,6 +1227,17 @@ var GEN = [
     c:[right, N[1][fem ? 0 : 1], N[3][0], N[3][1]], a:right,
     h:s[0] + " es " + (fem ? "femenino" : "masculino") + ", y en portugués el " + N[0] + " concuerda con el sustantivo.",
     e:right + " " + s[0] + ". En español el número no cambia; en portugués sí cambia."};
+}},
+/* the whole range, so the drill never runs out of numbers to ask about */
+{ id:"g-contar", t:"numeros", w:[], make:function(){
+  var C = r(CARDINAIS), words = CARDINAIS.map(function(x){ return x[1]; });
+  return {q:"Como se escreve o número " + C[0] + "?",
+    g:"¿Cómo se escribe el número " + C[0] + "?",
+    c:C[2] ? others(words, C[1], 3).concat([C[2]]) : others(words, C[1], 4), a:C[1],
+    h:C[1].indexOf(" ") > -1
+      ? "Es un número compuesto. ¿Qué va entre la decena y la unidad en portugués?"
+      : "¿Cómo suena ese número al contar en voz alta en portugués?",
+    e:C[0] + " = " + C[1] + "."};
 }}
 ];
 GEN.forEach(function(g){ g.k = "mc"; });
@@ -1391,10 +1504,14 @@ function catMastery(c){
 function isTopicLesson(L){
   return !!(L.pick && L.pick.topic && !L.pick.tag && !L.pick.tags);
 }
+/* An assunto whose material does not fit in one aula carries several, in
+   declaration order: the first is the aula, the rest are its continuation. */
+function lessonsForTopic(id){
+  return LESS.filter(function(L){ return isTopicLesson(L) && L.pick.topic === id; });
+}
 function lessonForTopic(id){
-  for(var i=0;i<LESS.length;i++)
-    if(isTopicLesson(LESS[i]) && LESS[i].pick.topic === id) return LESS[i];
-  return null;
+  var all = lessonsForTopic(id);
+  return all.length ? all[0] : null;
 }
 function errorLessons(){
   return LESS.filter(function(L){ return !isTopicLesson(L); });
@@ -1462,7 +1579,7 @@ function assunto(id){
   var t = null;
   TOPS.forEach(function(x){ if(x.id === id) t = x; });
   if(!t) return home();
-  var L = lessonForTopic(id), m = mastery(id);
+  var parts = lessonsForTopic(id), L = parts[0] || null, m = mastery(id);
 
   var h = bar('<button class="x" data-back="1" aria-label="Voltar">&lsaquo;</button>'
             + '<div class="brand"><span>' + esc(t.name) + '</span></div>')
@@ -1485,6 +1602,18 @@ function assunto(id){
     h += '</table>';
     h += '<div class="mark hint"><span class="lead">A regra</span>' + esc(L.rule) + '</div>';
     h += '<div class="mark no"><span class="lead">Onde isto costuma falhar</span>' + esc(L.trap) + '</div>';
+    h += '</div></div>';
+  }
+
+  /* the rest of the course, when one aula was not enough */
+  if(parts.length > 1){
+    h += '<h2 class="sec">Continua\u00e7\u00e3o</h2>';
+    h += '<div class="card flush"><div class="rows">';
+    parts.slice(1).forEach(function(P){
+      h += '<button class="row' + lessonHue(P) + '" data-lesson="' + esc(P.id) + '">'
+         + '<span class="key"></span><span class="nm">' + esc(P.name) + '</span>'
+         + '<span class="go">\u203a</span></button>';
+    });
     h += '</div></div>';
   }
 

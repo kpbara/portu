@@ -73,11 +73,12 @@ Después puedes cerrar el navegador; la app abre sola desde el ícono.
 
 Hasta ahora, 13 handouts de clase convertidos en práctica:
 
-- **200 ejercicios** repartidos en **14 assuntos**.
-- **12 generadores de frases**, que escriben oraciones nuevas en cada ronda en
+- **215 ejercicios** repartidos en **14 assuntos**.
+- **13 generadores de frases**, que escriben oraciones nuevas en cada ronda en
   lugar de repetir siempre la misma.
-- **16 mini-lecciones**: nueve explican un assunto y siete atacan un error que se
-  cruza entre varios.
+- **20 mini-lecciones**: doce explican un assunto y ocho atacan un error que se
+  cruza entre varios. *Os números* lleva cuatro seguidas, porque contar de cero
+  a cien no cabe en una sola.
 
 Los assuntos viven dentro de **cuatro categorías fijas** — Verbos, Palavras
 pequenas, Som e letras, Vocabulário. Los assuntos crecen con el curso; las

@@ -47,9 +47,17 @@ with no hue renders grey.
 **Lessons are two kinds, and the UI depends on the difference.** A lesson whose
 `pick` has only a `topic` teaches that one assunto and lives inside it. A lesson
 with `pick.tag` or `pick.tags` describes a slip that cuts across assuntos, and
-lives in the Falhas tab. Currently nine of the first kind and eight of the
+lives in the Falhas tab. Currently twelve of the first kind and eight of the
 second. Five assuntos have no lesson of the first kind, so their screen opens
 straight onto the drill button.
+
+**An assunto can carry more than one aula.** `lessonsForTopic` returns every
+topic lesson for an assunto in declaration order: the first opens inline under
+*A aula*, the rest sit under *Continuação* and open on their own screen. Os
+números uses four of them, because you cannot learn to count from three example
+pairs. A wrong answer still offers `lessonsFor(it)[0]`, and parts of one course
+all score the same, so it offers the first part — narrow a part with a tag if it
+ever needs to claim its own items.
 
 **Naming both narrows, it does not widen.** `pick:{tags:[…],topic:"gostar"}` means
 those slips *as they appear in gostar*, and the lesson never claims an item from
@@ -66,7 +74,7 @@ about the scale rather than the whole gostar assunto. Without the tag it would
 have had to claim the topic outright, and `weight()` — which favours tagged
 items 2.2× — would have buried its own six under the seventeen tagged ones.
 
-**Rounds are `SIZE = 10`**, drawn from 205 static items plus 12 generators and
+**Rounds are `SIZE = 10`**, drawn from 215 static items plus 13 generators and
 weighted toward what this device got wrong.
 
 ## Adding material after a class
@@ -97,7 +105,7 @@ packs are written to that browser's own storage and reach nobody else.
 npm test
 ```
 
-44 checks, no dependencies — just Node's built-in runner. They read the live
+59 checks, no dependencies — just Node's built-in runner. They read the live
 `index.html`, so they test what actually ships rather than a copy. Run them
 before publishing anything.
 

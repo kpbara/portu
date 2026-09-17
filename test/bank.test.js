@@ -48,6 +48,22 @@ test('every lesson can find items to drill', () => {
   assert.deepStrictEqual(empty, [], 'lessons that would drill nothing: ' + empty.join(', '));
 });
 
+test('the numbers course still writes out every number from zero to twenty', () => {
+  // Os números spent a long time teaching gender agreement and nothing else:
+  // três, sete, onze and the tens appeared nowhere in the app, so you could
+  // finish the assunto unable to count. The rows are the lesson, and dropping
+  // one is silent.
+  const COUNT = ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito',
+                 'nove', 'dez', 'onze', 'doze', 'treze', 'catorze', 'quinze', 'dezesseis',
+                 'dezessete', 'dezoito', 'dezenove', 'vinte'];
+  const taught = new Set(LESSONS
+    .filter(L => L.pick.topic === 'numeros' && !L.pick.tag && !L.pick.tags)
+    .flatMap(L => L.pairs.map(pr => pr[1]))
+    .flatMap(pt => pt.split(' / ')));
+  const missing = COUNT.filter(n => !taught.has(n));
+  assert.deepStrictEqual(missing, [], 'numbers no lesson lists any more: ' + missing.join(', '));
+});
+
 /* ---------------- which lesson an item offers ---------------- */
 
 // A wrong answer offers one lesson — lessonsFor(it)[0] — on the retry card and
