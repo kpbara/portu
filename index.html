@@ -604,22 +604,66 @@ var LESSONS = [
   trap:"La ubicación permanente es la que atrapa a los hispanohablantes: una ciudad o una playa é en algún sitio. Morto va con estar porque la muerte es un cambio, no un rasgo."
 },
 {
-  id:"paises", name:"Países: da, do ou de", pick:{topic:"paises"},
-  hook:"Antes de aprenderte una lista, escucha la última sílaba del nombre del país. ¿Qué comparten Nicarágua, França, China y Colômbia que no tienen Brasil, Japão ni Peru?",
-  pairs:[["Soy de Nicaragua.","Sou da Nicarágua."],
-         ["Vivo en Brasil.","Moro no Brasil."],
-         ["Soy de Portugal.","Sou de Portugal."]],
-  rule:"Los nombres de país terminados en a átona son femeninos: a Nicarágua, a França. Todo lo demás es masculino: o Brasil, o Japão. La regla es de sonido, así que una a final tónica no cuenta: o Panamá, o Canadá.",
-  trap:"Dos excepciones terminan en a y aun así son masculinas: o Quênia, o Camboja. Y hay otro grupo que no lleva artículo ninguno: Portugal, Israel, Cuba, Honduras, Angola, y todas las ciudades salvo o Rio, o Recife, o Cairo, o Porto, o Havre."
+  id:"paises", name:"Que artigo leva cada país", pick:{topic:"paises"},
+  hook:"Sou da Nicarágua, pero sou de Portugal. La diferencia no está en el país sino en cómo suena su nombre al acabar. Mira la lista y busca la regla antes de leerla.",
+  pairs:[["Nicarágua (f)","sou da · moro na"],
+         ["França (f)","sou da · moro na"],
+         ["Alemanha (f)","sou da · moro na"],
+         ["Argentina (f)","sou da · moro na"],
+         ["Brasil (m)","sou do · moro no"],
+         ["Japão (m)","sou do · moro no"],
+         ["México (m)","sou do · moro no"],
+         ["Panamá (m)","sou do · moro no"],
+         ["Canadá (m)","sou do · moro no"],
+         ["Quênia (m)","sou do · moro no"],
+         ["Camboja (m)","sou do · moro no"],
+         ["Estados Unidos (pl)","sou dos · moro nos"],
+         ["Filipinas (f pl)","sou das · moro nas"],
+         ["Portugal, Israel, Cuba","sou de · moro em"],
+         ["Angola, Honduras","sou de · moro em"],
+         ["Managua, São Paulo","sou de · moro em"],
+         ["o Rio de Janeiro","sou do · moro no"]],
+  rule:"La regla es de sonido, no de letra: país acabado en a átona, femenino — a Nicarágua, a França, a Alemanha. Todo lo demás, masculino — o Brasil, o Japão. Una a final tónica no cuenta, y por eso o Panamá y o Canadá son masculinos aunque acaben en a.",
+  trap:"Dos acaban en a y aun así son masculinos: o Quênia y o Camboja. Y hay un grupo que no lleva artículo ninguno — Portugal, Israel, Cuba, Angola, Honduras — donde se dice sou de, moro em, sin contraer nada. Las ciudades tampoco lo llevan, salvo unas pocas: o Rio, o Recife, o Cairo, o Porto."
 },
 {
-  id:"prep", name:"Preposições fixas", pick:{topic:"prep"},
-  hook:"Algunos verbos y expresiones vienen soldados a una preposición, y no siempre es la del español. ¿Cuál de estas habrías traducido literalmente?",
-  pairs:[["Voy en avión.","Vou de avião."],
-         ["Murió de cáncer.","Morreu de câncer."],
-         ["Cuida de los niños.","Cuida das crianças."]],
-  rule:"El transporte lleva de: de ônibus, de carro, de avião, pero a pé. Morrer de, cuidar de, gostar de, precisar de. Até marca un límite donde te detienes, en el espacio o en el tiempo.",
-  trap:"À tarde y de tarde no son intercambiables. Ontem à tarde nombra un día; de tarde describe una costumbre, sin día concreto."
+  id:"prep", name:"As preposições de lugar e tempo", pick:{topic:"prep"},
+  hook:"Casi todas se parecen a las del español, y por eso las que no se parecen pasan desapercibidas. Mira la lista y busca las tres que dirías mal si tradujeras palabra por palabra.",
+  pairs:[["hasta","até"],
+         ["desde","desde"],
+         ["durante","durante"],
+         ["entre","entre"],
+         ["sin","sem"],
+         ["para","para"],
+         ["contra","contra"],
+         ["según","segundo"],
+         ["debajo de","embaixo de"],
+         ["encima de","em cima de"],
+         ["al lado de","ao lado de"],
+         ["detrás de","atrás de"],
+         ["delante de","na frente de"],
+         ["dentro de","dentro de"],
+         ["enfrente de","em frente a"]],
+  rule:"La mayoría son gemelas del español y no dan trabajo. Las tres que sí: segundo no es el número, quiere decir según — segundo o professor, a prova é fácil. Sem es sin, con m final, no con n. Y las de posición piden un de detrás: embaixo da cadeira, em cima da mesa, ao lado do banco, y ese de se contrae con el artículo.",
+  trap:"Embaixo y em cima nunca van solos delante de un sustantivo: es embaixo da cadeira, no embaixo a cadeira. Y até sirve igual para el espacio y para el tiempo — caminhar até aqui, ficar até domingo."
+},
+{
+  id:"prep-de", name:"O de que o espanhol não pede", pick:{topic:"prep"},
+  hook:"El español dice voy en avión y necesito ayuda. El portugués mete un de en los dos sitios. Mira la lista y busca el único caso donde el portugués no lo pone.",
+  pairs:[["en avión","de avião"],
+         ["en autobús","de ônibus"],
+         ["en carro","de carro"],
+         ["en tren","de trem"],
+         ["en metro","de metrô"],
+         ["en bicicleta","de bicicleta"],
+         ["a pie","a pé"],
+         ["murió de cáncer","morreu de câncer"],
+         ["cuida de los niños","cuida das crianças"],
+         ["necesito ayuda","preciso de ajuda"],
+         ["me gusta el café","gosto do café"],
+         ["acuérdate de mí","lembre de mim"]],
+  rule:"El transporte va con de: de avião, de ônibus, de carro, de trem. La única excepción es cuando no hay vehículo — ahí es a: a pé, a cavalo. Y un grupo de verbos arrastra un de que el español no pide, o que uno se come al hablar: gostar de, precisar de, cuidar de, morrer de, lembrar de, depender de.",
+  trap:"Precisar de es el que más se escapa, porque necesitar en español no lleva nada detrás: preciso de ajuda, nunca preciso ajuda. Y ese de se contrae con el artículo cuando hay uno: cuida das crianças, gosto do café."
 },
 {
   id:"fonetica", name:"As consoantes que mudam", pick:{topic:"fonetica"},
@@ -681,6 +725,78 @@ var LESSONS = [
          ["Perdón (por algo que hice).","Desculpe."]],
   rule:"Pois não no es una negación: es un sí, el «claro, dígame» de un mesero o un recepcionista. Com licença pide paso o permiso; Desculpe pide disculpas por algo ya hecho — el español usa perdón para las dos. Y obrigado concuerda con quien habla: un hombre dice obrigado, una mujer obrigada, sin importar a quién le agradece.",
   trap:"Los días de la semana se cuentan desde el domingo, así que el lunes es segunda-feira y el viernes sexta-feira — están todos corridos un número respecto a lo que esperarías. Solo domingo y sábado tienen nombre propio."
+},
+{
+  id:"interrog", name:"As palavras de pergunta", pick:{topic:"interrog"},
+  hook:"Casi todas tienen gemela en español, y por eso las tres que no la tienen se cuelan sin que te des cuenta. Mira la lista y busca la que el español no sabe decir con una sola palabra.",
+  pairs:[["¿qué? + sustantivo","que — Que horas são?"],
+         ["¿qué? a solas","o que — O que aconteceu?"],
+         ["¿cuál? ¿cuáles?","qual, quais — Qual é o seu nome?"],
+         ["¿quién? ¿con quién?","quem — Com quem você vai?"],
+         ["¿dónde?","onde — Onde eles moram?"],
+         ["¿adónde?","aonde — Aonde vocês vão?"],
+         ["¿de dónde?","de onde — De onde você é?"],
+         ["¿dónde está?","cadê — Cadê o papel?"],
+         ["¿cuándo?","quando — Quando você faz anos?"],
+         ["¿cómo?","como — Como a senhora prefere?"],
+         ["¿cuánto? ¿cuántas?","quanto, quantas — Quantas pessoas moram aqui?"],
+         ["¿por qué?","por que — Por que ela não foi?"]],
+  rule:"Cadê es la que el español no tiene: es un ¿dónde está? con el verbo ya dentro, y solo sirve para preguntar por algo que falta — cadê o papel, cadê você. Aonde es a + onde, con la a de movimiento hacia, así que va con ir, chegar, viajar. Y quanto concuerda con lo que cuenta: quanto custa, quantas pessoas.",
+  trap:"Que y o que se reparten el ¿qué? del español: que se pega a un sustantivo — que horas, que dia, que língua — y o que va solo. Los cuatro porquês se escriben distinto según dónde caigan, y onde y aonde dependen del verbo: las dos cosas tienen su propia aula en Falhas."
+},
+{
+  id:"artigos", name:"A tabela das contrações", pick:{topic:"artigos"},
+  hook:"El español solo funde dos: del y al. El portugués funde cuatro preposiciones con los cuatro artículos, y ninguna de esas 16 fusiones es opcional. Mira la tabla y cuenta cuántas ya sabías.",
+  pairs:[["de + o","do"],["de + a","da"],["de + os","dos"],["de + as","das"],
+         ["em + o","no"],["em + a","na"],["em + os","nos"],["em + as","nas"],
+         ["a + o","ao"],["a + a","à"],["a + os","aos"],["a + as","às"],
+         ["por + o","pelo"],["por + a","pela"],["por + os","pelos"],["por + as","pelas"],
+         ["para + o, para + a","pro, pra (só falando)"]],
+  rule:"Cuatro preposiciones — de, em, a, por — se funden con el artículo que las sigue, y la fusión es obligatoria: no existe de o livro ni em a mesa. Cuatro por cuatro, todas en uso. Para también se contrae, en pra y pro, pero eso solo se dice, no se escribe.",
+  trap:"El género manda y no siempre coincide con el español: a viagem es femenino, así que da viagem; o leite es masculino, así que do leite. Y pelo no tiene nada que ver con el pelo del español — es por + o."
+},
+{
+  id:"artigos-crase", name:"A crase", pick:{topic:"artigos"},
+  hook:"La crase asusta más de lo que debería, porque es una sola cosa repetida. Mira estos pares y descubre qué dos letras se están juntando cada vez.",
+  pairs:[["a + a","à"],
+         ["a + as","às"],
+         ["Voy al cine.","Vou ao cinema."],
+         ["Voy a la playa.","Vou à praia."],
+         ["Llegamos a las dos.","Chegamos às duas horas."],
+         ["Ayer por la tarde.","Ontem à tarde."],
+         ["Por las tardes.","De tarde."],
+         ["Empezó a llover.","Começou a chover."]],
+  rule:"La crase es la preposición a chocando con el artículo a. Si el destino es femenino y lleva artículo, las dos se funden en à. Si es masculino no hay crase, hay ao: vou ao cinema, vou à praia. Con las horas es obligatoria — às duas, às oito — y su acento es el grave, que no marca ninguna fuerza.",
+  trap:"Delante de un verbo nunca hay crase, por mucho que suene igual: começou a chover, sin acento. Y ontem à tarde nombra un día concreto, mientras que de tarde describe una costumbre, sin día ninguno."
+},
+{
+  id:"possessivos", name:"Meu, minha, nosso, nossa", pick:{topic:"possessivos"},
+  hook:"Esta parte funciona casi igual que en español, con una excepción que se oye todo el tiempo en Brasil y que en español suena imposible. Mira los ejemplos y fíjate en lo que aparece delante del posesivo.",
+  pairs:[["yo","meu · minha · meus · minhas"],
+         ["você, ele, ela","seu · sua · seus · suas"],
+         ["nós","nosso · nossa · nossos · nossas"],
+         ["vocês, eles, elas","seu · sua · seus · suas"],
+         ["mi familia","minha família"],
+         ["mis cosas","minhas coisas"],
+         ["tus cosas","suas coisas"],
+         ["nuestras actividades","nossas atividades"],
+         ["mi familia (hablando)","a minha família"]],
+  rule:"El posesivo concuerda con la cosa poseída, no con el dueño, igual que en español: minha família, meus livros, nossas atividades. Lo que el español nunca hace es ponerle artículo delante, y el portugués hablado casi siempre lo pone: a minha família, o meu carro, os nossos horários.",
+  trap:"Seu no quiere decir tu a secas. Vale para você, ele, ela, eles y elas — cinco dueños para una sola palabra — y por eso el brasileño lo esquiva casi siempre. De eso va la segunda parte."
+},
+{
+  id:"possessivos-dele", name:"Dele, dela e o problema do seu", pick:{topic:"possessivos"},
+  hook:"A casa dele es la casa de él, aunque casa sea femenino. Mira la lista y descubre con qué concuerda dele, porque no es con lo que el español te tiene acostumbrado.",
+  pairs:[["de él","dele"],
+         ["de ella","dela"],
+         ["de ellos","deles"],
+         ["de ellas","delas"],
+         ["la lancha de él","a lancha dele"],
+         ["el carro de ella","o carro dela"],
+         ["la casa de ellos","a casa deles"],
+         ["su supervisor, el de João","o supervisor dele"]],
+  rule:"Dele es de + ele, y ahí está todo: concuerda con el dueño, no con la cosa. Van siempre detrás del sustantivo — o carro dela, a casa deles — y resuelven la ambigüedad que seu arrastra. En Brasil se prefieren tanto que seu queda casi solo para você.",
+  trap:"El español hace justo lo contrario con su, que concuerda con la cosa: sus casas. Por eso a casa dele suena raro al principio — casa es femenino y dele es masculino, y aun así es correcto, porque el masculino lo pone él."
 },
 {
   id:"alfabeto", name:"As 26 letras", pick:{topic:"alfabeto"},
@@ -1191,6 +1307,17 @@ var SONS = [
   ["leite","o e final","la e final","i"],    ["livro","o o final","la o final","u"]
 ];
 
+/* how you get somewhere: the Portuguese noun, the Spanish one, and the
+   preposition each language puts in front. Spanish says en avião but a pie;
+   Portuguese says de avião and a pé, so only one of the two lines up. */
+var TRANSPORTE = [
+  ["avião","avión","de","en"],   ["ônibus","autobús","de","en"],
+  ["carro","carro","de","en"],               ["trem","tren","de","en"],
+  ["metrô","metro","de","en"],         ["bicicleta","bicicleta","de","en"],
+  ["navio","barco","de","en"],               ["táxi","taxi","de","en"],
+  ["pé","pie","a","a"],                ["cavalo","caballo","a","a"]
+];
+
 function others(set, ans, n){
   var pool = set.filter(function(x){ return x !== ans; });
   var out = [ans];
@@ -1303,6 +1430,15 @@ var GEN = [
     e:N[2][0] === N[2][1]
       ? right + " " + s[0] + ". Dos no se mueve nunca en español; en portugués sí: dois y duas."
       : right + " " + s[0] + ". El español también concuerda — " + es + " " + s[2] + " — pero la forma portuguesa es otra."};
+}},
+/* the transport de, which the Spanish en overwrites every single time */
+{ id:"g-prep", t:"prep", w:[], make:function(){
+  var T = r(TRANSPORTE);
+  return {q:"Vou ___ " + T[0] + ".",
+    g:"Voy " + T[3] + " " + T[1] + ".",
+    c:["de","em","a","por"], a:T[2],
+    h:"El español dice en avión pero a pie. ¿El portugués reparte igual esas dos?",
+    e:"Vou " + T[2] + " " + T[0] + ". El transporte lleva de; solo cuando no hay vehículo se usa a, como a pé."};
 }},
 /* every sound the lesson lists, not just the nine that made it into the bank */
 { id:"g-fonetica", t:"fonetica", w:[], make:function(){
