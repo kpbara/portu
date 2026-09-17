@@ -760,13 +760,60 @@ var LESSONS = [
   trap:"No caderno: «seus coisas», «nossos atividades», «minha costas». Las tres veces el posesivo siguió al dueño en lugar de a la cosa — que es justo lo que hace el español. Y dos trampas sueltas: problemas es masculino aunque acabe en -as, y costas va en plural en portugués aunque la espalda sea singular en español."
 },
 {
+  id:"antonimos", name:"Os pares da aula", pick:{topic:"antonimos"},
+  hook:"La lógica de un antónimo es la misma en los dos idiomas; el trabajo está en la palabra. Mira la lista y busca las seis que no habrías adivinado desde el español.",
+  pairs:[["alto — bajo","alto — baixo"],
+         ["gordo — flaco","gordo — magro"],
+         ["calvo — peludo","careca — cabeludo"],
+         ["calmado — nervioso","calmo — nervoso"],
+         ["simpático — antipático","simpático — antipático"],
+         ["lleno — vacío","lotado — vazio"],
+         ["ensuciar — limpiar","sujar — limpar"],
+         ["feroz — manso","bravo — manso"],
+         ["verdad — mentira","verdade — mentira"],
+         ["paz — guerra","paz — guerra"],
+         ["caro — barato","caro — barato"],
+         ["temprano — tarde","cedo — tarde"]],
+  rule:"La mitad de la lista se adivina sola porque la palabra es casi la misma. Las que no: careca es calvo y cabeludo es peludo, lotado es lleno, magro es flaco, cedo es temprano y sujar es ensuciar. Esas seis hay que aprenderlas, no deducirlas.",
+  trap:"Bravo es el falso amigo de la lista: en portugués no quiere decir valiente sino furioso, y por eso su contrario es manso — um cachorro bravo es un perro que muerde. Y lotado se oye todo el tiempo para un autobús o un bar llenos hasta arriba."
+},
+{
   id:"expressoes", name:"O que dizer na aula", pick:{topic:"expressoes"},
-  hook:"Tres de estas expresiones significan casi lo contrario a lo que estamos acostumbrados en Latinoamérica.",
+  hook:"Pois não empieza por não y significa que sí. Mira la lista y busca las otras dos donde el español usa una sola palabra y el portugués reparte en dos.",
   pairs:[["Claro, dígame.","Pois não!"],
-         ["Con permiso (para pasar).","Com licença."],
-         ["Perdón (por algo que hice).","Desculpe."]],
-  rule:"Pois não no es una negación: es un sí, el «claro, dígame» de un mesero o un recepcionista. Com licença pide paso o permiso; Desculpe pide disculpas por algo ya hecho — el español usa perdón para las dos. Y obrigado concuerda con quien habla: un hombre dice obrigado, una mujer obrigada, sin importar a quién le agradece.",
-  trap:"Los días de la semana se cuentan desde el domingo, así que el lunes es segunda-feira y el viernes sexta-feira — están todos corridos un número respecto a lo que esperarías. Solo domingo y sábado tienen nombre propio."
+         ["Con permiso, para pasar.","Com licença."],
+         ["Perdón, por algo ya hecho.","Desculpe."],
+         ["Perdón por llegar tarde.","Desculpe o atraso."],
+         ["Gracias, dicho por un hombre.","Obrigado."],
+         ["Gracias, dicho por una mujer.","Obrigada."],
+         ["De nada.","De nada."],
+         ["¿Puede repetir, por favor?","Poderia repetir, por favor?"],
+         ["¿Cómo se dice en portugués?","Como se diz em português?"],
+         ["¿Cómo te llamas?","Como você se chama?"],
+         ["¿Cuál es tu nombre?","Qual é o seu nome?"],
+         ["¿Cuántos años tienes?","Quantos anos você tem?"],
+         ["Buenos días, ¿todo bien?","Bom dia, tudo bem?"]],
+  rule:"Pois não no niega nada: es el claro, dígame de quien atiende. Com licença pide paso o permiso antes de hacer algo, y Desculpe pide disculpas por algo ya hecho — el español usa perdón para las dos. Y obrigado concuerda con quien habla, nunca con quien recibe las gracias: un hombre dice obrigado y una mujer obrigada, siempre.",
+  trap:"Para el nombre hay dos formas naturales, Qual é o seu nome? y Como você se chama?, y una que no se dice: Que é o seu nome? Y tudo bem hace de pregunta y de respuesta a la vez — Tudo bem? Tudo bem."
+},
+{
+  id:"expressoes-dias", name:"Os dias da semana", pick:{topic:"expressoes"},
+  hook:"El lunes en portugués es el segundo día, no el primero. Mira la lista y descubre en qué día empieza la semana para que eso cuadre.",
+  pairs:[["domingo","domingo"],
+         ["lunes","segunda-feira"],
+         ["martes","terça-feira"],
+         ["miércoles","quarta-feira"],
+         ["jueves","quinta-feira"],
+         ["viernes","sexta-feira"],
+         ["sábado","sábado"],
+         ["anteayer","anteontem"],
+         ["ayer","ontem"],
+         ["hoy","hoje"],
+         ["mañana","amanhã"],
+         ["pasado mañana","depois de amanhã"],
+         ["el fin de semana","o fim de semana"]],
+  rule:"La semana empieza en domingo, así que el lunes queda segundo y de ahí salen todos, corridos un número respecto a lo que esperarías. Solo domingo y sábado tienen nombre propio. Al hablar se cae el feira: vejo você na segunda, a prova é na sexta.",
+  trap:"El martes es terça-feira, con terça y no terceira — la única de la serie que cambia de forma, la misma rareza que sale en los ordinales. Y los días van en minúscula, aunque el español también lo haga y se olvide igual."
 },
 {
   id:"gostar", name:"Quem gosta é o sujeito", pick:{topic:"gostar"},
@@ -1388,6 +1435,34 @@ var AGENTE = [
   ["português","Estudiamos portugués.","estudamos","estuda","estudam","estudo"]
 ];
 
+/* the antónimo pairs, asked in both directions so twelve rows make
+   twenty-four questions. Portuguese pair, then the Spanish one. */
+var ANTONIMOS = [
+  ["alto","baixo","alto","bajo"],
+  ["gordo","magro","gordo","flaco"],
+  ["careca","cabeludo","calvo","peludo"],
+  ["calmo","nervoso","calmado","nervioso"],
+  ["simpático","antipático","simpático","antipático"],
+  ["lotado","vazio","lleno","vacío"],
+  ["sujar","limpar","ensuciar","limpiar"],
+  ["bravo","manso","furioso","manso"],
+  ["verdade","mentira","verdad","mentira"],
+  ["paz","guerra","paz","guerra"],
+  ["caro","barato","caro","barato"],
+  ["cedo","tarde","temprano","tarde"]
+];
+
+/* the week, which runs one number ahead of the Spanish one, plus the days
+   around today. Expressoes was the last assunto with no maker at all. */
+var DIAS = [
+  ["domingo","domingo"],            ["lunes","segunda-feira"],
+  ["martes","terça-feira"],    ["miércoles","quarta-feira"],
+  ["jueves","quinta-feira"],        ["viernes","sexta-feira"],
+  ["sábado","sábado"],    ["anteayer","anteontem"],
+  ["ayer","ontem"],                 ["hoy","hoje"],
+  ["mañana","amanhã"],    ["pasado mañana","depois de amanhã"]
+];
+
 function others(set, ans, n){
   var pool = set.filter(function(x){ return x !== ans; });
   var out = [ans];
@@ -1500,6 +1575,33 @@ var GEN = [
     e:N[2][0] === N[2][1]
       ? right + " " + s[0] + ". Dos no se mueve nunca en español; en portugués sí: dois y duas."
       : right + " " + s[0] + ". El español también concuerda — " + es + " " + s[2] + " — pero la forma portuguesa es otra."};
+}},
+/* the whole week, not the three weekdays the bank happened to ask about */
+{ id:"g-dias", t:"expressoes", w:[], make:function(){
+  var D = r(DIAS), dias = DIAS.map(function(x){ return x[1]; });
+  return {q:"\u00ab" + D[0] + "\u00bb, em portugu\u00eas:",
+    g:"\u00bfC\u00f3mo se dice " + D[0] + " en portugu\u00eas?",
+    c:others(dias, D[1], 4), a:D[1],
+    h:D[1].indexOf("feira") > -1
+      ? "La semana empieza en domingo. \u00bfQu\u00e9 n\u00famero le toca entonces a ese d\u00eda?"
+      : "\u00bfCae antes o despu\u00e9s de hoy, y a qu\u00e9 distancia?",
+    e:D[0] + " = " + D[1] + "."};
+}},
+/* both directions, so the pair is learned as a pair and not as a list order */
+{ id:"g-antonimos", t:"antonimos", w:[], make:function(){
+  var A = r(ANTONIMOS), flip = Math.random() < .5;
+  var ask = flip ? A[1] : A[0], ans = flip ? A[0] : A[1];
+  var esAsk = flip ? A[3] : A[2], esAns = flip ? A[2] : A[3];
+  var pool = [];
+  ANTONIMOS.forEach(function(x){
+    if(x[0] !== ask) pool.push(x[0]);
+    if(x[1] !== ask) pool.push(x[1]);
+  });
+  return {q:"O ant\u00f4nimo de " + ask + " \u00e9:",
+    g:"\u00bfCu\u00e1l es el ant\u00f3nimo de " + esAsk + "?",
+    c:others(pool, ans, 4), a:ans,
+    h:"Si " + ask + " es " + esAsk + ", \u00bfc\u00f3mo dir\u00edas lo contrario en portugu\u00eas?",
+    e:ask + " \u2014 " + ans + ". En espa\u00f1ol, " + esAsk + " \u2014 " + esAns + "."};
 }},
 /* the a gente trap, drawn fresh: same meaning, different verb form */
 { id:"g-nosagente", t:"nosagente", w:[], make:function(){

@@ -47,17 +47,26 @@ with no hue renders grey.
 **Lessons are two kinds, and the UI depends on the difference.** A lesson whose
 `pick` has only a `topic` teaches that one assunto and lives inside it. A lesson
 with `pick.tag` or `pick.tags` describes a slip that cuts across assuntos, and
-lives in the Falhas tab. Currently twelve of the first kind and eight of the
-second. Five assuntos have no lesson of the first kind, so their screen opens
-straight onto the drill button.
+lives in the Falhas tab. Currently twenty-four of the first kind and eight of
+the second. Every assunto has at least one of the first kind, so no screen opens
+straight onto the drill button any more.
 
 **An assunto can carry more than one aula.** `lessonsForTopic` returns every
 topic lesson for an assunto in declaration order: the first opens inline under
 *A aula*, the rest sit under *Continuação* and open on their own screen. Os
-números uses four of them, because you cannot learn to count from three example
-pairs. A wrong answer still offers `lessonsFor(it)[0]`, and parts of one course
-all score the same, so it offers the first part — narrow a part with a tag if it
-ever needs to claim its own items.
+números uses four, and seven other assuntos use two. The rule for splitting is
+length, not symmetry: split when one screen will not hold the table, and leave
+one part when the assunto is one idea. A wrong answer still offers
+`lessonsFor(it)[0]`, and parts of one course all score the same, so it offers
+the first part — narrow a part with a tag if it ever needs to claim its own
+items.
+
+**A lesson has to contain the material, not point at it.** The rule field used
+to name a closed set and stop: "Son 26 letras... el resto sigue el patrón bê,
+cê, dê...", "fome, sede, frio, calor, sono, pressa...". Every one of those is
+now a `pairs` table, because `pairs` is the only structure the renderer has —
+there is no markup in a lesson field, so a list written as prose stays prose.
+When you add material, ask what the closed set is and put it in rows.
 
 **Naming both narrows, it does not widen.** `pick:{tags:[…],topic:"gostar"}` means
 those slips *as they appear in gostar*, and the lesson never claims an item from
@@ -74,8 +83,9 @@ about the scale rather than the whole gostar assunto. Without the tag it would
 have had to claim the topic outright, and `weight()` — which favours tagged
 items 2.2× — would have buried its own six under the seventeen tagged ones.
 
-**Rounds are `SIZE = 10`**, drawn from 215 static items plus 13 generators and
-weighted toward what this device got wrong.
+**Rounds are `SIZE = 10`**, drawn from 225 static items plus 18 generators and
+weighted toward what this device got wrong. Every assunto has a maker of its own
+now, so no assunto can run out of fresh questions.
 
 ## Adding material after a class
 
@@ -117,7 +127,7 @@ shifted every later id and silently re-pointed saved progress at a different
 sentence. Ids are now written into the data by hand, and `content/ids.lock.json`
 records every one ever shipped. **An id may be added, never renamed or removed.**
 
-**Generated sentences hold together.** Twelve of the topics build a fresh
+**Generated sentences hold together.** Every assunto builds a fresh
 sentence each round out of word lists, which is how the prototype once produced
 *"O que eles vai fazer?"* — a plural subject with a singular verb. That passed
 every structural check: the answer was among the options and there were four of
