@@ -622,13 +622,38 @@ var LESSONS = [
   trap:"À tarde y de tarde no son intercambiables. Ontem à tarde nombra un día; de tarde describe una costumbre, sin día concreto."
 },
 {
-  id:"fonetica", name:"O que muda no som", pick:{topic:"fonetica"},
-  hook:"Leer portugués con sonidos del español es justo lo que deja el acento pegado. Cinco cambios hacen casi todo el trabajo: prueba primero a leer dia, tomate, Brasil, sal y carro en voz alta.",
-  pairs:[["la d antes de i, o de una e final, se vuelve dj","dia, verdade"],
-         ["la t en los mismos casos se vuelve tch","tomate, tio"],
-         ["la s entre vocales se vuelve z","Brasil, música"]],
-  rule:"Además: la l al final de sílaba se vuelve u (sal, azul); la r inicial y la rr suenan como la j española (rádio, carro), mientras que una r simple entre vocales es la r normal del español (cara); la m y la n finales nasalizan la vocal que llevan delante.",
-  trap:"La b y la v nunca se confunden, al contrario que en español. Y la x tiene cuatro valores: peixe (ch), táxi (cs), máximo (s), exame (z)."
+  id:"fonetica", name:"As consoantes que mudam", pick:{topic:"fonetica"},
+  hook:"Las letras son casi las mismas que en español, pero una docena de ellas suena distinto según dónde caiga. Mira la lista y fíjate en cuántas de esas diferencias no existen en español.",
+  pairs:[["d + i, e","dia, verdade — suena dj"],
+         ["t + i, e","tio, tomate — suena tch"],
+         ["s entre vocales","Brasil, música — suena z"],
+         ["ss","passar, pássaro — suena s"],
+         ["z final","feliz, luz — suena s"],
+         ["l al final de sílaba","sal, azul — suena u"],
+         ["r inicial, rr","rádio, carro — como la j española"],
+         ["r entre vocales","cara, caro — la r simple del español"],
+         ["ch","chave, chuva — como sh, nunca tch"],
+         ["lh","filho, trabalho — como la ll"],
+         ["nh","banho, sonho — como la ñ"],
+         ["ç","criança, açúcar — suena s"],
+         ["e final átona","leite, verde — suena i"],
+         ["o final átono","livro, gato — suena u"]],
+  rule:"Casi todo el bloque se resume en tres movimientos: la d y la t se ablandan delante de i o de e final, la s se sonoriza entre vocales, y las vocales átonas del final se cierran — la e se vuelve i y la o se vuelve u. Por eso leite suena leitchi y livro suena livru.",
+  trap:"La b y la v nunca se confunden, al contrario que en español: beber y viver empiezan distinto y hay que oírlo. Y la l final es la que más cuesta: Brasil no acaba en l sino en u."
+},
+{
+  id:"fonetica-x", name:"O x e as vogais nasais", pick:{topic:"fonetica"},
+  hook:"La x es la letra más tramposa del portugués: tiene cuatro sonidos distintos y no hay regla que los ordene. Mira los cuatro ejemplos y di cuál de ellos suena como en español.",
+  pairs:[["x como ch","peixe, xícara, caixa"],
+         ["x como cs","táxi, fixo"],
+         ["x como s","máximo, próximo"],
+         ["x como z","exame, exato"],
+         ["ão","pão, não, irmão"],
+         ["ãe","mãe, pães"],
+         ["õe","põe, limões"],
+         ["m, n al final","bom, bem, sim, um"]],
+  rule:"Las cuatro x hay que aprenderlas palabra por palabra; la más frecuente con diferencia es la de peixe. Las vocales nasales son otra cosa: el til las nasaliza, y la m y la n al final de sílaba hacen lo mismo sin til — bom y sim se dicen por la nariz, y esa m final no se pronuncia como m.",
+  trap:"La única x que coincide con el español es la de táxi. Y não no rima con nao: la vocal sale nasal, que es el sonido que el español no tiene y el que más delata a un hispanohablante."
 },
 {
   id:"nosagente", name:"Nós, a gente, agente", pick:{topic:"nosagente"},
@@ -658,13 +683,28 @@ var LESSONS = [
   trap:"Los días de la semana se cuentan desde el domingo, así que el lunes es segunda-feira y el viernes sexta-feira — están todos corridos un número respecto a lo que esperarías. Solo domingo y sábado tienen nombre propio."
 },
 {
-  id:"alfabeto", name:"Como se soletra", pick:{topic:"alfabeto"},
-  hook:"Cinco letras se llaman de forma muy distinta que en español, y son justo las que vas a necesitar para deletrear tu nombre o un correo. Mira estas tres y adivina las otras dos.",
-  pairs:[["hache","agá (H)"],
-         ["i griega","ípsilon (Y)"],
-         ["equis","xis (X)"]],
-  rule:"Son 26 letras. Las que más se apartan del español: H es agá, W es dáblio, Y es ípsilon, X es xis y K es cá. El resto sigue el patrón bê, cê, dê, ê, éfe, gê... El verbo para deletrear es soletrar.",
-  trap:"El ç no entra en el alfabeto: es un símbolo, no una letra, y suena como la s del español. Lo mismo el til (~), que nasaliza la vocal en vez de marcar dónde cae la fuerza."
+  id:"alfabeto", name:"As 26 letras", pick:{topic:"alfabeto"},
+  hook:"Tarde o temprano te toca deletrear tu nombre o tu correo en portugués. Cinco letras no se parecen a nada del español y el resto sigue un patrón. Mira la lista y busca las cinco.",
+  pairs:[["A","á"],["B","bê"],["C","cê"],["D","dê"],["E","é"],
+         ["F","éfe"],["G","gê"],["H","agá"],["I","i"],["J","jóta"],
+         ["K","cá"],["L","éle"],["M","ême"],["N","êne"],["O","ó"],
+         ["P","pê"],["Q","quê"],["R","érre"],["S","ésse"],["T","tê"],
+         ["U","u"],["V","vê"],["W","dáblio"],["X","xis"],["Y","ípsilon"],
+         ["Z","zê"]],
+  rule:"Casi todas las consonantes se leen con una ê detrás: bê, cê, dê, gê, pê, tê, vê, zê. Unas pocas la llevan delante: éfe, éle, ême, êne, érre, ésse. Las vocales se leen á, é, i, ó, u. El verbo es soletrar, y la pregunta que vas a usar es Como se soletra?",
+  trap:"Las cinco que hay que memorizar porque no se parecen a nada del español: H es agá, K es cá, W es dáblio, X es xis y Y es ípsilon. Esas tres últimas volvieron al alfabeto en 2009, y por eso ahora son 26 letras y no 23."
+},
+{
+  id:"alfabeto-sinais", name:"O que não é letra", pick:{topic:"alfabeto"},
+  hook:"El ç, el til y los acentos aparecen por todas partes, pero ninguno es una letra del alfabeto. Uno de ellos no marca la fuerza de la palabra sino que cambia el sonido de la vocal. Mira la lista y di cuál.",
+  pairs:[["ç","cedilha — criança, açúcar"],
+         ["~","til — mãe, pão, irmãs"],
+         ["´","acento agudo — café, até"],
+         ["^","acento circunflexo — você, três"],
+         ["`","acento grave — à, às"],
+         ["ü","trema — já não se usa"]],
+  rule:"Ninguno entra en el alfabeto: son marcas sobre las letras. La cedilha solo va debajo de la c y solo delante de a, o, u, y suena como la s del español. El til nasaliza la vocal en vez de marcar la fuerza. El agudo y el circunflejo sí marcan la fuerza, y además abren o cierran la vocal: avô es abuelo y avó es abuela.",
+  trap:"El acento grave no marca fuerza ninguna: solo señala la crase, la fusión de a con a. Y el trema desapareció con la reforma de 2009 — cinquenta y linguiça ya no lo llevan, aunque lo veas en textos viejos."
 },
 /* Os números is the one assunto that needs more than one aula: you cannot
    learn to count from three example pairs. Four parts, in order — the first
@@ -872,6 +912,11 @@ var B = [
 {id:"fonetica-116",t:"fonetica",k:"mc",q:"En portugués, la B y la V son:",g:"",c:["siempre distintas","iguales","distintas solo al inicio","iguales entre vocales"],a:"siempre distintas",h:"El español las junta en un solo sonido. ¿Y el portugués?",e:"b bilabial, v labiodental; nunca se confunden.",w:[]},
 {id:"fonetica-117",t:"fonetica",k:"mc",q:"La ç es:",g:"",c:["un símbolo, con sonido de s","una letra del alfabeto","sonido de z","sonido de ch"],a:"un símbolo, con sonido de s",h:"¿Cuenta entre las 26 letras del alfabeto?",e:"La cedilla es un símbolo, no una letra.",w:[]},
 {id:"fonetica-118",t:"fonetica",k:"mc",q:"La M y la N al final de sílaba:",g:"",c:["nasalizan la vocal anterior","nunca se pronuncian","suenan como u","suenan como l"],a:"nasalizan la vocal anterior",h:"Di bem y sim en voz alta. ¿Qué le pasa a la vocal de antes?",e:"Nasalizan la vocal anterior.",w:[]},
+{id:"fonetica-119",t:"fonetica",k:"mc",q:"En filho, la lh suena como:",g:"",c:["ll","l","lh, las dos letras","j"],a:"ll",h:"¿Se leen las dos letras por separado, o forman un sonido solo?",e:"lh = la ll del español: filho, trabalho, olho.",w:[]},
+{id:"fonetica-120",t:"fonetica",k:"mc",q:"En banho, la nh suena como:",g:"",c:["ñ","n","nh, las dos letras","m"],a:"ñ",h:"El español tiene una letra sola para ese sonido. ¿Cuál es?",e:"nh = la ñ del español: banho, sonho, mañã se escribe manhã.",w:[]},
+{id:"fonetica-121",t:"fonetica",k:"mc",q:"En chave, la ch suena como:",g:"",c:["sh","tch","k","j"],a:"sh",h:"¿Suena como el ch del español, o más suave?",e:"ch = sh, nunca tch: chave, chuva, chocolate. El sonido tch viene de la t, como en tio.",w:[]},
+{id:"fonetica-122",t:"fonetica",k:"mc",q:"En leite, la e final átona suena como:",g:"",c:["i","e","a","no se pronuncia"],a:"i",h:"Di leite en voz alta como lo diría un brasileño. ¿En qué vocal acaba?",e:"La e final átona se cierra en i: leite suena leitchi, verde suena verdji.",w:[]},
+{id:"fonetica-123",t:"fonetica",k:"mc",q:"En livro, la o final átona suena como:",g:"",c:["u","o","a","no se pronuncia"],a:"u",h:"Le pasa lo mismo que a la e final. ¿Hacia dónde se cierra la o?",e:"La o final átona se cierra en u: livro suena livru, gato suena gatu.",w:[]},
 {id:"antonimos-119",t:"antonimos",k:"mc",q:"O antônimo de alto é:",g:"alto = alto (de estatura)",c:["baixo","magro","careca","manso"],a:"baixo",h:"¿En qué escala está alto: la altura, el peso o el carácter?",e:"alto / baixo (alto / bajo).",w:[]},
 {id:"antonimos-120",t:"antonimos",k:"mc",q:"O antônimo de gordo é:",g:"gordo = gordo",c:["magro","baixo","calmo","limpo"],a:"magro",h:"¿Qué opción está en la misma escala, la del peso?",e:"gordo / magro (gordo / flaco).",w:[]},
 {id:"antonimos-121",t:"antonimos",k:"mc",q:"O antônimo de careca é:",g:"careca = calvo",c:["cabeludo","magro","nervoso","sujo"],a:"cabeludo",h:"Si a uno le falta pelo, al contrario le sobra. ¿Qué opción lo dice?",e:"careca / cabeludo (calvo / peludo).",w:[]},
@@ -940,6 +985,11 @@ var B = [
 {id:"alf-5",t:"alfabeto",k:"mc",q:"Como se lê a letra X?",g:"",c:["xis","equis","cs","chis"],a:"xis",h:"En español es «equis». ¿Cuál es la versión corta portuguesa?",e:"X = xis.",w:[]},
 {id:"alf-6",t:"alfabeto",k:"mc",q:"Como se lê a letra K?",g:"",c:["cá","ka","kappa","quê"],a:"cá",h:"En español es «ka». ¿Con qué letra la escribe el portugués?",e:"K = cá.",w:[]},
 {id:"alf-7",t:"alfabeto",k:"mc",q:"Você quer que alguém diga as letras de uma palavra, uma por uma. Você pergunta:",g:"",c:["Como se soletra?","Como se pronuncia?","Como se fala?","Qual é a letra?"],a:"Como se soletra?",h:"Deletrear, en español. ¿Cuál de los verbos portugueses es ese?",e:"Soletrar = deletrear. Como se soletra o seu nome?",w:[]},
+{id:"alf-8",t:"alfabeto",k:"mc",q:"O til (~) serve para:",g:"",c:["nasalizar a vogal","marcar a sílaba forte","abrir a vogal","separar sílabas"],a:"nasalizar a vogal",h:"En mãe y pão, ¿la marca te dice dónde va la fuerza, o cómo sale la vocal?",e:"El til nasaliza: mãe, pão, irmãs. No marca la fuerza, al contrario que la tilde española.",w:[]},
+{id:"alf-9",t:"alfabeto",k:"mc",q:"O acento grave, como em às duas horas, marca:",g:"",c:["a crase","a sílaba forte","uma vogal nasal","uma vogal fechada"],a:"a crase",h:"Esa à sale de juntar dos palabras. ¿Cómo se llama esa fusión?",e:"El acento grave solo marca la crase, la fusión de a con a: a + as = às.",w:["contr"]},
+{id:"alf-10",t:"alfabeto",k:"mc",q:"A cedilha (ç) só aparece antes de:",g:"",c:["a, o, u","e, i","todas as vogais","consoantes"],a:"a, o, u",h:"Delante de e o de i, la c ya suena como s por sí sola. ¿Hace falta la cedilla ahí?",e:"Ç solo antes de a, o, u: criança, açúcar, franês no la lleva.",w:[]},
+{id:"alf-11",t:"alfabeto",k:"mc",q:"O trema (ü) no português do Brasil:",g:"",c:["já não se usa","usa-se em linguiça","usa-se antes de e","usa-se nos nomes"],a:"já não se usa",h:"¿Lo has visto en algo escrito después de 2009?",e:"El trema desapareció con la reforma de 2009: cinquenta y linguiça ya no lo llevan.",w:[]},
+{id:"alf-12",t:"alfabeto",k:"w",q:"Escríbelo en portugués: el nombre de la letra H",g:"",a:"agá",h:"¿Cómo dirías esa letra al deletrear tu nombre en portugués?",e:"H = agá. Es la que más se aparta del español.",w:[]},
 {id:"num-1",t:"numeros",k:"mc",q:"Tenho ___ irmãs.",g:"Tengo dos hermanas.",c:["duas","dois","dúas","doas"],a:"duas",h:"En español dos no cambia nunca. En portugués sí. Irmãs es femenino: ¿qué forma toca?",e:"Duas irmãs. Dois y duas concuerdan en género — es la diferencia que el español no entrena.",w:[]},
 {id:"num-2",t:"numeros",k:"mc",q:"Tenho ___ irmãos.",g:"Tengo dos hermanos.",c:["dois","duas","dos","doises"],a:"dois",h:"Irmãos es masculino. ¿Y la forma masculina del 2?",e:"Dois irmãos.",w:[]},
 {id:"num-3",t:"numeros",k:"mc",q:"Comprei ___ camisa.",g:"Compré una camisa.",c:["uma","um","umas","uns"],a:"uma",h:"Camisa es femenino singular. ¿Qué forma del 1 le corresponde?",e:"Uma camisa. Um y uma concuerdan, igual que en español.",w:[]},
@@ -1120,6 +1170,27 @@ var CARDINAIS = [
   ["100","cem","cen"],              ["1000","mil","um mil"]
 ];
 
+/* how a letter actually sounds, which the lesson now lists but nothing asked
+   about: word, the letter named in Portuguese, the same in Spanish, and the
+   sound. The labels are a closed set, so others() draws real sounds as
+   distractors rather than invented ones. */
+var SONS = [
+  ["dia","o d","la d","dj"],                 ["tio","o t","la t","tchi"],
+  ["música","o s entre vogais","la s entre vocales","z"],
+  ["casa","o s entre vogais","la s entre vocales","z"],
+  ["passar","o ss","la ss","s"],             ["azul","o l final","la l final","u"],
+  ["rato","o r inicial","la r inicial","j espanhol"],
+  ["carro","o rr","la rr","j espanhol"],
+  ["cara","o r entre vogais","la r simple","r espanhol"],
+  ["chave","o ch","la ch","ch (como sh)"],
+  ["peixe","o x","la x","ch (como sh)"],
+  ["filho","o lh","la lh","ll"],             ["banho","o nh","la nh","ñ"],
+  ["criança","o ç","la ç","s"],
+  ["feliz","o z final","la z final","s"],    ["exame","o x","la x","z"],
+  ["táxi","o x","la x","cs"],          ["máximo","o x","la x","s"],
+  ["leite","o e final","la e final","i"],    ["livro","o o final","la o final","u"]
+];
+
 function others(set, ans, n){
   var pool = set.filter(function(x){ return x !== ans; });
   var out = [ans];
@@ -1232,6 +1303,16 @@ var GEN = [
     e:N[2][0] === N[2][1]
       ? right + " " + s[0] + ". Dos no se mueve nunca en español; en portugués sí: dois y duas."
       : right + " " + s[0] + ". El español también concuerda — " + es + " " + s[2] + " — pero la forma portuguesa es otra."};
+}},
+/* every sound the lesson lists, not just the nine that made it into the bank */
+{ id:"g-fonetica", t:"fonetica", w:[], make:function(){
+  var W = r(SONS), sons = SONS.map(function(x){ return x[3]; })
+    .filter(function(v,i,a){ return a.indexOf(v) === i; });  /* the same sound repeats across words */
+  return {q:"Em " + W[0] + ", " + W[1] + " soa como:",
+    g:"En " + W[0] + ", " + W[2] + " suena como:",
+    c:others(sons, W[3], 4), a:W[3],
+    h:"¿Cómo dirías " + W[0] + " en voz alta, a la brasileña?",
+    e:W[0] + ": " + W[2] + " suena " + W[3] + "."};
 }},
 /* the whole range, so the drill never runs out of numbers to ask about */
 { id:"g-contar", t:"numeros", w:[], make:function(){
