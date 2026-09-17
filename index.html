@@ -586,22 +586,60 @@ var LESSONS = [
   trap:"La fusión sale sola en cuanto sabes el género del sustantivo, así que el trabajo de verdad es el género. Música es femenino, así que da música, no do."
 },
 {
-  id:"estarcom", name:"Tener → estar com", pick:{topic:"estarcom"},
-  hook:"El español usa tener para el hambre, la sed, el frío, el miedo. El portugués casi nunca usa ter para eso. ¿Qué lo sustituye?",
-  pairs:[["Tengo hambre.","Estou com fome."],
-         ["Tiene prisa.","Ela está com pressa."],
-         ["Tengo dolor de cabeza.","Estou com dor de cabeça."]],
-  rule:"estar + com + sustantivo, para todo lo que sientes ahora mismo: fome, sede, frio, calor, sono, pressa, medo, raiva, saudade, febre, gripe, dor de...",
-  trap:"Tres grupos rompen el patrón. Los adjetivos van con estar a secas: estou cansado, apaixonado, grávida. Unos pocos van con estar de: de férias, de folga, de ressaca. Las fobias mantienen ter: tenho fobia dos sapos."
+  id:"estarcom", name:"O que se sente com estar com", pick:{topic:"estarcom"},
+  hook:"El español usa tener para casi todo lo que sientes: tengo hambre, tengo frío, tengo prisa. El portugués de Brasil usa otro verbo. Mira la lista y busca lo que se repite en las quince.",
+  pairs:[["hambre","estou com fome"],
+         ["sed","estou com sede"],
+         ["frío","estou com frio"],
+         ["calor","estou com calor"],
+         ["sueño","estou com sono"],
+         ["prisa","estou com pressa"],
+         ["miedo","estou com medo"],
+         ["rabia","estou com raiva"],
+         ["nostalgia","estou com saudade"],
+         ["fiebre","estou com febre"],
+         ["gripe","estou com gripe"],
+         ["dolor de cabeza","estou com dor de cabeça"],
+         ["vergüenza","estou com vergonha"],
+         ["celos","estou com ciúmes"],
+         ["ganas de bailar","estou com vontade de dançar"]],
+  rule:"estar + com + sustantivo, para todo lo que sientes ahora mismo. El verbo se conjuga y el sustantivo no se mueve: ela está com pressa, nós estamos com sono, eles estão com febre. Ter fome existe, pero suena formal y europeo; en Brasil lo natural es estar com.",
+  trap:"El sustantivo va desnudo, sin artículo: estou com fome, nunca estou com a fome. Y saudade y vontade arrastran un de detrás — estou com saudade de você, estou com vontade de dançar."
+},
+{
+  id:"estarcom-excecoes", name:"Os três grupos que fogem", pick:{topic:"estarcom"},
+  hook:"Estou com fome, pero estou cansado, y además tenho trinta anos. Tres patrones distintos para cosas que en español empiezan todas por tengo. Mira la lista y busca qué tienen en común las tres primeras.",
+  pairs:[["cansado","estou cansado"],
+         ["enamorado","estou apaixonado"],
+         ["embarazada","estou grávida"],
+         ["de vacaciones","estou de férias"],
+         ["de descanso","estou de folga"],
+         ["con resaca","estou de ressaca"],
+         ["de traje y corbata","estou de paletó e gravata"],
+         ["tengo fobia","tenho fobia"],
+         ["tengo treinta años","tenho trinta anos"],
+         ["tengo dos hermanos","tenho dois irmãos"]],
+  rule:"La frontera es la clase de palabra. Si es un sustantivo, va con com: fome, sono, pressa. Si es un adjetivo, va con estar a secas, sin com: estou cansado, apaixonado, grávida. Unos pocos estados pasajeros van con estar de — de férias, de folga, de ressaca — y la ropa puesta también: estou de vestido.",
+  trap:"Lo que no se siente sino que se posee mantiene ter: tenho fobia, tenho trinta anos, tenho dois irmãos. La edad es siempre ter, nunca ser ni estar. Y hay una que engaña del todo: estar com dor de cotovelo no es un dolor, es sufrir por amor."
 },
 {
   id:"serestar", name:"Ser e estar", pick:{topic:"serestar"},
-  hook:"Esta distinción ya la tienes en español, así que solo vale la pena fijarse en los casos que no coinciden. Dos de estos tres van al revés que en español.",
-  pairs:[["Ipanema está en Río.","Ipanema é no Rio de Janeiro."],
-         ["Mi abuelo está muerto.","Meu avô está morto."],
-         ["Estoy casado.","Eu sou casado."]],
-  rule:"Ser se queda con lo que no cambia: origen, profesión, material, estado civil, días, hora y ubicación permanente. Estar se queda con lo que sí cambia: ánimo, salud, postura, ropa, ubicación pasajera.",
-  trap:"La ubicación permanente es la que atrapa a los hispanohablantes: una ciudad o una playa é en algún sitio. Morto va con estar porque la muerte es un cambio, no un rasgo."
+  hook:"La división es casi la misma que en español, y por eso el único sitio donde no coincide se lleva todos los errores. Mira la tabla y busca la fila que en español dirías con el otro verbo.",
+  pairs:[["origen","ser — Eles são da Colômbia."],
+         ["profesión","ser — Eu sou professor."],
+         ["material","ser — A mesa é de madeira."],
+         ["estado civil","ser — Eu sou casado."],
+         ["día y hora","ser — Hoje é segunda. Que horas são?"],
+         ["cómo es siempre","ser — Ela é bonita."],
+         ["ubicación permanente","ser — Ipanema é no Rio."],
+         ["ánimo de hoy","estar — Ela está bonita hoje."],
+         ["cómo está ahora","estar — A sopa está fria."],
+         ["postura","estar — Ele está sentado."],
+         ["ropa puesta","estar — Estamos de paletó."],
+         ["ubicación pasajera","estar — Onde está o meu celular?"],
+         ["muerto","estar — Meu avô está morto."]],
+  rule:"Ser se queda con lo que no cambia: origen, profesión, material, estado civil, días, hora y cómo es alguien siempre. Estar se queda con lo que sí cambia: ánimo, salud, postura, ropa y dónde está algo ahora. Ela é bonita dice cómo es; ela está bonita hoje dice cómo está hoy.",
+  trap:"La ubicación permanente es la que atrapa a los hispanohablantes: una ciudad, una playa o un edificio é en algún sitio, con ser, aunque el español diga está. Ipanema é no Rio. Y morto va con estar, porque la muerte es un cambio de estado y no un rasgo de nacimiento."
 },
 {
   id:"paises", name:"Que artigo leva cada país", pick:{topic:"paises"},
@@ -701,11 +739,15 @@ var LESSONS = [
 },
 {
   id:"nosagente", name:"Nós, a gente, agente", pick:{topic:"nosagente"},
-  hook:"Tres formas que suenan casi igual y significan cosas muy distintas: a gente, agente y há gente. Mira estas tres frases y pregúntate cuál de ellas habla de nosotros.",
-  pairs:[["Nosotros vamos a la playa.","Nós vamos à praia. / A gente vai à praia."],
-         ["El agente no completó su misión.","O agente não completou sua missão."],
-         ["Hay demasiada gente en esta fiesta.","Há gente demais nesta festa."]],
-  rule:"A gente quiere decir nós, pero lleva el verbo en la forma de ele/ela: a gente vai, a gente gosta. Es solo para hablar informal. Nós lleva la primera persona del plural — nós vamos, nós gostamos — y vale igual en formal y en informal. Agente, todo junto, es un sustantivo: quien ejerce una función, como agente de saúde, de viagem o de polícia. Y há gente es el verbo haver: hay gente.",
+  hook:"A gente quiere decir nosotros, pero el verbo que lleva detrás no es el de nosotros. Mira las cuatro primeras filas y busca de quién es la forma que le toca.",
+  pairs:[["nosotros vamos","nós vamos · a gente vai"],
+         ["nosotros gustamos","nós gostamos · a gente gosta"],
+         ["nosotros somos","nós somos · a gente é"],
+         ["nosotros estamos","nós estamos · a gente está"],
+         ["Nosotros vamos a la playa.","Nós vamos à praia."],
+         ["El agente no cumplió su misión.","O agente não completou sua missão."],
+         ["Hay demasiada gente aquí.","Há gente demais aqui."]],
+  rule:"A gente quiere decir nós pero lleva el verbo en la forma de ele/ela: a gente vai, a gente gosta, a gente é. Es solo para hablar informal. Nós lleva la primera persona del plural — nós vamos, nós gostamos — y vale igual en formal y en informal. Agente, todo junto, es un sustantivo: quien ejerce una función, como agente de saúde, de viagem o de trânsito. Y há gente es el verbo haver: hay gente.",
   trap:"El resbalón fácil es conjugar a gente como si fuera nós: «a gente vamos». Lleva siempre la forma de ele/ela, aunque signifique nosotros. El otro es escribir a gente separado donde hacía falta el sustantivo agente, o el verbo há."
 },
 {
@@ -725,6 +767,20 @@ var LESSONS = [
          ["Perdón (por algo que hice).","Desculpe."]],
   rule:"Pois não no es una negación: es un sí, el «claro, dígame» de un mesero o un recepcionista. Com licença pide paso o permiso; Desculpe pide disculpas por algo ya hecho — el español usa perdón para las dos. Y obrigado concuerda con quien habla: un hombre dice obrigado, una mujer obrigada, sin importar a quién le agradece.",
   trap:"Los días de la semana se cuentan desde el domingo, así que el lunes es segunda-feira y el viernes sexta-feira — están todos corridos un número respecto a lo que esperarías. Solo domingo y sábado tienen nombre propio."
+},
+{
+  id:"gostar", name:"Quem gosta é o sujeito", pick:{topic:"gostar"},
+  hook:"En español manda la cosa: me gusta el café, me gustan los carros, y el verbo se mueve con ella. En portugués manda otra persona. Mira la tabla y di quién es.",
+  pairs:[["yo","eu gosto"],
+         ["você, ele, ela","gosta"],
+         ["nós","nós gostamos"],
+         ["vocês, eles, elas","gostam"],
+         ["Me gusta el café.","Eu gosto do café."],
+         ["Me gustan los carros.","Eu gosto dos carros."],
+         ["A ellos les gusta el fútbol.","Eles gostam do futebol."],
+         ["No me gusta bailar.","Eu não gosto de dançar."]],
+  rule:"En español el sujeto es la cosa que gusta, y por eso gusta y gustan cambian con ella. En portugués el sujeto eres tú: gosto, gosta, gostamos, gostam siguen a la persona, y la cosa ya no toca el verbo. Por eso eu gosto do café y eu gosto dos carros llevan exactamente la misma forma.",
+  trap:"Gostar nunca va solo: siempre arrastra un de, y ese de se funde con el artículo — do, da, dos, das, dele. Delante de un infinitivo también: gosto de dançar. Esa de, el eu gosta del cuaderno y la escala de adoro a odeio tienen cada una su propia aula en Falhas."
 },
 {
   id:"interrog", name:"As palavras de pergunta", pick:{topic:"interrog"},
@@ -1318,6 +1374,20 @@ var TRANSPORTE = [
   ["pé","pie","a","a"],                ["cavalo","caballo","a","a"]
 ];
 
+/* a gente means nós but takes the ele/ela form, which is the whole assunto
+   and had no maker. complement, the Spanish sentence, the nós form, the
+   a gente form, and two other persons so the four options are real forms. */
+var AGENTE = [
+  ["à praia","Vamos a la playa.","vamos","vai","vão","vou"],
+  ["de viajar","Nos gusta viajar.","gostamos","gosta","gostam","gosto"],
+  ["com fome","Tenemos hambre.","estamos","está","estão","estou"],
+  ["tempo","Tenemos tiempo.","temos","tem","têm","tenho"],
+  ["bolo","Hacemos pastel.","fazemos","faz","fazem","faço"],
+  ["aqui","Vivimos aquí.","moramos","mora","moram","moro"],
+  ["café","Queremos café.","queremos","quer","querem","quero"],
+  ["português","Estudiamos portugués.","estudamos","estuda","estudam","estudo"]
+];
+
 function others(set, ans, n){
   var pool = set.filter(function(x){ return x !== ans; });
   var out = [ans];
@@ -1430,6 +1500,17 @@ var GEN = [
     e:N[2][0] === N[2][1]
       ? right + " " + s[0] + ". Dos no se mueve nunca en español; en portugués sí: dois y duas."
       : right + " " + s[0] + ". El español también concuerda — " + es + " " + s[2] + " — pero la forma portuguesa es otra."};
+}},
+/* the a gente trap, drawn fresh: same meaning, different verb form */
+{ id:"g-nosagente", t:"nosagente", w:[], make:function(){
+  var A = r(AGENTE), nos = Math.random() < .5;
+  var subj = nos ? "Nós" : "A gente", right = nos ? A[2] : A[3];
+  return {q:subj + " ___ " + A[0] + ".",
+    g:A[1],
+    c:[A[2], A[3], A[4], A[5]], a:right,
+    h:nos ? "¿Qué forma del verbo le toca a nós?"
+          : "A gente significa nosotros. ¿Pero lleva el verbo de nós, o el de ele/ela?",
+    e:subj + " " + right + " " + A[0] + ". A gente lleva siempre la forma de ele/ela, aunque signifique nosotros."};
 }},
 /* the transport de, which the Spanish en overwrites every single time */
 { id:"g-prep", t:"prep", w:[], make:function(){
