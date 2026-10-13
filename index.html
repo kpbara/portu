@@ -1658,6 +1658,194 @@ function generated(){
   return out;
 }
 
+/* ---------------- leitura ----------------
+   The drills above work one sentence at a time. A class test does not: it
+   hands over a whole text and asks open questions, to be answered "com suas
+   palavras" — in Portuguese, or in Spanish where the Portuguese runs out. That
+   is a different skill, and nothing in the bank trained it.
+
+   Each text is original, written for the level, never copied from class.
+   Each question carries a model answer in both languages and the ideas a good
+   answer contains. hit holds the stems that count as mentioning an idea, already
+   lowercased and stripped of accents, since they are matched against bare().
+   A stem may be Portuguese or Spanish; the test holds both model answers to
+   every idea, so an answer in either language can light it. An idea marked
+   pt:1 is about the Portuguese itself, so the Spanish model is exempt.
+
+   The idea check is a nudge, not a grade: it is a substring match, and the
+   learner rates the answer themselves after comparing. */
+var LEITURAS = [
+{
+  id:"julia", title:"Um dia da Júlia", level:"A1",
+  intro:"Un día normal de una enfermera en Minas Gerais. Fíjate en las horas y en lo que le gusta.",
+  text:[
+    "A Júlia tem vinte e seis anos e mora em Belo Horizonte, em Minas Gerais. Ela é enfermeira e trabalha num hospital perto de casa.",
+    "Ela acorda às seis horas. Toma café com leite e come pão de queijo, porque gosta muito de pão de queijo. Depois vai ao trabalho a pé: são só dez minutos.",
+    "No hospital, o dia é longo. Às vezes ela está com fome e não tem tempo de almoçar. Mas a Júlia gosta do trabalho: gosta de ajudar as pessoas e de conversar com os pacientes.",
+    "À noite, ela está cansada. Janta com o namorado, o Pedro, e os dois assistem a uma série. No fim de semana, eles gostam de ir à feira e de visitar a família da Júlia no interior."
+  ],
+  gloss:[["enfermeira","enfermera"],["perto de","cerca de"],["acorda","se despierta"],
+         ["a pé","a pie"],["às vezes","a veces"],["almoçar","almorzar"],
+         ["namorado","novio"],["assistem a","ven (una serie, una película)"],
+         ["feira","feria, mercado al aire libre"],["interior","los pueblos, lejos de la capital"]],
+  qs:[
+    {id:"onde", q:"Onde a Júlia mora? E onde ela trabalha?", es:"¿Dónde vive Júlia? ¿Y dónde trabaja?",
+     model:"Ela mora em Belo Horizonte. Trabalha como enfermeira num hospital que fica perto da casa dela.",
+     modelEs:"Vive en Belo Horizonte y trabaja de enfermera en un hospital cerca de su casa.",
+     ideas:[{es:"En Belo Horizonte", hit:["belo horizonte","minas"]},
+            {es:"En un hospital", hit:["hospital"]}]},
+    {id:"pao", q:"Por que ela come pão de queijo de manhã?", es:"¿Por qué come pan de queso en la mañana?",
+     model:"Porque ela adora pão de queijo.",
+     modelEs:"Porque le encanta el pan de queso.",
+     ideas:[{es:"Porque le gusta mucho", hit:["gost","gust","encant","ador"]}]},
+    {id:"facil", q:"O trabalho da Júlia é fácil? Explique.", es:"¿El trabajo de Júlia es fácil? Explica.",
+     model:"Não é fácil. O dia é comprido e cansativo, e às vezes ela fica sem almoçar. Mesmo assim, ela gosta, porque ajuda as pessoas.",
+     modelEs:"No es fácil. El día es largo y cansado, y a veces se queda sin almorzar. Igual le gusta, porque ayuda a la gente.",
+     ideas:[{es:"No: el día es largo y cansado", hit:["longo","largo","compri","dificil","cansa","pesad","nao e facil","no es facil","duro"]},
+            {es:"A veces no tiene tiempo de almorzar", hit:["almoc","almorz","fome","hambre","comer"]},
+            {es:"Pero le gusta, porque ayuda a la gente", hit:["gost","gust","ajud","ayud"]}]},
+    {id:"fim", q:"O que a Júlia e o Pedro fazem no fim de semana?", es:"¿Qué hacen Júlia y Pedro el fin de semana?",
+     model:"Eles vão à feira e visitam os parentes dela, que moram no interior.",
+     modelEs:"Van a la feria y visitan a la familia de ella, que vive en el campo.",
+     ideas:[{es:"Van a la feria", hit:["feira","feria","mercado"]},
+            {es:"Visitan a la familia de Júlia", hit:["famil","parente","pariente","interior","visit"]}]},
+    {id:"voce", q:"E você? Como é o seu dia? Escreva três frases.", es:"¿Y tú? ¿Cómo es tu día? Escribe tres oraciones.",
+     model:"Eu acordo às sete horas e tomo café. De manhã eu trabalho num escritório. À noite estudo português.",
+     modelEs:"Me despierto a las siete y desayuno. En la mañana trabajo en una oficina. En la noche estudio portugués.",
+     ideas:[{es:"Hablas de ti en primera persona: eu acordo, eu trabalho, eu estudo…", pt:1,
+             hit:[" eu ","acordo","trabalho","estudo","moro","tomo","vou "]},
+            {es:"Dices cuándo: la hora, en la mañana, en la noche", hit:["hora","manha","tarde","noite","manana","noche"]}]}
+  ]
+},
+{
+  id:"lucas", title:"Uma mensagem de Porto Alegre", level:"A2",
+  intro:"Lucas es de Recife, en el noreste, donde hace calor todo el año. Se mudó al sur para estudiar y le escribe a su mamá.",
+  text:[
+    "Oi, mãe! Tudo bem? Estou escrevendo do meu quarto novo, em Porto Alegre. A cidade é bonita, mas é muito diferente de Recife. Aqui faz frio de verdade! Hoje fez dez graus e eu estou com frio o dia todo. Preciso comprar um casaco.",
+    "A universidade é grande e os professores são simpáticos. Ainda não tenho muitos amigos, mas o meu colega de quarto, o Rafael, é gaúcho e muito legal. Ele me ensinou a tomar chimarrão. No começo achei amargo, mas agora eu gosto.",
+    "A comida daqui é boa, principalmente o churrasco. Mas estou com saudade da sua comida, do feijão e da tapioca. E da praia também: aqui o mar é longe e a água é gelada.",
+    "No mês que vem tenho uma semana de férias. Aonde eu vou? Para casa, claro! Beijos, Lucas"
+  ],
+  gloss:[["quarto","cuarto, habitación"],["casaco","abrigo, chaqueta"],
+         ["colega de quarto","compañero de cuarto"],["gaúcho","del estado de Rio Grande do Sul"],
+         ["legal","buena onda, chévere"],["ensinou","enseñó"],
+         ["chimarrão","mate caliente, típico del sur"],["no começo","al principio"],
+         ["achei","me pareció"],["feijão","frijoles"],["gelada","helada"],["beijos","besos"]],
+  qs:[
+    {id:"onde", q:"Onde o Lucas está agora? O que ele foi fazer lá?", es:"¿Dónde está Lucas ahora? ¿Qué fue a hacer allá?",
+     model:"Ele está em Porto Alegre, no sul do Brasil. Foi estudar na universidade.",
+     modelEs:"Está en Porto Alegre, en el sur de Brasil. Fue a estudiar a la universidad.",
+     ideas:[{es:"En Porto Alegre, en el sur", hit:["porto alegre","sul","sur "]},
+            {es:"Fue a estudiar", hit:["estud","univers","facul"]}]},
+    {id:"clima", q:"Que problema ele tem com o clima?", es:"¿Qué problema tiene con el clima?",
+     model:"Ele sente muito frio, porque em Recife é sempre quente. Precisa de um casaco.",
+     modelEs:"Tiene mucho frío, porque en Recife siempre hace calor. Necesita un abrigo.",
+     ideas:[{es:"Hace frío y él no está acostumbrado", hit:["frio"]},
+            {es:"Necesita comprar un abrigo", hit:["casaco","abrigo","chaqueta","chamarra","chompa","sueter","roupa","ropa"]}]},
+    {id:"chimarrao", q:"O que mudou na opinião dele sobre o chimarrão?", es:"¿Qué cambió en su opinión sobre el chimarrão?",
+     model:"Antes ele não gostava, porque achava muito amargo. Agora ele gosta.",
+     modelEs:"Antes no le gustaba, porque lo sentía muy amargo. Ahora sí le gusta.",
+     ideas:[{es:"Al principio le pareció amargo", hit:["amarg","no gust","nao gost","primeiro","principio","comeco","antes"]},
+            {es:"Ahora le gusta", hit:["agora","ahora"]}]},
+    {id:"saudade", q:"Do que o Lucas tem saudade?", es:"¿Qué extraña Lucas?",
+     model:"Ele sente falta da comida da mãe, como o feijão e a tapioca, e também da praia.",
+     modelEs:"Extraña la comida de su mamá, los frijoles y la tapioca, y también la playa.",
+     ideas:[{es:"La comida de su mamá", hit:["comida","feij","frijol","tapioca"]},
+            {es:"La playa", hit:["praia","playa"," mar "]}]},
+    {id:"sente", q:"Na sua opinião, o Lucas está feliz, triste ou as duas coisas? Explique.",
+     es:"En tu opinión, ¿Lucas está feliz, triste o las dos cosas? Explica.",
+     model:"As duas coisas. Ele está contente com a universidade e com o novo amigo. Mas sente frio e falta da família, da comida e da praia.",
+     modelEs:"Las dos cosas. Está contento con la universidad y con su nuevo amigo. Pero tiene frío y extraña a su familia, la comida y la playa.",
+     ideas:[{es:"Ve lo bueno: la universidad, el amigo, el chimarrão", hit:["feliz","content","gost","gust","bonit","legal","amig","simpatic","univers"]},
+            {es:"Y extraña su casa", hit:["saudade","falta","extran","trist","casa","famil","mae","mama"]}]}
+  ]
+},
+{
+  id:"domingo", title:"O almoço de domingo", level:"A2",
+  intro:"En Brasil el domingo tiene su ritual. Mientras lees, piensa si en tu familia pasa algo parecido.",
+  text:[
+    "No Brasil, o almoço de domingo é quase sagrado. Em muitas famílias, todo mundo vai para a casa da avó: filhos, netos, tios e primos. Às vezes são quinze ou vinte pessoas na mesa.",
+    "A comida é simples, mas tem muita: arroz, feijão, salada, farofa e uma carne, que pode ser frango assado, macarronada ou churrasco. De sobremesa, pudim ou bolo.",
+    "O almoço começa tarde, lá pela uma ou duas horas, e termina mais tarde ainda. Depois de comer, os adultos ficam conversando na mesa, as crianças brincam no quintal e alguém sempre dorme no sofá.",
+    "Para muitos brasileiros que moram longe, é desse domingo que eles têm mais saudade. Não é só a comida: é o barulho, as conversas e a família toda junta."
+  ],
+  gloss:[["quase","casi"],["avó","abuela"],["netos","nietos"],
+         ["farofa","harina de yuca tostada"],["frango assado","pollo asado"],
+         ["sobremesa","postre"],["lá pela","como a la, alrededor de la"],
+         ["brincam","juegan (los niños)"],["quintal","patio"],["barulho","ruido, bulla"]],
+  qs:[
+    {id:"onde", q:"Em muitas famílias, onde é o almoço de domingo?", es:"En muchas familias, ¿dónde es el almuerzo del domingo?",
+     model:"É na casa da avó, onde a família inteira se reúne.",
+     modelEs:"En la casa de la abuela, donde se junta toda la familia.",
+     ideas:[{es:"En la casa de la abuela", hit:["avo","abuel"]}]},
+    {id:"quantas", q:"Quantas pessoas podem estar na mesa?", es:"¿Cuántas personas puede haber en la mesa?",
+     model:"Às vezes chegam a quinze ou vinte pessoas.",
+     modelEs:"A veces llegan a ser quince o veinte personas.",
+     ideas:[{es:"Quince o veinte", hit:["quinze","vinte","15","20","quince","veinte"]}]},
+    {id:"simples", q:"O texto diz que a comida é “simples, mas tem muita”. O que isso quer dizer?",
+     es:"El texto dice que la comida es “sencilla, pero hay mucha”. ¿Qué quiere decir eso?",
+     model:"Não é uma comida chique: é arroz, feijão, carne, coisas de todo dia. Mas tem bastante, ninguém sai com fome.",
+     modelEs:"No es comida elegante: arroz, frijoles, carne, cosas de todos los días. Pero hay bastante y nadie se queda con hambre.",
+     ideas:[{es:"No es comida elegante, es de todos los días", hit:["simples","comum","comun","normal","sencill","todo dia","todos los dias","nada especial","caseir","caser","chique","elegante"]},
+            {es:"Pero hay en cantidad", hit:["muita","mucha","bastante","quantidade","cantidad","sobra"]}]},
+    {id:"depois", q:"O que as pessoas fazem depois de comer?", es:"¿Qué hace la gente después de comer?",
+     model:"Os adultos ficam batendo papo, as crianças brincam lá fora e alguém acaba dormindo no sofá.",
+     modelEs:"Los adultos se quedan conversando, los niños juegan afuera y alguien termina durmiendo en el sofá.",
+     ideas:[{es:"Los adultos conversan", hit:["convers","papo","platic","charl"]},
+            {es:"Los niños juegan", hit:["brinc","jueg","jog"]},
+            {es:"Alguien se duerme", hit:["dorm","cochil","siesta"]}]},
+    {id:"saudade", q:"Por que quem mora longe tem saudade desse domingo?", es:"¿Por qué la gente que vive lejos extraña ese domingo?",
+     model:"Porque não é só pela comida. É pela família reunida, pelo barulho e pelas conversas.",
+     modelEs:"Porque no es solo por la comida. Es por estar con la familia, el ruido y las conversaciones.",
+     ideas:[{es:"No es solo la comida", hit:["nao e so","nao so","no es solo","no solo","mais que","mas que","alem"]},
+            {es:"Es la familia junta, el ruido, las conversaciones", hit:["famil","junt","barulho","ruido","convers"]}]}
+  ]
+},
+{
+  id:"saudade", title:"O que é saudade?", level:"A2",
+  intro:"Un texto como el de la prueba: explica una palabra que el español no tiene. Las preguntas piden explicar ideas, no solo encontrar datos.",
+  text:[
+    "Muita gente diz que saudade é a palavra mais bonita da língua portuguesa. Outros dizem que ela não tem tradução. Mas o que é saudade, afinal?",
+    "Saudade é sentir falta de alguém, de um lugar ou de um tempo que passou. Você pode ter saudade da sua mãe, da sua cidade ou das férias na praia. É uma mistura de amor e tristeza: a pessoa está longe, mas a lembrança está perto.",
+    "Em espanhol, as palavras mais próximas são “extrañar” e “añoranza”, mas elas não dizem tudo. A saudade nem sempre é triste. Quando um brasileiro diz “que saudade!”, muitas vezes está sorrindo, porque lembrar de alguém querido também é bom.",
+    "No dia a dia, a palavra aparece o tempo todo. As pessoas dizem “estou com saudade de você”, “morro de saudade” ou só “saudades!” no fim de uma mensagem. E quando dois amigos se encontram depois de muito tempo, dizem que vão matar a saudade.",
+    "Uma psicóloga de São Paulo explica que a saudade não é uma doença. Para ela, é um sinal de que a pessoa amou e foi amada. “Só sente saudade quem teve algo bom”, diz."
+  ],
+  gloss:[["afinal","al final, entonces"],["sentir falta","extrañar, echar de menos"],
+         ["mistura","mezcla"],["longe","lejos"],["lembrança","recuerdo"],
+         ["sorrindo","sonriendo"],["morro de","me muero de"],
+         ["matar a saudade","volver a verse y dejar de extrañar"],["doença","enfermedad"],["sinal","señal"]],
+  qs:[
+    {id:"oque", q:"O que é saudade, segundo o texto?", es:"¿Qué es la saudade, según el texto?",
+     model:"É quando a gente sente falta de uma pessoa, de um lugar ou de uma época que já acabou. Mistura amor com tristeza.",
+     modelEs:"Es cuando uno extraña a una persona, un lugar o una época que ya pasó. Mezcla amor con tristeza.",
+     ideas:[{es:"Extrañar algo o a alguien", hit:["falta","extran","echar de menos","echa de menos","ausen","longe","lejos"]},
+            {es:"A una persona, un lugar o un tiempo que pasó", hit:["alguem","alguien","pessoa","persona","lugar","cidade","ciudad","tempo","tiempo","epoca","passou","pasad"]},
+            {es:"Es una mezcla de amor y tristeza", hit:["amor","trist"]}]},
+    {id:"extranar", q:"Por que o texto diz que “extrañar” não diz tudo?", es:"¿Por qué dice el texto que “extrañar” no lo dice todo?",
+     model:"Porque a saudade nem sempre é uma coisa triste. Às vezes a pessoa fala de saudade com um sorriso, porque é bom lembrar de quem a gente ama.",
+     modelEs:"Porque la saudade no siempre es algo triste. A veces uno habla de saudade sonriendo, porque es bonito recordar a la gente que quiere.",
+     ideas:[{es:"La saudade no siempre es triste", hit:["nem sempre","no siempre","nao sempre","nao e so trist","no es solo trist","alegr","sorri","sonri","feliz"]},
+            {es:"Recordar a alguien querido también es bonito", hit:["lembr","record","querid","bom","buen","bonit"]}]},
+    {id:"matar", q:"O que quer dizer “matar a saudade”? Explique com suas palavras.", es:"¿Qué quiere decir “matar a saudade”? Explícalo con tus palabras.",
+     model:"É quando duas pessoas se veem de novo depois de passar muito tempo separadas. Elas conversam, ficam juntas e a saudade acaba.",
+     modelEs:"Es cuando dos personas se vuelven a ver después de mucho tiempo separadas. Conversan, pasan tiempo juntas y la saudade se acaba.",
+     ideas:[{es:"Volver a ver a alguien", hit:["encontr","ver ","veem","visit","volt","junt","reun","de novo","otra vez"]},
+            {es:"Después de mucho tiempo separados", hit:["tempo","tiempo","longe","lejos","separad","depois","despues"]}]},
+    {id:"psicologa", q:"Segundo a psicóloga, por que a saudade não é uma coisa ruim?", es:"Según la psicóloga, ¿por qué la saudade no es algo malo?",
+     model:"Porque mostra que a pessoa amou alguém e também recebeu amor. A gente só sente falta do que foi bom.",
+     modelEs:"Porque muestra que la persona amó a alguien y también recibió amor. Uno solo extraña lo que fue bueno.",
+     ideas:[{es:"Es señal de que hubo amor", hit:["amou","amad","amor","amo ","quis","quiso","quer","sinal","senal"]},
+            {es:"Solo se extraña lo que fue bueno", hit:["bom","boa","buen","feliz"]}]},
+    {id:"voce", q:"E você? De quem ou do que você tem saudade? Por quê?", es:"¿Y tú? ¿A quién o qué extrañas? ¿Por qué?",
+     model:"Eu tenho saudade da minha avó, porque ela morava longe e cozinhava muito bem. Também estou com saudade das férias na praia.",
+     modelEs:"Extraño a mi abuela, porque vivía lejos y cocinaba muy rico. También extraño las vacaciones en la playa.",
+     ideas:[{es:"Usas “ter saudade de” o “estar com saudade de”", pt:1, hit:["saudade d","saudades d"]},
+            {es:"Das una razón", hit:["porque","por que","pois","ya que"]}]}
+  ]
+}
+];
+
 /* ---------------- packs ---------------- */
 /* Extra material, added by hand. Same shape as the built-in bank. */
 var PACKS = [], SITEMS = B.slice(), LESS = LESSONS.slice(), TOPS = TOPICS.slice();
