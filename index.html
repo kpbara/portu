@@ -92,6 +92,10 @@
   .t-plurais    {--hue:#A14F3C}
   .t-diminutivos{--hue:#2E7A5C}
   .t-indefinidos{--hue:#A04A80}
+  .t-horas      {--hue:#A8761F}
+  .t-familia    {--hue:#6E57A3}
+  .t-roupas     {--hue:#46833F}
+  .t-rotina     {--hue:#B5543C}
 
   /* The four fixed categories, each borrowing the hue of a topic it holds. A
      topic with no .t- line of its own inherits its category's colour here
@@ -525,7 +529,11 @@ var TOPICS = [
   {id:"futuroim", name:"Futuro imediato"},
   {id:"plurais", name:"O plural"},
   {id:"diminutivos", name:"O diminutivo"},
-  {id:"indefinidos", name:"Pronomes indefinidos"}
+  {id:"indefinidos", name:"Pronomes indefinidos"},
+  {id:"horas", name:"Que horas são"},
+  {id:"familia", name:"A família"},
+  {id:"roupas", name:"Roupas e acessórios"},
+  {id:"rotina", name:"Rotina diária"}
 ];
 
 /* The slips seen in the notebook, plus escala — which is not a slip but the
@@ -1256,6 +1264,161 @@ var LESSONS = [
          ["Ella no compró nada.","Ela não comprou nada."]],
   rule:"Tudo es invariable y quiere decir todas las cosas: va solo, sin sustantivo detrás, y su contrario es nada. Todo concuerda — todo, toda, todos, todas — y siempre se apoya en un sustantivo.",
   trap:"El artículo cambia el sentido. Todo dia, sin artículo, quiere decir cada día; todo o dia, con artículo, quiere decir el día entero. La frase de la clase lo junta: todos os dias eu vou ao centro, mas não fico lá todo o dia."
+},
+{
+  id:"horas", name:"Que horas são", pick:{topic:"horas"},
+  hook:"El español pregunta ¿qué hora es? siempre en singular. Mira las respuestas portuguesas: unas empiezan por é y otras por são. ¿Qué es lo que decide cuál de las dos?",
+  pairs:[["Es la una.","É uma hora."],
+         ["Son las dos.","São duas horas."],
+         ["Son las once.","São onze horas."],
+         ["Es mediodía.","É meio-dia."],
+         ["Es medianoche.","É meia-noite."],
+         ["Son las seis en punto.","São seis horas em ponto."],
+         ["Son las dos y cuarto.","São duas e quinze."],
+         ["Son las dos y media.","São duas e meia."],
+         ["Es la una y media.","É uma hora e meia."],
+         ["Es mediodía y media.","É meio-dia e meia."],
+         ["Son las once menos cuarto.","São quinze para as onze."],
+         ["Son las doce menos diez.","São dez para a meia-noite."],
+         ["Son las once de la noche.","São onze da noite."]],
+  rule:"É para una sola hora y são para todas las demás: é uma hora, é meio-dia, é meia-noite, pero são duas, são onze. Los minutos se suman con e: duas e quinze, duas e meia. Para restarlos se dice primero el minuto y después para as: quinze para as onze, dez para a meia-noite.",
+  trap:"El cuarto del español no existe aquí: se dice quinze, siempre. Brasil escribe la hora con el reloj de 24 horas y una h minúscula, sin punto — 17h30 — y al hablar no usa am ni pm: añade da manhã, da tarde o da noite."
+},
+{
+  id:"horas-crase", name:"Às sete, à uma", pick:{topic:"horas"},
+  hook:"Estas seis frases dicen a qué hora pasa algo. La a pequeña cambia de forma en casi todas. Compárala con la hora que la sigue y busca la regla.",
+  pairs:[["Voy al cine a las siete de la noche.","Eu vou ao cinema às sete da noite."],
+         ["Voy a la escuela a las siete de la mañana.","Eu vou à escola às sete da manhã."],
+         ["El partido empieza a la una y media.","O jogo começa à uma e meia."],
+         ["Quedamos a las diez.","Combinamos de nos encontrar às dez."],
+         ["Llegó a las cuatro de la tarde.","Chegou às quatro da tarde."],
+         ["Almuerzo al mediodía.","Eu almoço ao meio-dia."],
+         ["Duermo a medianoche.","Eu durmo à meia-noite."]],
+  rule:"La hora lleva artículo por dentro — a uma, as duas — así que al juntarse con la preposición a sale la crase: à uma, às duas, às sete. Meio-dia es masculino y hace ao meio-dia; meia-noite es femenina y hace à meia-noite.",
+  trap:"Lo que pone el acento es la preposición, no el plural. São sete horas no lleva nada, y às sete horas sí. La prueba es la pregunta: si responde a a que horas, hay crase."
+},
+{
+  id:"familia", name:"O núcleo da família", pick:{topic:"familia"},
+  hook:"Casi todas estas palabras se parecen a las del español, y por eso las dos que no se parecen son las que se olvidan. Recorre la columna y busca las que no podrías adivinar.",
+  pairs:[["la madre / el padre","a mãe / o pai"],
+         ["los padres","os pais"],
+         ["el hermano / la hermana","o irmão / a irmã"],
+         ["el hijo / la hija","o filho / a filha"],
+         ["el abuelo / la abuela","o avô / a avó"],
+         ["el bisabuelo / la bisabuela","o bisavô / a bisavó"],
+         ["el nieto / la nieta","o neto / a neta"],
+         ["el tío / la tía","o tio / a tia"],
+         ["el sobrino / la sobrina","o sobrinho / a sobrinha"],
+         ["el primo / la prima","o primo / a prima"],
+         ["la mayor","a filha mais velha"],
+         ["el del medio","o filho do meio"],
+         ["el menor","o filho mais novo / o caçula"]],
+  rule:"El patrón es regular: o para el masculino, a para el femenino, y el plural masculino cubre a los dos juntos — os pais son el padre y la madre, os irmãos los hermanos de ambos sexos.",
+  trap:"Avô y avó solo se distinguen por el acento: avô con ô es el abuelo, avó con ó es la abuela. Y pais con i son los padres, mientras que países con acento son los países. Una letra en cada caso."
+},
+{
+  id:"familia-politica", name:"A família que chega depois", pick:{topic:"familia"},
+  hook:"Esta mitad es la que no se adivina. Léela buscando las tres que no se parecen en nada a su equivalente español.",
+  pairs:[["el suegro / la suegra","o sogro / a sogra"],
+         ["el yerno","o genro"],
+         ["la nuera","a nora"],
+         ["el cuñado / la cuñada","o cunhado / a cunhada"],
+         ["el concuño / la concuña","o concunhado / a concunhada"],
+         ["el padrastro / la madrastra","o padrasto / a madrasta"],
+         ["el hermanastro / la hermanastra","o meio-irmão / a meio-irmã"],
+         ["el entenado / la entenada","o enteado / a enteada"],
+         ["el padrino / la madrina","o padrinho / a madrinha"],
+         ["el ahijado / la ahijada","o afilhado / a afilhada"],
+         ["el marido / la esposa","o marido / a esposa"],
+         ["el novio / la novia","o namorado / a namorada"],
+         ["el prometido / la prometida","o noivo / a noiva"]],
+  rule:"Genro y nora son las dos que hay que aprender de memoria: no se parecen a yerno ni a nuera. Padrasto va sin la r que lleva el español, y el hermanastro es meio-irmão, literalmente medio hermano.",
+  trap:"Namorado y noivo no son lo mismo. Namorado es el novio de todos los días; noivo es el prometido, cuando ya hay compromiso. Llamar noivo a alguien con quien apenas sales adelanta bastante la relación."
+},
+{
+  id:"roupas", name:"A roupa do dia a dia", pick:{topic:"roupas"},
+  hook:"La ropa es donde el español y el portugués se parecen lo justo para equivocarse. Busca en la columna derecha las prendas cuyo nombre no habrías adivinado.",
+  pairs:[["la falda","a saia"],
+         ["el pantalón","a calça"],
+         ["la camisa / la blusa","a camisa / a blusa"],
+         ["la camiseta","a camiseta"],
+         ["el vestido","o vestido"],
+         ["la chaqueta","a jaqueta"],
+         ["el abrigo","o casaco"],
+         ["el chaleco","o colete"],
+         ["el traje","o terno"],
+         ["el saco de hombre","o paletó"],
+         ["los calcetines","as meias"],
+         ["los zapatos","os sapatos"],
+         ["las sandalias","as sandálias"],
+         ["las chinelas","os chinelos"],
+         ["el cinturón","o cinto"],
+         ["la corbata","a gravata"]],
+  rule:"Las dos que más se usan son las que menos se parecen: la falda es a saia y el pantalón es a calça, en singular y femenino. El saco es o paletó en el hombre y o blaiser en la mujer, nunca o saco.",
+  trap:"A meia sirve igual para el calcetín y para la media, y casi siempre va en plural: as meias. O terno es el traje completo, de dos o tres piezas."
+},
+{
+  id:"roupas-falsos", name:"Carteira não é cartera", pick:{topic:"roupas"},
+  hook:"Estas son las que cambian de significado al cruzar la frontera. Lee las dos primeras filas juntas y mira lo que pasa con la palabra cartera.",
+  pairs:[["la cartera, el bolso","a bolsa"],
+         ["la billetera","a carteira"],
+         ["la mochila","a mochila"],
+         ["la gorra","o boné"],
+         ["el sombrero","o chapéu"],
+         ["la bufanda","o cachecol"],
+         ["los aretes","os brincos"],
+         ["el collar","o colar"],
+         ["la pulsera","a pulseira"],
+         ["el anillo","o anel"],
+         ["el paraguas","o guarda-chuva"],
+         ["la sombrilla","a sombrinha"],
+         ["los guantes","as luvas"],
+         ["el reloj","o relógio"],
+         ["los anteojos","os óculos"]],
+  rule:"A carteira es la billetera, no el bolso: el bolso es a bolsa. O boné es la gorra con visera y o chapéu el sombrero de ala. A sombrinha, pese al nombre, es la sombrilla, y para la lluvia se dice o guarda-chuva.",
+  trap:"Óculos no tiene singular: os óculos, siempre en plural, como en español. Y brincos son los aretes — no tiene nada que ver con brincar, que quiere decir jugar."
+},
+{
+  id:"rotina", name:"O dia inteiro em verbos", pick:{topic:"rotina"},
+  hook:"Casi todas estas acciones son reflexivas en español. Mira cuáles siguen llevando el me en portugués y cuáles lo pierden por el camino.",
+  pairs:[["me despierto","eu acordo"],
+         ["me levanto","eu me levanto"],
+         ["me baño","eu tomo banho"],
+         ["me visto","eu me visto"],
+         ["me peino","eu me penteio"],
+         ["me maquillo","eu me maquio"],
+         ["me afeito","eu faço a barba"],
+         ["me arreglo","eu me arrumo"],
+         ["me lavo los dientes","eu escovo os dentes"],
+         ["desayuno","eu tomo o café da manhã"],
+         ["almuerzo","eu almoço"],
+         ["ceno","eu janto"],
+         ["me acuesto","eu me deito"],
+         ["duermo","eu durmo"]],
+  rule:"Cuando el verbo sí es pronominal, el me va delante y separado: eu me levanto, eu me visto, eu me deito, eu me arrumo. En Brasil casi nadie dice levanto-me al hablar, aunque la gramática lo admita.",
+  trap:"Cuatro de los más usados pierden el me: despertarse es acordar, bañarse es tomar banho, afeitarse es fazer a barba y lavarse los dientes es escovar os dentes. Eu me acordo y eu me banho suenan mal."
+},
+{
+  id:"rotina-frequencia", name:"Com que frequência", pick:{topic:"rotina"},
+  hook:"Una rutina no se cuenta sin decir cada cuánto. Busca en la columna portuguesa las tres que llevan un acento que el español no pone.",
+  pairs:[["siempre","sempre"],
+         ["casi siempre","quase sempre"],
+         ["a veces","às vezes"],
+         ["nunca","nunca"],
+         ["todos los días","todo dia / diariamente"],
+         ["temprano","cedo"],
+         ["tarde","tarde"],
+         ["por la mañana","de manhã"],
+         ["por la tarde","à tarde"],
+         ["por la noche","à noite"],
+         ["anteayer","anteontem"],
+         ["ayer","ontem"],
+         ["hoy","hoje"],
+         ["mañana","amanhã"],
+         ["pasado mañana","depois de amanhã"],
+         ["la semana pasada","a semana passada"]],
+  rule:"Las de frecuencia van casi siempre delante del verbo o al final de la frase: eu sempre acordo cedo, eu acordo cedo sempre. Cedo quiere decir temprano, y no tiene nada que ver con ceder.",
+  trap:"Às vezes lleva crase y va en plural: nunca a vez. De manhã va con de, pero la tarde y la noche llevan crase: à tarde, à noite. Y para decir hace dos horas hay dos caminos: estou aqui há duas horas, o faz duas horas que estou aqui."
 }
 ];
 function lessonById(id){
@@ -1575,7 +1738,57 @@ var B = [
 {id:"ind-8",t:"indefinidos",k:"mc",q:"Ela comprou ___ na loja.",g:"Ella compró todo en la tienda.",c:["tudo","todo","todos","todas"],a:"tudo",h:"¿Hay algún sustantivo detrás del espacio en el que la palabra se pueda apoyar?",e:"No hay sustantivo detrás, así que va tudo, que se sostiene solo.",w:["tudo-todo"]},
 {id:"ind-9",t:"indefinidos",k:"mc",q:"___ os dias eu trabalho.",g:"Todos los días trabajo.",c:["Todos","Tudo","Toda","Todo"],a:"Todos",h:"Dias está ahí mismo y es masculino plural. ¿Concuerda la palabra con él o no?",e:"Todos os dias. Con sustantivo detrás va todo, y concuerda con él.",w:["tudo-todo"]},
 {id:"ind-10",t:"indefinidos",k:"mc",q:"Ele trabalha ___ dia e chega em casa à noite.",g:"Él trabaja todo el día y llega a casa de noche.",c:["todo o","tudo o","toda a","todos os"],a:"todo o",h:"¿Se habla de cada día, o del día completo?",e:"Todo o dia, con artículo, es el día entero. Todo dia, sin artículo, es cada día.",w:["tudo-todo"]},
-{id:"ind-11",t:"indefinidos",k:"w",q:"Escríbelo en portugués: “Él vio todo lo que pasó.”",g:"",a:"ele viu tudo o que aconteceu",alt:["viu tudo o que aconteceu"],h:"Delante de o que, ¿va la forma invariable o la que concuerda?",e:"Ele viu tudo o que aconteceu.",w:["tudo-todo"]}
+{id:"ind-11",t:"indefinidos",k:"w",q:"Escríbelo en portugués: “Él vio todo lo que pasó.”",g:"",a:"ele viu tudo o que aconteceu",alt:["viu tudo o que aconteceu"],h:"Delante de o que, ¿va la forma invariable o la que concuerda?",e:"Ele viu tudo o que aconteceu.",w:["tudo-todo"]},
+{id:"hor-0",t:"horas",k:"mc",q:"___ uma hora.",g:"Es la una.",c:["É","São","Sou","Está"],a:"É",h:"¿Cuántas horas nombra la frase: una o varias?",e:"É uma hora. Solo la una lleva é; el resto lleva são.",w:[]},
+{id:"hor-1",t:"horas",k:"mc",q:"___ duas horas.",g:"Son las dos.",c:["São","É","Estão","Sou"],a:"São",h:"¿Dos horas son una sola o varias?",e:"São duas horas. De las dos en adelante siempre va são.",w:[]},
+{id:"hor-2",t:"horas",k:"mc",q:"Como se diz 2h15?",g:"Son las dos y cuarto.",c:["São duas e quinze","São duas e quarto","São duas e um quarto","É duas e quinze"],a:"São duas e quinze",h:"El español dice y cuarto. ¿Existe esa palabra en la hora portuguesa?",e:"São duas e quinze. Quarto no se usa nunca para la hora.",w:[]},
+{id:"hor-3",t:"horas",k:"mc",q:"Como se diz 10h45?",g:"Son las once menos cuarto.",c:["São quinze para as onze","São onze menos quinze","São onze para as quinze","É quinze para as onze"],a:"São quinze para as onze",h:"Para restar minutos, ¿qué se dice primero, la hora o los minutos?",e:"Primero el minuto y después para as: quinze para as onze.",w:[]},
+{id:"hor-4",t:"horas",k:"mc",q:"___ meio-dia.",g:"Es mediodía.",c:["É","São","Está","Sou"],a:"É",h:"Meio-dia nombra una sola hora. ¿Qué forma le toca?",e:"É meio-dia, igual que é uma hora.",w:[]},
+{id:"hor-5",t:"horas",k:"mc",q:"Eu almoço ___ meio-dia.",g:"Almuerzo al mediodía.",c:["ao","à","a","às"],a:"ao",h:"¿Meio-dia es masculino o femenino?",e:"Meio-dia es masculino: a + o = ao meio-dia.",w:["contr"]},
+{id:"hor-6",t:"horas",k:"mc",q:"Eu durmo ___ meia-noite.",g:"Duermo a medianoche.",c:["à","ao","a","às"],a:"à",h:"Meia-noite es femenina y singular. ¿Qué sale de a + a?",e:"a + a = à meia-noite.",w:["contr"]},
+{id:"hor-7",t:"horas",k:"mc",q:"Eu vou ao cinema ___ sete da noite.",g:"Voy al cine a las siete de la noche.",c:["às","as","à","aos"],a:"às",h:"¿La frase responde a que horas? Si es así, hay preposición además del artículo.",e:"às sete: la preposición a más el artículo as.",w:["contr"]},
+{id:"hor-8",t:"horas",k:"mc",q:"___ sete horas da manhã. Está na hora de acordar.",g:"Son las siete de la mañana.",c:["São","Às","É","As"],a:"São",h:"Aquí no se dice a qué hora pasa algo, solo qué hora es. ¿Hace falta la preposición?",e:"São sete horas, sin crase. Às sete horas respondería a qué hora.",w:[]},
+{id:"hor-9",t:"horas",k:"mc",q:"Como se diz 11h50?",g:"Son las doce menos diez.",c:["São dez para a meia-noite","São dez para meia-noite","São dez para as meia-noite","É dez para a meia-noite"],a:"São dez para a meia-noite",h:"Meia-noite es femenina y singular. ¿Qué artículo le toca detrás de para?",e:"São dez para a meia-noite.",w:[]},
+{id:"hor-10",t:"horas",k:"mc",q:"São seis horas ___.",g:"Son las seis en punto.",c:["em ponto","em punto","no ponto","de ponto"],a:"em ponto",h:"¿Con em o con no se dice en punto?",e:"Em ponto: são seis horas em ponto.",w:[]},
+{id:"hor-11",t:"horas",k:"w",q:"Escríbelo en portugués: “Es la una y media.”",g:"",a:"é uma hora e meia",alt:["é uma e meia"],h:"¿Una hora lleva é o são? ¿Y media se dice meia o metade?",e:"É uma hora e meia.",w:[]},
+{id:"fam-0",t:"familia",k:"mc",q:"O irmão da minha mãe é meu ___.",g:"El hermano de mi madre es mi tío.",c:["tio","sobrinho","primo","cunhado"],a:"tio",h:"¿Qué parentesco tienes tú con el hermano de tu madre?",e:"O irmão da mãe ou do pai é o tio.",w:[]},
+{id:"fam-1",t:"familia",k:"mc",q:"O filho do meu irmão é meu ___.",g:"El hijo de mi hermano es mi sobrino.",c:["sobrinho","neto","primo","genro"],a:"sobrinho",h:"En español es sobrino. ¿Qué letras cambian al pasarlo?",e:"Sobrinho, con nh.",w:[]},
+{id:"fam-2",t:"familia",k:"mc",q:"O pai do meu pai é meu ___.",g:"El padre de mi padre es mi abuelo.",c:["avô","avó","bisavô","sogro"],a:"avô",h:"Las dos primeras solo se diferencian por el acento. ¿Cuál es el masculino?",e:"Avô con ô es el abuelo; avó con ó es la abuela.",w:[]},
+{id:"fam-3",t:"familia",k:"mc",q:"A mãe da minha mãe é minha ___.",g:"La madre de mi madre es mi abuela.",c:["avó","avô","sogra","madrasta"],a:"avó",h:"¿Qué acento lleva la forma femenina?",e:"Avó con ó. Es la única letra que la separa de avô.",w:[]},
+{id:"fam-4",t:"familia",k:"mc",q:"O marido da minha filha é meu ___.",g:"El marido de mi hija es mi yerno.",c:["genro","sogro","cunhado","padrasto"],a:"genro",h:"Esta no se parece nada al español. ¿La recuerdas de la tabla?",e:"O genro es el yerno. Hay que aprenderla de memoria.",w:[]},
+{id:"fam-5",t:"familia",k:"mc",q:"A esposa do meu filho é minha ___.",g:"La esposa de mi hijo es mi nuera.",c:["nora","sogra","cunhada","neta"],a:"nora",h:"Es la pareja de genro. ¿Cómo se llama?",e:"A nora es la nuera.",w:[]},
+{id:"fam-6",t:"familia",k:"mc",q:"O irmão da minha esposa é meu ___.",g:"El hermano de mi esposa es mi cuñado.",c:["cunhado","genro","sogro","primo"],a:"cunhado",h:"En español es cuñado. ¿Cómo se escribe aquí ese sonido?",e:"Cunhado: la ñ del español se escribe nh.",w:[]},
+{id:"fam-7",t:"familia",k:"mc",q:"A nova esposa do meu pai é minha ___.",g:"La nueva esposa de mi padre es mi madrastra.",c:["madrasta","madrinha","sogra","enteada"],a:"madrasta",h:"El español pone una r de más. ¿Dónde está?",e:"Madrasta, sin la r de madrastra. El masculino es padrasto.",w:[]},
+{id:"fam-8",t:"familia",k:"mc",q:"Os meus ___ são o meu pai e a minha mãe.",g:"Mis padres son mi padre y mi madre.",c:["pais","países","padres","parentes"],a:"pais",h:"¿Cuál de las dos primeras lleva acento, y qué significa esa?",e:"Os pais son los padres. Os países, con acento, son los países.",w:[]},
+{id:"fam-9",t:"familia",k:"mc",q:"O filho mais novo da família é o ___.",g:"El hijo menor de la familia.",c:["caçula","mais velho","do meio","afilhado"],a:"caçula",h:"¿Qué palabra brasileña nombra al menor de todos los hermanos?",e:"O caçula es el menor. También se dice o filho mais novo.",w:[]},
+{id:"fam-10",t:"familia",k:"mc",q:"Quem me batizou é meu ___.",g:"Quien me bautizó es mi padrino.",c:["padrinho","padrasto","afilhado","sogro"],a:"padrinho",h:"Cuidado con el que se le parece: ¿cuál es el padrino y cuál el padrastro?",e:"O padrinho es el padrino; o padrasto es el padrastro.",w:[]},
+{id:"fam-11",t:"familia",k:"w",q:"Escríbelo en portugués: “mi abuela y mi hermana”",g:"",a:"minha avó e minha irmã",alt:["a minha avó e a minha irmã"],h:"¿Qué acento lleva la abuela, y cómo termina hermana?",e:"Minha avó e minha irmã.",w:[]},
+{id:"rou-0",t:"roupas",k:"mc",q:"Como se diz falda?",g:"la falda",c:["a saia","a calça","a blusa","a camisola"],a:"a saia",h:"¿Esta prenda es masculina o femenina en portugués?",e:"A saia es la falda.",w:[]},
+{id:"rou-1",t:"roupas",k:"mc",q:"Como se diz pantalón?",g:"el pantalón",c:["a calça","o calção","a calcinha","o terno"],a:"a calça",h:"En español es masculino. ¿Y en portugués, qué género y qué número?",e:"A calça: femenina y en singular. A calcinha es la ropa interior.",w:[]},
+{id:"rou-2",t:"roupas",k:"mc",q:"Como se diz calcetines?",g:"los calcetines",c:["as meias","as calças","os sapatos","as luvas"],a:"as meias",h:"La misma palabra sirve para el calcetín y para la media. ¿Cuál es?",e:"As meias valen para los dos, y casi siempre van en plural.",w:[]},
+{id:"rou-3",t:"roupas",k:"mc",q:"O saco de homem chama-se:",g:"el saco de hombre",c:["o paletó","o saco","o colete","o casaco"],a:"o paletó",h:"Saco existe en portugués, pero nombra otra cosa. ¿Cuál es la prenda?",e:"O paletó en el hombre, o blaiser en la mujer.",w:[]},
+{id:"rou-4",t:"roupas",k:"mc",q:"Como se diz abrigo?",g:"el abrigo",c:["o casaco","a jaqueta","o colete","o terno"],a:"o casaco",h:"¿Cuál es la prenda larga, la de más abrigo?",e:"O casaco es el abrigo; a jaqueta es la chaqueta.",w:[]},
+{id:"rou-5",t:"roupas",k:"mc",q:"Como se diz chaleco?",g:"el chaleco",c:["o colete","o casaco","o paletó","o cinto"],a:"o colete",h:"La prenda sin mangas que va debajo del saco, ¿cómo se llama?",e:"O colete es el chaleco.",w:[]},
+{id:"rou-6",t:"roupas",k:"mc",q:"Onde você guarda o dinheiro?",g:"¿Dónde guardas el dinero?",c:["na carteira","na bolsa","na mochila","no colete"],a:"na carteira",h:"En español cartera es el bolso. ¿Qué nombra en portugués?",e:"A carteira es la billetera. El bolso es a bolsa: están cambiadas.",w:[]},
+{id:"rou-7",t:"roupas",k:"mc",q:"Como se diz cartera, a de carregar no ombro?",g:"la cartera, el bolso",c:["a bolsa","a carteira","a mochila","a sombrinha"],a:"a bolsa",h:"Si carteira es la billetera, ¿qué palabra queda para el bolso?",e:"A bolsa. Es el falso amigo que más se repite.",w:[]},
+{id:"rou-8",t:"roupas",k:"mc",q:"Como se diz gorra?",g:"la gorra",c:["o boné","o chapéu","a boina","o capacete"],a:"o boné",h:"La que lleva visera, ¿cómo se llama?",e:"O boné es la gorra con visera. O chapéu es el sombrero de ala.",w:[]},
+{id:"rou-9",t:"roupas",k:"mc",q:"Como se diz aretes?",g:"los aretes",c:["os brincos","os colares","as pulseiras","os anéis"],a:"os brincos",h:"¿Qué se pone en las orejas?",e:"Os brincos son los aretes. No tiene relación con brincar, que es jugar.",w:[]},
+{id:"rou-10",t:"roupas",k:"mc",q:"Como se diz bufanda?",g:"la bufanda",c:["o cachecol","o colar","a gravata","o lenço"],a:"o cachecol",h:"La prenda larga que abriga el cuello, ¿cómo se llama?",e:"O cachecol es la bufanda. O lenço es el pañuelo.",w:[]},
+{id:"rou-11",t:"roupas",k:"mc",q:"Como se diz paraguas?",g:"el paraguas",c:["o guarda-chuva","a sombrinha","o guarda-sol","a capa de chuva"],a:"o guarda-chuva",h:"¿Para la lluvia o para el sol? Esa es la diferencia entre las dos primeras.",e:"O guarda-chuva es para la lluvia; a sombrinha es la sombrilla.",w:[]},
+{id:"rou-12",t:"roupas",k:"mc",q:"Os ___ de sol protegem os olhos.",g:"Los anteojos de sol protegen los ojos.",c:["óculos","olhos","oclos","ócules"],a:"óculos",h:"¿Esta palabra tiene singular?",e:"Os óculos, siempre en plural, igual que en español.",w:[]},
+{id:"rou-13",t:"roupas",k:"w",q:"Escríbelo en portugués: “la falda y los zapatos”",g:"",a:"a saia e os sapatos",alt:["saia e sapatos"],h:"¿Qué género lleva la falda en portugués?",e:"A saia e os sapatos.",w:[]},
+{id:"rot-0",t:"rotina",k:"mc",q:"Eu ___ às seis da manhã.",g:"Me despierto a las seis de la mañana.",c:["acordo","me acordo","desperto","me desperto"],a:"acordo",h:"¿Lleva me el acordar portugués, como el despertarse español?",e:"Eu acordo, sin me.",w:[]},
+{id:"rot-1",t:"rotina",k:"mc",q:"Depois eu ___ da cama.",g:"Después me levanto de la cama.",c:["me levanto","levanto-me","levanto","me levo"],a:"me levanto",h:"Al hablar en Brasil, ¿el me va antes o después del verbo?",e:"Eu me levanto. Levanto-me es correcto pero casi nadie lo dice.",w:[]},
+{id:"rot-2",t:"rotina",k:"mc",q:"Todo dia eu ___ antes de sair.",g:"Todos los días me baño antes de salir.",c:["tomo banho","me banho","banho-me","me tomo banho"],a:"tomo banho",h:"¿Usa el portugués un verbo reflexivo para bañarse, o un verbo más un sustantivo?",e:"Tomar banho, sin me: eu tomo banho.",w:[]},
+{id:"rot-3",t:"rotina",k:"mc",q:"Eu ___ os dentes depois do café.",g:"Me lavo los dientes después del desayuno.",c:["escovo","me escovo","lavo-me","me lavo"],a:"escovo",h:"¿Qué verbo usa el portugués para los dientes, lavar o cepillar?",e:"Escovar os dentes, sin me.",w:[]},
+{id:"rot-4",t:"rotina",k:"mc",q:"De manhã eu tomo o ___.",g:"Por la mañana desayuno.",c:["café da manhã","almoço","jantar","lanche da manhã"],a:"café da manhã",h:"¿Cómo se llama la primera comida del día en Brasil?",e:"O café da manhã es el desayuno, y se toma: tomar o café da manhã.",w:[]},
+{id:"rot-5",t:"rotina",k:"mc",q:"Ao meio-dia eu ___.",g:"Al mediodía almuerzo.",c:["almoço","janto","almorço","almoça"],a:"almoço",h:"¿Cuál de estos verbos es el del mediodía, y cómo se escribe su ç?",e:"Almoçar al mediodía; jantar por la noche.",w:[]},
+{id:"rot-6",t:"rotina",k:"mc",q:"À noite eu ___ com a família.",g:"Por la noche ceno con la familia.",c:["janto","almoço","ceio","ceno"],a:"janto",h:"La cena en Brasil, ¿con qué verbo se dice?",e:"Jantar es cenar. O jantar es la cena.",w:[]},
+{id:"rot-7",t:"rotina",k:"mc",q:"Eu ___ cedo porque acordo às cinco.",g:"Me acuesto temprano porque me despierto a las cinco.",c:["me deito","deito-me","me acosto","deito"],a:"me deito",h:"¿Qué verbo usa el portugués para acostarse, y dónde va el me?",e:"Eu me deito. Deitar-se es acostarse.",w:[]},
+{id:"rot-8",t:"rotina",k:"mc",q:"Eu ___ acordo cedo, nunca depois das sete.",g:"Siempre me despierto temprano.",c:["sempre","às vezes","nunca","raramente"],a:"sempre",h:"La frase dice que nunca pasa de las siete. ¿Con qué frecuencia ocurre entonces?",e:"Sempre, y va delante del verbo: eu sempre acordo cedo.",w:[]},
+{id:"rot-9",t:"rotina",k:"mc",q:"___ eu saio com os amigos, mas não toda semana.",g:"A veces salgo con los amigos.",c:["Às vezes","As vezes","A vez","Às vez"],a:"Às vezes",h:"¿Lleva acento esta expresión, y va en singular o en plural?",e:"Às vezes, con crase y en plural.",w:["contr"]},
+{id:"rot-10",t:"rotina",k:"mc",q:"Hoje é segunda. Depois de amanhã é:",g:"Hoy es lunes. Pasado mañana es...",c:["quarta","terça","quinta","domingo"],a:"quarta",h:"Hoje, amanhã, y el siguiente. ¿Cuántos días hay que contar?",e:"Depois de amanhã son dos días: segunda, terça, quarta.",w:[]},
+{id:"rot-11",t:"rotina",k:"w",q:"Escríbelo en portugués: “Siempre me levanto temprano.”",g:"",a:"eu sempre me levanto cedo",alt:["sempre me levanto cedo","eu me levanto sempre cedo"],h:"¿Dónde va el me, y cómo se dice temprano?",e:"Eu sempre me levanto cedo.",w:[]}
 ];
 
 /* Ids are written into each item by hand and must never change: progress is
@@ -1987,6 +2200,86 @@ var NTUDO = [
    "Praias es femenino plural. ¿Qué forma le toca?","Praias es femenino plural: todas as praias."]
 ];
 
+/* ---- slots for the four vocabulary assuntos ----
+   Same reasoning as the plural tables: the wrong options are written per row.
+   A believable wrong answer here is a real word from the same handout — o
+   chapéu for o boné, a carteira for a bolsa — which no rule could generate. */
+
+/* [digital, the spoken form, three wrong ones, Spanish] */
+var HORA = [
+  ["1h","É uma hora","São uma hora","É uma horas","Sou uma hora","Es la una."],
+  ["2h","São duas horas","É duas horas","São dois horas","São duas hora","Son las dos."],
+  ["7h","São sete horas","É sete horas","São sete hora","Sou sete horas","Son las siete."],
+  ["12h","É meio-dia","São meio-dia","É meia-dia","É doze hora","Es mediodía."],
+  ["24h","É meia-noite","São meia-noite","É meio-noite","É meia-noites","Es medianoche."],
+  ["2h15","São duas e quinze","São duas e quarto","É duas e quinze","São duas e quinzes","Son las dos y cuarto."],
+  ["3h30","São três e meia","São três e meio","São três e metade","É três e meia","Son las tres y media."],
+  ["1h30","É uma hora e meia","São uma e meia","É uma e meio","É uma hora e metade","Es la una y media."],
+  ["10h45","São quinze para as onze","São onze menos quinze","São onze para as quinze","É quinze para as onze","Son las once menos cuarto."],
+  ["11h50","São dez para a meia-noite","São dez para meia-noite","São dez para as meia-noite","É dez para a meia-noite","Son las doce menos diez."],
+  ["6h","São seis horas em ponto","É seis horas em ponto","São seis horas em punto","São seis horas no ponto","Son las seis en punto."]
+];
+
+/* [the frame, the relative, three wrong ones, Spanish] */
+var FAM = [
+  ["O pai do meu pai é meu ___.","avô","avó","bisavô","sogro","el abuelo"],
+  ["A mãe da minha mãe é minha ___.","avó","avô","sogra","madrasta","la abuela"],
+  ["O irmão da minha mãe é meu ___.","tio","primo","sobrinho","cunhado","el tío"],
+  ["O filho do meu irmão é meu ___.","sobrinho","neto","primo","genro","el sobrino"],
+  ["O filho do meu filho é meu ___.","neto","sobrinho","bisneto","afilhado","el nieto"],
+  ["O marido da minha filha é meu ___.","genro","sogro","cunhado","padrasto","el yerno"],
+  ["A esposa do meu filho é minha ___.","nora","sogra","cunhada","neta","la nuera"],
+  ["O pai da minha esposa é meu ___.","sogro","genro","padrasto","cunhado","el suegro"],
+  ["O irmão da minha esposa é meu ___.","cunhado","genro","sobrinho","padrasto","el cuñado"],
+  ["A nova esposa do meu pai é minha ___.","madrasta","madrinha","sogra","enteada","la madrastra"],
+  ["O filho da minha madrasta é meu ___.","meio-irmão","afilhado","enteado","padrasto","el hermanastro"],
+  ["Quem me batizou é meu ___.","padrinho","padrasto","afilhado","sogro","el padrino"],
+  ["Quem eu batizei é meu ___.","afilhado","padrinho","enteado","sobrinho","el ahijado"],
+  ["O filho mais novo da casa é o ___.","caçula","mais velho","do meio","genro","el menor"]
+];
+
+/* [Spanish, the garment, three wrong ones] */
+var ROU = [
+  ["falda","a saia","a calça","a blusa","a camisola"],
+  ["pantalón","a calça","o calção","a calcinha","o terno"],
+  ["calcetines","as meias","as luvas","os sapatos","as calças"],
+  ["chaleco","o colete","o casaco","o paletó","o cinto"],
+  ["abrigo","o casaco","a jaqueta","o colete","o terno"],
+  ["chaqueta","a jaqueta","o casaco","o colete","a camisa"],
+  ["traje","o terno","o paletó","o colete","o macacão"],
+  ["corbata","a gravata","o cachecol","o cinto","a borboleta"],
+  ["cinturón","o cinto","a gravata","a fivela","o cadarço"],
+  ["billetera","a carteira","a bolsa","a mochila","o porta-moeda"],
+  ["bolso","a bolsa","a carteira","o bolso","a mochila"],
+  ["gorra","o boné","o chapéu","a boina","o capacete"],
+  ["sombrero","o chapéu","o boné","a viseira","a touca"],
+  ["bufanda","o cachecol","o lenço","o colar","a gravata"],
+  ["aretes","os brincos","os colares","as pulseiras","os anéis"],
+  ["collar","o colar","o cachecol","a corrente","a pulseira"],
+  ["pulsera","a pulseira","o colar","o anel","a corrente"],
+  ["anillo","o anel","a pulseira","o brinco","a aliança"],
+  ["paraguas","o guarda-chuva","a sombrinha","o guarda-sol","a capa de chuva"],
+  ["guantes","as luvas","as meias","as mangas","as alças"],
+  ["reloj","o relógio","a pulseira","o pingente","a corrente"],
+  ["anteojos","os óculos","as lentes","os olhos","as armações"],
+  ["zapatos","os sapatos","os chinelos","as botas","os tênis"],
+  ["sandalias","as sandálias","os chinelos","as botas","os sapatos"]
+];
+
+/* [the frame, the verb as it is said, three wrong ones, Spanish] */
+var ROT = [
+  ["Eu ___ às seis da manhã.","acordo","me acordo","desperto","me desperto","Me despierto a las seis de la mañana."],
+  ["Depois eu ___ da cama.","me levanto","levanto-me","levanto","me levo","Después me levanto de la cama."],
+  ["Todo dia eu ___ antes de sair.","tomo banho","me banho","banho-me","me tomo banho","Todos los días me baño antes de salir."],
+  ["Eu ___ os dentes depois do café.","escovo","me escovo","lavo-me","me lavo","Me lavo los dientes después del desayuno."],
+  ["De manhã eu ___ o café da manhã.","tomo","como","faço","bebo","Por la mañana desayuno."],
+  ["Ao meio-dia eu ___ com os colegas.","almoço","janto","almorço","almoça","Al mediodía almuerzo con los compañeros."],
+  ["À noite eu ___ com a família.","janto","almoço","ceio","ceno","Por la noche ceno con la familia."],
+  ["Eu ___ cedo porque acordo às cinco.","me deito","deito-me","me acosto","deito","Me acuesto temprano porque me despierto a las cinco."],
+  ["Eu ___ antes de sair de casa.","me arrumo","arrumo-me","me arrumar","arrumo","Me arreglo antes de salir de casa."],
+  ["No fim de semana eu ___ com os amigos.","saio","salgo","saio-me","me saio","El fin de semana salgo con los amigos."]
+];
+
 var GEN = [
 { id:"g-gostar-pessoa", t:"gostar", w:["p1sg"], make:function(){
   var s = Math.random() < .45 ? GOSTAR[0] : r(GOSTAR), n = r(NOUNS);
@@ -2227,6 +2520,34 @@ var GEN = [
   var f = r(NTUDO);
   return {q:f[0], g:f[3], c:f[2].slice(), a:f[1], h:f[4],
     e:f[0].replace("___", f[1])+" "+f[5]};
+}},
+{ id:"g-horas", t:"horas", w:[], make:function(){
+  var h = r(HORA);
+  return {q:"Como se diz "+h[0]+"?", g:h[5],
+    c:[h[1],h[2],h[3],h[4]], a:h[1],
+    h:"¿Es una sola hora o más de una? ¿Y los minutos se suman o se restan?",
+    e:h[0]+" = "+h[1]+"."};
+}},
+{ id:"g-familia", t:"familia", w:[], make:function(){
+  var f = r(FAM);
+  return {q:f[0], g:f[5],
+    c:[f[1],f[2],f[3],f[4]], a:f[1],
+    h:"Sigue el parentesco paso a paso. ¿Qué eres tú de esa persona?",
+    e:f[0].replace("___", f[1])};
+}},
+{ id:"g-roupas", t:"roupas", w:[], make:function(){
+  var p = r(ROU);
+  return {q:"Como se diz "+p[0]+"?", g:"En español: "+p[0]+".",
+    c:[p[1],p[2],p[3],p[4]], a:p[1],
+    h:"¿Cuál de las cuatro es la prenda, y qué artículo le toca?",
+    e:p[0]+" = "+p[1]+"."};
+}},
+{ id:"g-rotina", t:"rotina", w:[], make:function(){
+  var v = r(ROT);
+  return {q:v[0], g:v[5],
+    c:[v[1],v[2],v[3],v[4]], a:v[1],
+    h:"¿Lleva me este verbo en portugués, y si lo lleva, va delante o detrás?",
+    e:v[0].replace("___", v[1])};
 }}
 ];
 GEN.forEach(function(g){ g.k = "mc"; });
@@ -2458,7 +2779,8 @@ var CATS = [
   {id:"som",      name:"Som e letras",
    topics:["fonetica","alfabeto"]},
   {id:"vocab",    name:"Vocabul\u00e1rio",
-   topics:["antonimos","expressoes","numeros"]}
+   topics:["antonimos","expressoes","numeros",
+           "horas","familia","roupas","rotina"]}
 ];
 /* Each one's colour is .c-<id> in the palette block, not a field here. */
 var OUTROS = {id:"outros", name:"Outros", topics:[]};
@@ -3117,7 +3439,7 @@ function categoria(id){
 var PROVAS = [
 {
   id:"final-dez", name:"Exame final", date:"2026-12-12", size:20,
-  note:"Os sete pontos ditados na aula. A simulação sorteia 20 itens só destes assuntos.",
+  note:"Os sete pontos ditados na aula. A simulação são 20 itens, pelo menos dois de cada ponto, sem dicas e sem segunda tentativa.",
   points:[
     ["Verbos em presente e pretérito perfeito", ["presente","preterito"]],
     ["Presente contínuo",                       ["continuo"]],
@@ -3166,22 +3488,88 @@ function provaMastery(p){
   ts.forEach(function(x){ sum += mastery(x[1].id); });
   return Math.round(sum / ts.length);
 }
-function provaPool(p){
-  var set = {};
-  provaTopics(p).forEach(function(x){ set[x[1].id] = 1; });
-  return roundPool("all").filter(function(x){ return set[x.t]; });
+/* Each point with the items that can test it. Built from one roundPool call so
+   every point draws from the same batch of generated sentences. */
+function provaPoints(p){
+  var all = roundPool("all");
+  var out = [];
+  p.points.forEach(function(pt, i){
+    var set = {};
+    pt[1].forEach(function(id){ set[id] = 1; });
+    var pool = all.filter(function(x){ return set[x.t]; });
+    if(pool.length) out.push({n:i+1, name:pt[0], topic:pt[1][0], pool:pool});
+  });
+  return out;
 }
-/* the simulation: longer than a round, drawn from the prova's assuntos only,
-   and still weighted toward what this device gets wrong */
+
+/* A weighted draw over the whole prova can miss a point completely, and a
+   point you were never asked about reads as a point you are fine on — which is
+   the one thing a report like this must not say. So each point is drawn for
+   first, and only the remainder is weighted across what is left. */
+function provaDraw(p, n){
+  var pts = provaPoints(p);
+  if(!pts.length) return [];
+  var per = Math.max(1, Math.floor(n / pts.length));
+  var taken = [], rest = [];
+  pts.forEach(function(pt){
+    var got = pick(pt.pool, Math.min(per, pt.pool.length));
+    taken = taken.concat(got);
+    rest = rest.concat(pt.pool.filter(function(x){ return got.indexOf(x) < 0; }));
+  });
+  if(taken.length < n)
+    taken = taken.concat(pick(rest, Math.min(n - taken.length, rest.length)));
+  return shuffle(taken);
+}
+
+/* The simulation is deliberately harder than a round: no hint, no second
+   try at half marks, and nothing comes back at the end. A round is for
+   learning and forgives you twice; this one has to produce the mark the real
+   prova would, or it is worth nothing as a warning. ses.prova is the flag —
+   answer() and done() both read it. */
 function startProva(p, n){
-  var pool = provaPool(p);
-  if(!pool.length) return home();
-  ses = {items: pick(pool, Math.min(n || p.size || SIZE, pool.length)),
-         i:0, marks:[], tries:0, topic:"all", prova:p, gained:0};
+  var items = provaDraw(p, n || p.size || SIZE);
+  if(!items.length) return home();
+  ses = {items: items, i:0, marks:[], tries:0, topic:"all", prova:p, gained:0};
   ses.base = ses.items.length;
   var d = today();
   if(state.last !== d){ state.days = (state.days||0)+1; state.last = d; }
   question();
+}
+
+/* What to study, point by point, worst first. The assunto behind each point is
+   one tap away, because a score with nowhere to go is just a number. */
+function provaReport(s){
+  var P = s.prova, at = {}, rows = [];
+  P.points.forEach(function(pt, i){
+    rows.push({n:i+1, name:pt[0], topic:pt[1][0], ask:0, ok:0});
+    pt[1].forEach(function(id){ at[id] = i; });
+  });
+  s.items.forEach(function(x, j){
+    if(j >= s.base) return;
+    var i = at[x.t];
+    if(i === undefined) return;
+    rows[i].ask++;
+    if(s.marks[j]) rows[i].ok++;
+  });
+  var asked = rows.filter(function(r){ return r.ask; });
+  if(!asked.length) return "";
+  asked.sort(function(a, b){ return (a.ok / a.ask) - (b.ok / b.ask) || b.ask - a.ask; });
+
+  var h = '</div><h2 class="sec">Ponto a ponto</h2><div class="card flush"><div class="rows">';
+  asked.forEach(function(r){
+    h += '<button class="row' + hueClass(r.topic) + '" data-topic="' + esc(r.topic) + '">'
+       + '<span class="key"></span>'
+       + '<span class="nm">' + esc(r.n + ". " + r.name) + '</span>'
+       + '<span class="tag">' + r.ok + '/' + r.ask + '</span></button>';
+  });
+  h += '</div></div><div class="card">';
+
+  var weak = asked.filter(function(r){ return r.ok / r.ask < .8; });
+  h += '<p class="sub">' + (weak.length
+      ? 'Estude primeiro: <b>'
+        + weak.slice(0, 2).map(function(r){ return esc(r.name); }).join('</b> e <b>') + '</b>.'
+      : 'Nenhum ponto abaixo de 80%. Dá para entrar na prova.') + '</p>';
+  return h;
 }
 
 /* ---------------- the Exame tab ----------------
@@ -3338,9 +3726,10 @@ function answer(v, btn){
     return;
   }
 
-  /* One retry, always. An item with no hint used to fall straight through to
-     the answer without the learner ever noticing they were shortchanged. */
-  if(ses.tries === 0){
+  /* One retry, always — except in a prova, which gets one shot and no hint.
+     An item with no hint used to fall straight through to the answer without
+     the learner ever noticing they were shortchanged. */
+  if(ses.tries === 0 && !ses.prova){
     ses.tries = 1;
     if(btn){ btn.classList.add("wrong","stamp"); btn.disabled = true; }
     var gap = accentMiss(it, v);
@@ -3361,13 +3750,13 @@ function answer(v, btn){
 
   var L = lessonsFor(it)[0];
   var again = "";
-  if(!it.retry){
+  if(!it.retry && !ses.prova){
     ses.items.push(Object.assign({}, it, {retry:true}));
     again = '<p class="tail">Este volta no fim da rodada.</p>';
   }
   fb.innerHTML = '<div class="mark no stamp"><span class="lead">Resposta</span><b>'+esc(it.a)+'</b> — '+esc(it.e)+'</div>'
     + again
-    + (L && !ses.lesson ? '<button class="cta ghost" data-lesson="1">Rever a regra: '+esc(L.name)+'</button>' : '')
+    + (L && !ses.lesson && !ses.prova ? '<button class="cta ghost" data-lesson="1">Rever a regra: '+esc(L.name)+'</button>' : '')
     + '<button class="cta" data-next="1">Continuar</button>';
   document.querySelector("[data-next]").onclick = next;
   var lb = document.querySelector("[data-lesson]");
@@ -3400,7 +3789,10 @@ function done(){
             + '<span class="chip">' + (state.xp||0) + ' pts</span>')
         + '<div class="wrap screen"><div class="card">';
   h += '<p class="score">'+right+' <em>de '+ses.base+'</em></p>';
-  h += '<p class="sub">+'+ses.gained+' pontos nesta rodada.</p>';
+  h += '<p class="sub">' + (ses.prova
+        ? 'Sem dicas e sem segunda tentativa \u2014 \u00e9 a nota que a prova te daria hoje.'
+        : '+'+ses.gained+' pontos nesta rodada.') + '</p>';
+  if(ses.prova) h += provaReport(ses);
 
   var miss = ses.items.filter(function(x,i){ return i < ses.base && ses.marks[i] === false; });
   if(miss.length){
@@ -3429,7 +3821,7 @@ function done(){
   } else {
     h += '<p class="mark ok">Rodada limpa. Os itens acertados voltam menos vezes.</p>';
   }
-  h += '<button class="cta" data-again="1">Outra rodada</button>';
+  h += '<button class="cta" data-again="1">'+(ses.prova ? 'Outra prova' : 'Outra rodada')+'</button>';
   h += '<button class="cta ghost" data-home="1" style="margin-top:8px">Voltar aos tópicos</button>';
   h += '</div></div>';
   app.innerHTML = h;
@@ -3441,6 +3833,9 @@ function done(){
   app.querySelector("[data-home]").onclick = home;
   app.querySelectorAll("[data-l]").forEach(function(b){
     b.onclick = function(){ lesson(lessonById(b.getAttribute("data-l")), home); };
+  });
+  app.querySelectorAll("[data-topic]").forEach(function(b){
+    b.onclick = function(){ assunto(b.getAttribute("data-topic")); };
   });
   save();
 }

@@ -44,9 +44,21 @@ it was dictated in class, where every point names the assuntos covering it. The
 numbering is kept rather than flattened into a set of topic ids, so the screen
 can be checked against the paper it came from and a point that takes two
 assuntos (presente *and* pretérito perfeito) still reads as one point.
-`startProva` draws `size` items from those assuntos only, still weighted toward
-what this device gets wrong, and *Outra rodada* on the summary re-runs the
-prova instead of falling back to a general round.
+**A prova is not a longer round.** `startProva` sets `ses.prova`, and both
+`answer()` and `done()` read it: no hint, no second try at half marks, and
+nothing comes back at the end. A round forgives you twice because it is for
+learning. The simulation has to produce the mark the real prova would, or it
+is worth nothing as a warning.
+
+`provaDraw` fills every point first and spreads only the remainder by weight.
+A purely weighted draw over twenty items can miss a point completely, and a
+point you were never asked about reads on the report as a point you are fine
+on — which is the one thing a report like this must not say.
+
+`provaReport` closes it: every point scored, worst first, each one a tap from
+its assunto, and the two weakest named outright. *Outra rodada* becomes
+*Outra prova* and re-runs the prova rather than falling back to a general
+round.
 
 A prova outlives its date — the screen and the drill stay once it has passed,
 because the material does not stop being the material. Adding one is a date and

@@ -71,12 +71,12 @@ Después puedes cerrar el navegador; la app abre sola desde el ícono.
 
 ## Qué trae
 
-Hasta ahora, 21 handouts de clase convertidos en práctica:
+Hasta ahora, 25 handouts de clase convertidos en práctica:
 
-- **312 ejercicios** repartidos en **21 assuntos**.
-- **27 generadores de frases**, al menos uno por assunto, que escriben
+- **362 ejercicios** repartidos en **25 assuntos**.
+- **31 generadores de frases**, al menos uno por assunto, que escriben
   oraciones nuevas en cada ronda en lugar de repetir siempre la misma.
-- **48 mini-lecciones**: treinta y siete explican un assunto y once atacan un
+- **56 mini-lecciones**: cuarenta y cinco explican un assunto y once atacan un
   error que se cruza entre varios. Los assuntos largos van por partes — *Os
   números* lleva cuatro y *O plural* tres, porque la tabla entera no cabe en
   una sola pantalla.
@@ -100,10 +100,16 @@ La app tiene cuatro pestañas:
 
 La pestaña **Exame** guarda las pruebas que estamos preparando. La primera es
 el examen final del **12 de diciembre**, con los siete puntos que dictó la
-profesora, el porcentaje que llevas en cada uno y un simulacro de 20 preguntas
-sacadas solo de esos assuntos. No desaparece cuando pase la fecha: una prueba
-nueva es una fecha y una lista de assuntos, así que ahí caben también las
-nuestras.
+profesora y el porcentaje que llevas en cada uno.
+
+El simulacro **no es una ronda más larga**: son 20 preguntas, al menos dos de
+cada punto, **sin pistas y sin segunda oportunidad**, y lo que fallas no vuelve
+al final. Es la nota que te daría el examen hoy. Al terminar sale el desglose
+**punto por punto**, de peor a mejor, con el assunto de cada uno a un toque —
+para que sepas qué estudiar, no solo cuánto fallaste.
+
+No desaparece cuando pase la fecha: una prueba nueva es una fecha y una lista
+de assuntos, así que ahí caben también las nuestras.
 
 Y dentro de una ronda:
 
