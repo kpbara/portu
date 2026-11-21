@@ -85,6 +85,10 @@
   .t-expressoes {--hue:#2E7D8F}
   .t-alfabeto   {--hue:#8A6A1F}
   .t-numeros    {--hue:#9E3F66}
+  .t-presente   {--hue:#4F7A2E}
+  .t-preterito  {--hue:#35619B}
+  .t-continuo   {--hue:#6B4F9E}
+  .t-futuroim   {--hue:#9A7B22}
 
   /* The four fixed categories, each borrowing the hue of a topic it holds. A
      topic with no .t- line of its own inherits its category's colour here
@@ -511,13 +515,18 @@ var TOPICS = [
   {id:"possessivos", name:"Pronomes possessivos"},
   {id:"expressoes", name:"Expressões de sala de aula"},
   {id:"alfabeto", name:"O alfabeto"},
-  {id:"numeros", name:"Os números"}
+  {id:"numeros", name:"Os números"},
+  {id:"presente", name:"Presente do indicativo"},
+  {id:"preterito", name:"Pretérito perfeito"},
+  {id:"continuo", name:"Presente contínuo"},
+  {id:"futuroim", name:"Futuro imediato"}
 ];
 
 /* The slips seen in the notebook, plus escala — which is not a slip but the
    six items about how far up the scale you are, so the lesson that teaches
    them can claim exactly those and drill nothing else. */
-var WEAK = ["p1sg","onde-aonde","que-oque","de-inf","contr","porque","posse","escala"];
+var WEAK = ["p1sg","onde-aonde","que-oque","de-inf","contr","porque","posse","escala",
+            "voce-2p","pret-irreg","ger-endo","vou-a"];
 
 /* short remedial lessons. pick = which items drill it afterwards */
 var LESSONS = [
@@ -999,6 +1008,133 @@ var LESSONS = [
          ["10º","décimo / décima"]],
   rule:"Los ordinales concuerdan en género y número, como cualquier adjetivo: o primeiro andar, a primeira vez, as primeiras aulas. Se usan para pisos, puestos y siglos. Del 11 en adelante casi nadie los dice al hablar: se dice página quinze, no décima quinta página.",
   trap:"El 9º es nono, no noveno. Y el martes es terça-feira, con terça, aunque el ordinal sea terceiro: es la única de la serie que cambia de forma. La semana empieza en domingo, así que segunda-feira es el lunes."
+},
+{
+  id:"presente", name:"As quatro pessoas do presente", pick:{topic:"presente"},
+  hook:"El español conjuga para seis personas. Esta clase usa cuatro. Mira la columna de la derecha y cuenta cuántas formas distintas tiene de verdad el verbo falar.",
+  pairs:[["Yo hablo portugués.","Eu falo português."],
+         ["Usted habla muy rápido.","Você fala muito rápido."],
+         ["Nosotros hablamos en clase.","Nós falamos na aula."],
+         ["Ellas hablan portugués.","Elas falam português."],
+         ["Yo como en casa.","Eu como em casa."],
+         ["Ella come temprano.","Ela come cedo."],
+         ["Nosotros comemos juntos.","Nós comemos juntos."],
+         ["Ustedes comen a la una.","Vocês comem à uma."],
+         ["Yo abro la puerta.","Eu abro a porta."],
+         ["Él abre la tienda.","Ele abre a loja."],
+         ["Nosotros abrimos a las nueve.","Nós abrimos às nove."],
+         ["Ellos abren mañana.","Eles abrem amanhã."]],
+  rule:"Cuatro casillas, no seis: eu, você/ele/ela, nós, vocês/eles/elas. En -ar las terminaciones son -o, -a, -amos, -am. En -er son -o, -e, -emos, -em. En -ir son -o, -e, -imos, -em. Lo único que separa -er de -ir es la casilla de nós: comemos contra abrimos.",
+  trap:"Você lleva la forma de ele y ela, nunca la del tú español: você fala, jamás você falas. La terminación -s de hablas, comes y abres no existe en esta clase."
+},
+{
+  id:"presente-irregulares", name:"Os irregulares que a aula pede", pick:{topic:"presente"},
+  hook:"Estos doce no siguen el patrón, y son justo los que más se usan. Recorre la columna portuguesa buscando la casilla de eu: en casi todos aparece una letra que las otras tres no tienen.",
+  pairs:[["ser","sou / é / somos / são"],
+         ["estar","estou / está / estamos / estão"],
+         ["tener","tenho / tem / temos / têm"],
+         ["ir","vou / vai / vamos / vão"],
+         ["ver","vejo / vê / vemos / veem"],
+         ["venir","venho / vem / vimos / vêm"],
+         ["poner","ponho / põe / pomos / põem"],
+         ["dar","dou / dá / damos / dão"],
+         ["decir","digo / diz / dizemos / dizem"],
+         ["poder","posso / pode / podemos / podem"],
+         ["traer","trago / traz / trazemos / trazem"],
+         ["hacer","faço / faz / fazemos / fazem"]],
+  rule:"La casilla de eu es la que se desvía: tenho, venho, ponho, vejo, digo, faço, posso, trago. Las otras tres suelen ser regulares a partir de ahí. Ser, estar e ir no se parecen a nada: hay que saberlas de memoria.",
+  trap:"Tem es uno y têm son varios; vem es uno y vêm son varios. Al hablar suenan casi igual y solo el acento circunflejo los separa por escrito. Y dá con acento es el verbo dar, mientras que da sin acento es de + a."
+},
+{
+  id:"preterito", name:"A ação que já terminou", pick:{topic:"preterito"},
+  hook:"Pretérito quiere decir pasado, pero ¿por qué perfeito? Existe el verbo perfazer: completar, concluir, llegar a su totalidad. Compara eu estudei con eu estudava. ¿Cuál de los dos suena acabado?",
+  pairs:[["Compré esta blusa la semana pasada.","Eu comprei esta blusa na semana passada."],
+         ["Ellos te esperaron dos horas.","Eles esperaram por você durante duas horas."],
+         ["¿Pediste un perro caliente?","Você pediu um cachorro-quente?"],
+         ["amar","amei / amou / amamos / amaram"],
+         ["comer","comi / comeu / comemos / comeram"],
+         ["abrir","abri / abriu / abrimos / abriram"]],
+  rule:"El radical se queda quieto y la terminación cambia. En -ar: -ei, -ou, -amos, -aram. En -er: -i, -eu, -emos, -eram. En -ir: -i, -iu, -imos, -iram. Fíjate en que la casilla de eu termina en -ei solo en los verbos en -ar; en los otros dos es una -i sola.",
+  trap:"La casilla de nós no cambia del presente al pasado: nós falamos, nós comemos y nós abrimos sirven para los dos. Nada en el verbo lo aclara, así que lo fija el resto de la frase: hoje nós falamos contra ontem nós falamos."
+},
+{
+  id:"preterito-irregulares", name:"Os irregulares do passado", pick:{topic:"preterito",tag:"pret-irreg"},
+  hook:"Estos cambian de radical entero al pasar al pasado: fazer se vuelve fiz, trazer se vuelve trouxe. Busca en la tabla las dos filas que comparten exactamente las mismas cuatro formas.",
+  pairs:[["estar","estive / esteve / estivemos / estiveram"],
+         ["tener","tive / teve / tivemos / tiveram"],
+         ["hacer","fiz / fez / fizemos / fizeram"],
+         ["decir","disse / disse / dissemos / disseram"],
+         ["poder","pude / pôde / pudemos / puderam"],
+         ["querer","quis / quis / quisemos / quiseram"],
+         ["saber","soube / soube / soubemos / souberam"],
+         ["traer","trouxe / trouxe / trouxemos / trouxeram"],
+         ["ver","vi / viu / vimos / viram"],
+         ["venir","vim / veio / viemos / vieram"],
+         ["dar","dei / deu / demos / deram"],
+         ["poner","pus / pôs / pusemos / puseram"],
+         ["ser y ir","fui / foi / fomos / foram"]],
+  rule:"Casi todos cargan un radical nuevo que se repite en las cuatro casillas: estiv-, tiv-, fiz-, diss-, pud-, quis-, soub-, troux-, pus-. Dizer, querer, saber y trazer además dejan la casilla de eu y la de ele idénticas: disse y disse, quis y quis.",
+  trap:"Ser e ir comparten las cuatro formas: fui, foi, fomos, foram. Eu fui ao banco es ir, y eu fui professor es ser. Solo lo que viene detrás lo decide: un lugar pide ir, una cualidad pide ser."
+},
+{
+  id:"continuo", name:"Estar mais o gerúndio", pick:{topic:"continuo"},
+  hook:"El español también dice estoy comiendo, así que la estructura ya la tienes. Mira la columna portuguesa: ¿qué letra pierde el infinitivo, y qué se le pega en su lugar?",
+  pairs:[["Estoy componiendo una canción.","Eu estou compondo uma música."],
+         ["¿Dónde estás viviendo?","Onde você está morando?"],
+         ["¿Qué está haciendo ella?","O que ela está fazendo?"],
+         ["Vamos yendo a casa, ya es tarde.","Estamos indo para casa, já é tarde."],
+         ["amar","amando"],
+         ["vender","vendendo"],
+         ["partir","partindo"],
+         ["poner","pondo"],
+         ["ir","indo"]],
+  rule:"Presente de estar más el verbo principal sin su -r final más -ndo. Vale igual para las cuatro terminaciones: amar da amando, vender da vendendo, partir da partindo, compor da compondo. Los dos cortos caen en lo mismo: pôr da pondo, ir da indo.",
+  trap:"Estar tiene que concordar con el sujeto, y el gerundio no cambia nunca: eu estou falando, nós estamos falando, eles estão falando. Es la mitad que se olvida, porque en español la carga la misma palabra."
+},
+{
+  id:"continuo-endo", name:"Comendo, nunca comiendo", pick:{topic:"continuo",tag:"ger-endo"},
+  hook:"Ocho gerundios del español junto a los del portugués. Léelos en voz alta por parejas. Hay una letra que el español pone siempre y el portugués solo a veces.",
+  pairs:[["comiendo","comendo"],
+         ["bebiendo","bebendo"],
+         ["viviendo","vivendo"],
+         ["vendiendo","vendendo"],
+         ["aprendiendo","aprendendo"],
+         ["partiendo","partindo"],
+         ["durmiendo","dormindo"],
+         ["pidiendo","pedindo"]],
+  rule:"Los verbos en -er hacen -endo, sin i: comendo, bebendo, vendendo, aprendendo. Los verbos en -ir hacen -indo, con i: partindo, dormindo, pedindo. El español pone -iendo en los dos grupos, y de ahí sale el error.",
+  trap:"El radical tampoco se mueve. Dormir da dormindo, no durmindo; pedir da pedindo, no pidindo. El español cambia esa vocal y el portugués la deja tal cual."
+},
+{
+  id:"futuroim", name:"Ir mais o infinitivo", pick:{topic:"futuroim"},
+  hook:"El español dice voy a comer. El portugués usa el mismo verbo ir y el mismo infinitivo. Compara las cuatro parejas palabra por palabra: hay una del español que no aparece ni una vez.",
+  pairs:[["Voy a almorzar al mediodía.","Eu vou almoçar ao meio-dia."],
+         ["Ella va a llegar en cualquier momento.","Ela vai chegar a qualquer momento."],
+         ["Vamos a viajar este fin de semana.","Nós vamos viajar neste final de semana."],
+         ["Ellos van a bailar esta noche.","Eles vão dançar esta noite."]],
+  rule:"Presente de ir más el infinitivo, pegados: vou, vai, vamos, vão. El verbo principal no se toca. Es la manera normal de hablar del futuro en Brasil, mucho más que el futuro en -arei.",
+  trap:"Eu vou ir à igreja no se dice: vou ya es el verbo ir, así que sobra. Basta eu vou à igreja. El español sí admite voy a ir, y de ahí viene la copia."
+},
+{
+  id:"futuroim-a", name:"O a que sobra", pick:{topic:"futuroim",tag:"vou-a"},
+  hook:"Cuatro frases cortas y su traducción. Cuenta las palabras de cada lado. ¿Por qué el portugués siempre tiene una menos?",
+  pairs:[["Voy a comer.","Vou comer."],
+         ["Vas a ver.","Você vai ver."],
+         ["Vamos a estudiar.","Vamos estudar."],
+         ["Van a dormir.","Vão dormir."]],
+  rule:"Entre ir y el infinitivo no va ninguna preposición. Vou comer, vai ver, vamos estudar, vão dormir. El español necesita esa a y el portugués la rechaza.",
+  trap:"Es el desliz que más delata a un hispanohablante, porque se cuela sola al hablar rápido y la frase sigue entendiéndose. Si te oyes decir vou a comer, lo único que falta es borrar la a."
+},
+{
+  id:"voce-2p", name:"Você não é tu", pick:{tag:"voce-2p"},
+  hook:"Cuatro frases con você. En español las dirías con tú, y el verbo llevaría una -s al final. Busca esa -s en la columna portuguesa.",
+  pairs:[["Tú hablas muy bien.","Você fala muito bem."],
+         ["¿Tú comes carne?","Você come carne?"],
+         ["Tú fuiste al banco.","Você foi ao banco."],
+         ["¿Tú estás estudiando?","Você está estudando?"],
+         ["Tú vas a viajar.","Você vai viajar."]],
+  rule:"Você es de tercera persona por dentro, aunque signifique tú: lleva exactamente la forma de ele y de ela. Fala, come, foi, está, vai. La -s del español se queda fuera.",
+  trap:"Pasa en todos los tiempos a la vez, y por eso reaparece: você falas, você comes, você vais, você estás y você tens son todos el mismo error. A gente funciona igual: a gente fala, a gente foi."
 }
 ];
 function lessonById(id){
@@ -1231,7 +1367,56 @@ var B = [
 {id:"num-20",t:"numeros",k:"w",q:"Escríbelo en portugués: el número 15",g:"",a:"quinze",h:"Está entre catorze y dezesseis. ¿Cómo se escribe?",e:"15 = quinze.",w:[]},
 {id:"num-21",t:"numeros",k:"mc",q:"O ordinal de 3 é:",g:"",c:["terceiro","tercero","treceiro","terço"],a:"terceiro",h:"¿Cómo dirías el tercer piso en portugués: o ___ andar?",e:"3º = terceiro. Concuerda como un adjetivo: o terceiro andar, a terceira vez.",w:[]},
 {id:"num-22",t:"numeros",k:"mc",q:"O ordinal de 9 é:",g:"",c:["nono","noveno","novo","nonavo"],a:"nono",h:"En español es noveno. ¿El portugués lo alarga o lo acorta?",e:"9º = nono, nunca noveno.",w:[]},
-{id:"num-23",t:"numeros",k:"mc",q:"Os dias da semana vêm dos ordinais. A terça-feira corresponde a:",g:"",c:["terceiro","segundo","quarto","primeiro"],a:"terceiro",h:"Si la semana empieza en domingo, ¿qué lugar ocupa el martes?",e:"Terça-feira es el martes, el tercer día: sale de terceiro, aunque se diga terça.",w:[]}
+{id:"num-23",t:"numeros",k:"mc",q:"Os dias da semana vêm dos ordinais. A terça-feira corresponde a:",g:"",c:["terceiro","segundo","quarto","primeiro"],a:"terceiro",h:"Si la semana empieza en domingo, ¿qué lugar ocupa el martes?",e:"Terça-feira es el martes, el tercer día: sale de terceiro, aunque se diga terça.",w:[]},
+{id:"pres-0",t:"presente",k:"mc",q:"Eu ___ português todos os dias.",g:"Yo hablo portugués todos los días.",c:["falo","fala","falas","falamos"],a:"falo",h:"¿Qué terminación le toca a eu en los verbos en -ar?",e:"Eu falo. La casilla de eu termina en -o en las tres conjugaciones.",w:[]},
+{id:"pres-1",t:"presente",k:"mc",q:"Você ___ muito rápido.",g:"Tú hablas muy rápido.",c:["fala","falas","falo","falam"],a:"fala",h:"El español pone una -s en hablas. ¿De qué persona es você por dentro?",e:"Você es tercera persona: fala, igual que ele y ela. Falas no existe en esta clase.",w:["voce-2p"]},
+{id:"pres-2",t:"presente",k:"mc",q:"Nós ___ às nove.",g:"Nosotros abrimos a las nueve.",c:["abrimos","abremos","abrem","abro"],a:"abrimos",h:"Abrir es de la tercera conjugación. ¿Nós lleva -emos o -imos?",e:"Los verbos en -ir hacen -imos: nós abrimos. Los en -er hacen -emos: nós comemos.",w:[]},
+{id:"pres-3",t:"presente",k:"mc",q:"Vocês ___ cedo.",g:"Ustedes comen temprano.",c:["comem","comam","come","comeis"],a:"comem",h:"¿Cuál es la casilla de vocês en los verbos en -er?",e:"Vocês comem. En -er y en -ir el plural termina en -em.",w:[]},
+{id:"pres-4",t:"presente",k:"mc",q:"Ele ___ a loja às oito.",g:"Él abre la tienda a las ocho.",c:["abre","abri","abra","abrem"],a:"abre",h:"¿Qué terminación llevan ele y ela en los verbos en -ir?",e:"Ele abre. En -er y en -ir la tercera persona del singular termina en -e.",w:[]},
+{id:"pres-5",t:"presente",k:"mc",q:"Eles ___ muito dinheiro.",g:"Ellos tienen mucho dinero.",c:["têm","tem","teem","tenho"],a:"têm",h:"El sujeto es plural. ¿Qué distingue por escrito la forma de uno de la de varios?",e:"Ele tem, eles têm. El acento circunflejo es lo único que los separa.",w:[]},
+{id:"pres-6",t:"presente",k:"mc",q:"Eu ___ tudo em seu lugar.",g:"Yo pongo todo en su lugar.",c:["ponho","pono","põe","pomos"],a:"ponho",h:"Pôr es irregular. ¿Oyes una n en la casilla de eu?",e:"Eu ponho. Después: você põe, nós pomos, eles põem.",w:[]},
+{id:"pres-7",t:"presente",k:"mc",q:"Você ___ certeza do que está fazendo?",g:"¿Tienes la certeza de lo que estás haciendo?",c:["tem","têm","tens","tenho"],a:"tem",h:"¿Você va con la forma de uno o con la de varios?",e:"Você tem, sin -s y sin acento. Tens pertenece a un tú que esta clase no usa.",w:["voce-2p"]},
+{id:"pres-8",t:"presente",k:"mc",q:"Felipe ___ aulas de francês.",g:"Felipe da clases de francés.",c:["dá","da","dou","dão"],a:"dá",h:"Una de las dos lleva acento. ¿Cuál de ellas es el verbo?",e:"Dá con acento es el verbo dar. Da sin acento es de + a.",w:[]},
+{id:"pres-9",t:"presente",k:"mc",q:"Maria nunca ___ a verdade.",g:"María nunca dice la verdad.",c:["diz","dize","digo","dizem"],a:"diz",h:"¿Cómo queda dizer en la tercera persona del singular?",e:"Eu digo, você diz, nós dizemos, eles dizem.",w:[]},
+{id:"pres-10",t:"presente",k:"mc",q:"Nós ___ alemão agora.",g:"Nosotros estudiamos alemán ahora.",c:["estudamos","estudemos","estudam","estudo"],a:"estudamos",h:"¿Qué casilla de nós piden los verbos en -ar?",e:"Nós estudamos. Esa misma forma vale para el pasado, así que agora es lo que la fija en el presente.",w:[]},
+{id:"pres-11",t:"presente",k:"w",q:"Escríbelo en portugués: “Yo veo bien.”",g:"",a:"eu vejo bem",alt:["vejo bem"],h:"¿Le aparece alguna letra nueva a ver en la casilla de eu?",e:"Eu vejo bem. Después: você vê, nós vemos, eles veem.",w:[]},
+{id:"pres-12",t:"presente",k:"w",q:"Escríbelo en portugués: “Ustedes pueden hacer el trabajo.”",g:"",a:"vocês podem fazer o trabalho",alt:["podem fazer o trabalho"],h:"¿Cuál es la casilla de vocês en poder?",e:"Vocês podem fazer o trabalho.",w:[]},
+{id:"pret-0",t:"preterito",k:"mc",q:"Eu ___ esta blusa na semana passada.",g:"Compré esta blusa la semana pasada.",c:["comprei","comprou","comprava","compro"],a:"comprei",h:"¿Qué terminación lleva eu en el pasado de los verbos en -ar?",e:"Eu comprei. En -ar el pasado va -ei, -ou, -amos, -aram.",w:[]},
+{id:"pret-1",t:"preterito",k:"mc",q:"Eles ___ por você durante duas horas.",g:"Ellos te esperaron dos horas.",c:["esperaram","esperam","esperavam","esperou"],a:"esperaram",h:"El sujeto es plural y la acción ya acabó. ¿Qué terminación junta las dos cosas?",e:"Eles esperaram. El plural del pasado en -ar es -aram; -am sin r sería el presente.",w:[]},
+{id:"pret-2",t:"preterito",k:"mc",q:"Você ___ um cachorro-quente?",g:"¿Pediste un perro caliente?",c:["pediu","pediste","pedia","pedi"],a:"pediu",h:"Pedir es de la tercera conjugación. ¿Qué lleva você en el pasado?",e:"Você pediu. En -ir el pasado va -i, -iu, -imos, -iram.",w:["voce-2p"]},
+{id:"pret-3",t:"preterito",k:"mc",q:"Eu ___ uma comida muito gostosa.",g:"Hice una comida muy rica.",c:["fiz","fez","fazia","fazi"],a:"fiz",h:"Fazer cambia de radical en el pasado. ¿Qué forma corta le queda a eu?",e:"Eu fiz, você fez, nós fizemos, eles fizeram.",w:["pret-irreg"]},
+{id:"pret-4",t:"preterito",k:"mc",q:"A Rainha da Inglaterra ___ no Brasil em 1968.",g:"La Reina de Inglaterra estuvo en Brasil en 1968.",c:["esteve","estive","estava","estou"],a:"esteve",h:"El sujeto es ella, no yo. ¿Cuál de las dos formas parecidas le toca?",e:"Eu estive, ela esteve. Se parecen mucho y se cambian una por otra sin darse cuenta.",w:["pret-irreg"]},
+{id:"pret-5",t:"preterito",k:"mc",q:"Eles me ___ tudo que aconteceu.",g:"Ellos me dijeron todo lo que pasó.",c:["disseram","diziam","dizeram","disse"],a:"disseram",h:"¿Cuál es el radical de dizer en el pasado?",e:"Disse, disse, dissemos, disseram. El radical pasa a diss- con doble s.",w:["pret-irreg"]},
+{id:"pret-6",t:"preterito",k:"mc",q:"Elas ___ todo o dinheiro no cofre.",g:"Ellas pusieron todo el dinero en la caja fuerte.",c:["puseram","punham","ponharam","pôs"],a:"puseram",h:"Pôr hace pus en la casilla de eu. ¿Cómo sigue en plural?",e:"Pus, pôs, pusemos, puseram.",w:["pret-irreg"]},
+{id:"pret-7",t:"preterito",k:"mc",q:"No fim de semana passado nós ___ feijoada.",g:"El fin de semana pasado hicimos feijoada.",c:["fizemos","fazemos","faziamos","fizeram"],a:"fizemos",h:"¿El radical del pasado de fazer es faz- o fiz-?",e:"Nós fizemos. El radical es fiz- en todo el pasado menos en fez.",w:["pret-irreg"]},
+{id:"pret-8",t:"preterito",k:"mc",q:"Anteontem eu ___ ao banco.",g:"Anteayer fui al banco.",c:["fui","foi","ia","vou"],a:"fui",h:"¿Qué forma de ir le toca a eu en el pasado?",e:"Eu fui, você foi, nós fomos, eles foram. Son las mismas de ser.",w:["pret-irreg"]},
+{id:"pret-9",t:"preterito",k:"mc",q:"Elas ___ amigas de escola.",g:"Ellas fueron amigas de la escuela.",c:["foram","foi","eram","seram"],a:"foram",h:"Aquí el verbo es ser, no ir. ¿Cambia eso la forma?",e:"No cambia nada: ser e ir comparten fui, foi, fomos, foram.",w:["pret-irreg"]},
+{id:"pret-10",t:"preterito",k:"mc",q:"Em qual destas frases fui é o verbo ir?",g:"",c:["Eu fui ao Recife.","Eu fui professor.","Eu fui o primeiro.","Eu fui simpático."],a:"Eu fui ao Recife.",h:"Las cuatro empiezan igual. ¿Cuál de ellas lleva un destino detrás?",e:"Fui es ser y es ir a la vez. Lo que sigue decide: un lugar pide ir, una cualidad pide ser.",w:["pret-irreg"]},
+{id:"pret-11",t:"preterito",k:"mc",q:"Ontem nós ___ muitos sapatos.",g:"Ayer compramos muchos zapatos.",c:["compramos","comprávamos","compraram","compraremos"],a:"compramos",h:"¿Cambia la casilla de nós del presente al pasado en los verbos en -ar?",e:"No cambia: nós compramos vale para los dos. Ontem es lo único que lo pone en el pasado.",w:[]},
+{id:"pret-12",t:"preterito",k:"w",q:"Escríbelo en portugués: “Yo supe la verdad por el periódico.”",g:"",a:"eu soube a verdade pelo jornal",alt:["soube a verdade pelo jornal"],h:"Saber cambia de radical en el pasado. ¿Qué forma toma con eu?",e:"Eu soube a verdade pelo jornal.",w:["pret-irreg"]},
+{id:"pret-13",t:"preterito",k:"w",q:"Escríbelo en portugués: “Ellos trajeron todas las bebidas.”",g:"",a:"eles trouxeram todas as bebidas",alt:["trouxeram todas as bebidas"],h:"Trazer cambia de radical. ¿Con qué letra se escribe ese sonido?",e:"Eles trouxeram. Va con x: trouxe, trouxemos, trouxeram.",w:["pret-irreg"]},
+{id:"cont-0",t:"continuo",k:"mc",q:"Agora a Ana ___ o ônibus na rodoviária.",g:"Ahora Ana está esperando el autobús en la terminal.",c:["está esperando","está a esperar","está esperado","estão esperando"],a:"está esperando",h:"¿Qué le quitas al infinitivo esperar, y qué le pegas después?",e:"Esperar sin la r más -ndo da esperando. En Brasil se dice está esperando, no está a esperar.",w:[]},
+{id:"cont-1",t:"continuo",k:"mc",q:"Eu estou ___ uma nova música.",g:"Estoy componiendo una canción nueva.",c:["compondo","componendo","componiendo","compoendo"],a:"compondo",h:"Compor termina en -or. ¿Qué queda al quitarle la r?",e:"Compo más -ndo da compondo. Pôr hace lo mismo: pondo.",w:[]},
+{id:"cont-2",t:"continuo",k:"mc",q:"Nós estamos ___ para casa, já é tarde.",g:"Vamos yendo a casa, ya es tarde.",c:["indo","iendo","vindo","ido"],a:"indo",h:"Ir es un infinitivo de dos letras. ¿Qué queda al quitarle la r?",e:"I más -ndo da indo. No lo confundas con vindo, que es el de vir.",w:[]},
+{id:"cont-3",t:"continuo",k:"mc",q:"Os meninos estão ___ vitamina de abacate.",g:"Los niños están tomando un licuado de aguacate.",c:["bebendo","bebiendo","bebindo","bebido"],a:"bebendo",h:"Beber es de la segunda conjugación. ¿Lleva i el gerundio?",e:"Beber da bebendo. Los verbos en -er no llevan esa i; el español sí la pone.",w:["ger-endo"]},
+{id:"cont-4",t:"continuo",k:"mc",q:"Agora nós estamos ___ a pizza que preparamos.",g:"Ahora estamos comiendo la pizza que preparamos.",c:["comendo","comiendo","comindo","comido"],a:"comendo",h:"El español dice comiendo. ¿Qué letra sobra al pasarlo?",e:"Comer da comendo, sin i.",w:["ger-endo"]},
+{id:"cont-5",t:"continuo",k:"mc",q:"Os estrangeiros estão ___ na praia de Copacabana.",g:"Los extranjeros están nadando en la playa de Copacabana.",c:["nadando","nadendo","nadindo","nadado"],a:"nadando",h:"¿Qué vocal conserva el gerundio de un verbo en -ar?",e:"Nadar da nadando. Los verbos en -ar hacen -ando, igual que el español.",w:[]},
+{id:"cont-6",t:"continuo",k:"mc",q:"Ela está ___ até tarde.",g:"Ella está durmiendo hasta tarde.",c:["dormindo","durmindo","dormiendo","dormendo"],a:"dormindo",h:"El español cambia la o por u en durmiendo. ¿El portugués mueve también esa vocal?",e:"Dormir da dormindo. El radical se queda igual, y la terminación de -ir es -indo.",w:["ger-endo"]},
+{id:"cont-7",t:"continuo",k:"mc",q:"O que ela está ___?",g:"¿Qué está haciendo?",c:["fazendo","faziendo","fazindo","feito"],a:"fazendo",h:"Fazer es de la segunda conjugación. ¿Qué terminación le toca?",e:"Fazer da fazendo.",w:["ger-endo"]},
+{id:"cont-8",t:"continuo",k:"mc",q:"Onde você está ___?",g:"¿Dónde estás viviendo?",c:["morando","morendo","morindo","morado"],a:"morando",h:"Morar es de la primera conjugación. ¿Con qué vocal sigue el gerundio?",e:"Morar da morando. Onde você está morando?",w:[]},
+{id:"cont-9",t:"continuo",k:"mc",q:"Qual é o presente contínuo de partir, com ele?",g:"",c:["está partindo","está partendo","está partiendo","está partido"],a:"está partindo",h:"¿Los verbos en -ir hacen -endo o -indo?",e:"Partir da partindo. En -ir el gerundio conserva la i.",w:["ger-endo"]},
+{id:"cont-10",t:"continuo",k:"w",q:"Escríbelo en portugués: “Ellas están conversando en la plaza.”",g:"",a:"elas estão conversando na praça",alt:["estão conversando na praça"],h:"¿Qué forma de estar le toca a elas, y cómo queda el gerundio?",e:"Elas estão conversando na praça. Estar concuerda y el gerundio no cambia.",w:[]},
+{id:"fut-0",t:"futuroim",k:"mc",q:"Eu ___ almoçar ao meio-dia.",g:"Voy a almorzar al mediodía.",c:["vou","vou a","vai","vamos"],a:"vou",h:"El español mete una palabra entre voy y almorzar. ¿El portugués también?",e:"Eu vou almoçar, sin nada en medio.",w:["vou-a"]},
+{id:"fut-1",t:"futuroim",k:"mc",q:"Ela ___ chegar a qualquer momento.",g:"Ella va a llegar en cualquier momento.",c:["vai","vai a","vou","vão"],a:"vai",h:"¿Qué forma de ir le toca a ela, y lleva algo detrás?",e:"Ela vai chegar. Nada entre vai y el infinitivo.",w:["vou-a"]},
+{id:"fut-2",t:"futuroim",k:"mc",q:"Nós ___ viajar neste final de semana.",g:"Vamos a viajar este fin de semana.",c:["vamos","vamos a","vão","vai"],a:"vamos",h:"El español dice vamos a viajar. ¿Qué sobra al pasarlo?",e:"Nós vamos viajar.",w:["vou-a"]},
+{id:"fut-3",t:"futuroim",k:"mc",q:"Eles ___ dançar esta noite.",g:"Ellos van a bailar esta noche.",c:["vão","vão a","vai","vamos"],a:"vão",h:"¿Cuál es la casilla de eles en el verbo ir?",e:"Eles vão dançar.",w:["vou-a"]},
+{id:"fut-4",t:"futuroim",k:"mc",q:"Qual destas frases está correta?",g:"",c:["Eu vou à igreja.","Eu vou ir à igreja.","Eu vou de ir à igreja.","Eu vou a ir à igreja."],a:"Eu vou à igreja.",h:"Vou ya es el verbo ir. ¿Hace falta decirlo dos veces?",e:"Eu vou ir es una redundancia: vou ya es ir. Basta eu vou à igreja.",w:[]},
+{id:"fut-5",t:"futuroim",k:"mc",q:"Você ___ o café da manhã agora?",g:"¿Vas a tomar el desayuno ahora?",c:["vai tomar","vai a tomar","vais tomar","vão tomar"],a:"vai tomar",h:"Dos cosas que resolver: la casilla de você, y si cabe algo entre los dos verbos.",e:"Você vai tomar. Sin -s y sin a.",w:["voce-2p","vou-a"]},
+{id:"fut-6",t:"futuroim",k:"mc",q:"Meu filho ___ uma prova muito difícil.",g:"Mi hijo va a hacer un examen muy difícil.",c:["vai fazer","vai a fazer","vão fazer","vai fazendo"],a:"vai fazer",h:"¿Qué va justo después de vai: un infinitivo o un gerundio?",e:"Vai fazer. El futuro inmediato pide el infinitivo tal cual.",w:[]},
+{id:"fut-7",t:"futuroim",k:"mc",q:"Minha mãe ___ feijoada para nós.",g:"Mi mamá va a cocinar feijoada para nosotros.",c:["vai cozinhar","vai a cozinhar","vai cozinhando","vão cozinhar"],a:"vai cozinhar",h:"¿El verbo principal se queda en infinitivo o cambia de forma?",e:"Vai cozinhar, el infinitivo sin tocarlo.",w:[]},
+{id:"fut-8",t:"futuroim",k:"mc",q:"Meus netos ___ para as férias.",g:"Mis nietos van a venir para las vacaciones.",c:["vão vir","vão venir","vai vir","vão vindo"],a:"vão vir",h:"El sujeto es plural. ¿Y el segundo verbo se queda en infinitivo?",e:"Meus netos vão vir. Vir no se transforma.",w:[]},
+{id:"fut-9",t:"futuroim",k:"mc",q:"Amanhã nós ___ para o Pantanal.",g:"Mañana vamos al Pantanal.",c:["vamos","vamos ir","vamos a","vão"],a:"vamos",h:"El destino ya está en la frase. ¿Hace falta repetir el verbo ir?",e:"Nós vamos para o Pantanal. Vamos ir sería decirlo dos veces.",w:[]},
+{id:"fut-10",t:"futuroim",k:"w",q:"Escríbelo en portugués: “Yo voy a estudiar portugués en Brasil.”",g:"",a:"eu vou estudar português no brasil",alt:["vou estudar português no brasil"],h:"¿Qué palabra del español desaparece entre los dos verbos?",e:"Eu vou estudar português no Brasil.",w:["vou-a"]}
 ];
 
 /* Ids are written into each item by hand and must never change: progress is
@@ -1470,6 +1655,88 @@ function others(set, ans, n){
   return out;
 }
 
+/* ---- slots for the tense makers ----
+   A person carries two indexes: one into the four Portuguese slots, one into
+   the five Spanish ones. Spanish still separates tú from él, so Você and Ele
+   share a Portuguese form while taking different Spanish ones — which is the
+   contrast the você items are about. Drawing one index would re-create the
+   "Eu ___ cansado / Está cansado" mismatch. */
+var VPES = [
+  ["Eu","Yo",0,0], ["Você","Tú",1,1], ["Ele","Él",1,2], ["Ela","Ella",1,2],
+  ["Nós","Nosotros",2,3], ["Vocês","Ustedes",3,4], ["Eles","Ellos",3,4],
+  ["Elas","Ellas",3,4]
+];
+
+/* [infinitive, four Portuguese forms, five Spanish forms, complement, its gloss] */
+var VPRES = [
+  ["falar",["falo","fala","falamos","falam"],["hablo","hablas","habla","hablamos","hablan"],"português","portugués"],
+  ["estudar",["estudo","estuda","estudamos","estudam"],["estudio","estudias","estudia","estudiamos","estudian"],"na aula","en clase"],
+  ["trabalhar",["trabalho","trabalha","trabalhamos","trabalham"],["trabajo","trabajas","trabaja","trabajamos","trabajan"],"muito","mucho"],
+  ["comer",["como","come","comemos","comem"],["como","comes","come","comemos","comen"],"em casa","en casa"],
+  ["aprender",["aprendo","aprende","aprendemos","aprendem"],["aprendo","aprendes","aprende","aprendemos","aprenden"],"rápido","rápido"],
+  ["vender",["vendo","vende","vendemos","vendem"],["vendo","vendes","vende","vendemos","venden"],"frutas","frutas"],
+  ["abrir",["abro","abre","abrimos","abrem"],["abro","abres","abre","abrimos","abren"],"a loja","la tienda"],
+  ["partir",["parto","parte","partimos","partem"],["parto","partes","parte","partimos","parten"],"amanhã","mañana"],
+  ["dividir",["divido","divide","dividimos","dividem"],["divido","divides","divide","dividimos","dividen"],"o aluguel","el alquiler"]
+];
+
+var VPRET = [
+  ["comprar",["comprei","comprou","compramos","compraram"],["compré","compraste","compró","compramos","compraron"],"uma blusa","una blusa"],
+  ["estudar",["estudei","estudou","estudamos","estudaram"],["estudié","estudiaste","estudió","estudiamos","estudiaron"],"na escola","en la escuela"],
+  ["falar",["falei","falou","falamos","falaram"],["hablé","hablaste","habló","hablamos","hablaron"],"com ele","con él"],
+  ["comer",["comi","comeu","comemos","comeram"],["comí","comiste","comió","comimos","comieron"],"tudo","todo"],
+  ["aprender",["aprendi","aprendeu","aprendemos","aprenderam"],["aprendí","aprendiste","aprendió","aprendimos","aprendieron"],"muito","mucho"],
+  ["vender",["vendi","vendeu","vendemos","venderam"],["vendí","vendiste","vendió","vendimos","vendieron"],"o carro","el carro"],
+  ["abrir",["abri","abriu","abrimos","abriram"],["abrí","abriste","abrió","abrimos","abrieron"],"a porta","la puerta"],
+  ["partir",["parti","partiu","partimos","partiram"],["partí","partiste","partió","partimos","partieron"],"cedo","temprano"],
+  ["dividir",["dividi","dividiu","dividimos","dividiram"],["dividí","dividiste","dividió","dividimos","dividieron"],"a conta","la cuenta"]
+];
+
+var PASSADO = [["Ontem","Ayer"],["Anteontem","Anteayer"],
+               ["Na semana passada","La semana pasada"],["No ano passado","El año pasado"]];
+
+/* [infinitive, gerund, three wrong gerunds, complement, its gloss, Spanish gerund] */
+var VGER = [
+  ["falar","falando","falendo","falindo","falado","com ela","con ella","hablando"],
+  ["estudar","estudando","estudendo","estudindo","estudado","português","portugués","estudiando"],
+  ["comer","comendo","comiendo","comindo","comido","em casa","en casa","comiendo"],
+  ["beber","bebendo","bebiendo","bebindo","bebido","suco","jugo","bebiendo"],
+  ["vender","vendendo","vendiendo","vendindo","vendido","pipocas","palomitas","vendiendo"],
+  ["aprender","aprendendo","aprendiendo","aprendindo","aprendido","muito","mucho","aprendiendo"],
+  ["partir","partindo","partiendo","partendo","partido","agora","ahora","partiendo"],
+  ["dormir","dormindo","durmindo","dormiendo","dormido","até tarde","hasta tarde","durmiendo"],
+  ["pôr","pondo","ponendo","poendo","posto","a mesa","la mesa","poniendo"],
+  ["ir","indo","iendo","vindo","ido","para casa","a casa","yendo"]
+];
+
+var ESTARP = ["estou","está","estamos","estão"];
+var ESTARS = ["estoy","estás","está","estamos","están"];
+var IRP = ["vou","vai","vamos","vão"];
+var IRS = ["voy a","vas a","va a","vamos a","van a"];
+
+var VFUT = [
+  ["almoçar","almorzar","ao meio-dia","al mediodía"],
+  ["viajar","viajar","no fim de semana","el fin de semana"],
+  ["estudar","estudiar","português","portugués"],
+  ["comprar","comprar","um livro","un libro"],
+  ["dançar","bailar","esta noite","esta noche"],
+  ["comer","comer","no restaurante","en el restaurante"],
+  ["vender","vender","o carro","el carro"],
+  ["escrever","escribir","uma carta","una carta"],
+  ["dormir","dormir","mais tarde","más tarde"],
+  ["trabalhar","trabajar","amanhã","mañana"]
+];
+
+/* the gerundio note follows from the infinitive's own ending */
+function gerNote(inf){
+  var cls = inf.slice(-2);
+  if(cls === "ar") return "Los verbos en -ar hacen -ando.";
+  if(cls === "er") return "Los verbos en -er hacen -endo, sin la i del español.";
+  if(cls === "ir") return "Los verbos en -ir hacen -indo.";
+  return "Los verbos en -or hacen -ondo.";
+}
+function lowerFirst(s){ return s.charAt(0).toLowerCase() + s.slice(1); }
+
 var GEN = [
 { id:"g-gostar-pessoa", t:"gostar", w:["p1sg"], make:function(){
   var s = Math.random() < .45 ? GOSTAR[0] : r(GOSTAR), n = r(NOUNS);
@@ -1643,6 +1910,45 @@ var GEN = [
       ? "Es un número compuesto. ¿Qué va entre la decena y la unidad en portugués?"
       : "¿Cómo suena ese número al contar en voz alta en portugués?",
     e:C[0] + " = " + C[1] + "."};
+}},
+{ id:"g-presente", t:"presente", w:[], make:function(){
+  var p = r(VPES), v = r(VPRES);
+  return {q:p[0]+" ___ "+v[3]+".", g:p[1]+" "+v[2][p[3]]+" "+v[4]+".",
+    c:v[1].slice(), a:v[1][p[2]],
+    h:"¿Qué casilla de "+v[0]+" le toca a "+p[0]+"?",
+    e:p[0]+" "+v[1][p[2]]+" "+v[3]+". En -"+v[0].slice(-2)+": "+v[1].join(", ")+"."};
+}},
+{ id:"g-preterito", t:"preterito", w:[], make:function(){
+  var p = r(VPES), v = r(VPRET), m = r(PASSADO);
+  return {q:m[0]+" "+lowerFirst(p[0])+" ___ "+v[3]+".",
+    g:m[1]+" "+lowerFirst(p[1])+" "+v[2][p[3]]+" "+v[4]+".",
+    c:v[1].slice(), a:v[1][p[2]],
+    h:"La acción ya terminó. ¿Qué casilla del pasado de "+v[0]+" le toca a "+lowerFirst(p[0])+"?",
+    e:p[0]+" "+v[1][p[2]]+" "+v[3]+". En -"+v[0].slice(-2)+": "+v[1].join(", ")+"."};
+}},
+{ id:"g-continuo", t:"continuo", w:["ger-endo"], make:function(){
+  var p = r(VPES), v = r(VGER);
+  return {q:p[0]+" "+ESTARP[p[2]]+" ___ "+v[5]+".",
+    g:p[1]+" "+ESTARS[p[3]]+" "+v[7]+" "+v[6]+".",
+    c:[v[1],v[2],v[3],v[4]], a:v[1],
+    h:"¿Qué le quitas a "+v[0]+" y qué le pegas para armar el gerundio?",
+    e:v[0]+" da "+v[1]+". "+gerNote(v[0])};
+}},
+{ id:"g-futuroim", t:"futuroim", w:[], make:function(){
+  var p = r(VPES), v = r(VFUT);
+  return {q:p[0]+" ___ "+v[0]+" "+v[2]+".",
+    g:p[1]+" "+IRS[p[3]]+" "+v[1]+" "+v[3]+".",
+    c:IRP.slice(), a:IRP[p[2]],
+    h:"¿Qué forma del verbo ir le toca a "+p[0]+"?",
+    e:p[0]+" "+IRP[p[2]]+" "+v[0]+". Entre ir y el infinitivo no va nada."};
+}},
+{ id:"g-futuroim-a", t:"futuroim", w:["vou-a"], make:function(){
+  var p = r(VPES), v = r(VFUT);
+  return {q:p[0]+" "+IRP[p[2]]+" ___ "+v[0]+" "+v[2]+".",
+    g:p[1]+" "+IRS[p[3]]+" "+v[1]+" "+v[3]+".",
+    c:["(nada)","a","de","para"], a:"(nada)",
+    h:"El español dice "+IRS[p[3]]+" "+v[1]+". ¿Sobrevive esa a al pasar al portugués?",
+    e:p[0]+" "+IRP[p[2]]+" "+v[0]+", sin ninguna preposición en medio."};
 }}
 ];
 GEN.forEach(function(g){ g.k = "mc"; });
@@ -1866,7 +2172,8 @@ function fit(L, x){
    ever lost if I forget to file it. */
 var CATS = [
   {id:"verbos",   name:"Verbos",
-   topics:["gostar","estarcom","serestar","nosagente"]},
+   topics:["gostar","estarcom","serestar","nosagente",
+           "presente","preterito","continuo","futuroim"]},
   {id:"palavras", name:"Palavras pequenas",
    topics:["interrog","artigos","prep","possessivos","paises"]},
   {id:"som",      name:"Som e letras",
