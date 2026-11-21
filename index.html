@@ -2783,11 +2783,11 @@ var VERBS = [
 ];
 
 var VGRUPOS = [
-  {id:"reg", name:"Regulares",
+  {id:"reg", name:"Regulares", one:"regular",
    desc:"Las terminaciones de su clase, sin una sola sorpresa. Aprendido uno, están aprendidos todos los de su grupo."},
-  {id:"semi", name:"Semirregulares",
+  {id:"semi", name:"Semirregulares", one:"semirregular",
    desc:"Las terminaciones se cumplen. Lo que se mueve es una letra, para que el sonido no cambie, o la vocal del radical en una casilla sola."},
-  {id:"irreg", name:"Irregulares",
+  {id:"irreg", name:"Irregulares", one:"irregular",
    desc:"No hay regla que los alcance: son los que la clase dictó uno por uno, y justo los que más se usan."}
 ];
 
@@ -3927,8 +3927,8 @@ function verbo(name){
             + '<span class="chip">' + vmastery({v:v.v}) + '%</span>')
         + '<div class="wrap screen"><div class="card">';
   h += '<p class="vinf">' + esc(v.v) + '</p>';
-  h += '<p class="sub">' + esc(v.es) + ' · ' + esc(G.name.toLowerCase())
-     + ', em -' + esc(v.cl) + '</p>';
+  h += '<p class="sub">' + esc(v.es) + ' · verbo ' + esc(G.one)
+     + ' em -' + esc(v.cl) + '</p>';
   if(v.n) h += '<p class="mark hint"><span class="lead">Repare</span>' + esc(v.n) + '</p>';
   h += '</div>';
 

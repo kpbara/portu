@@ -45,6 +45,15 @@ test('all three groups have verbs in them', () => {
   assert.deepStrictEqual(empty, [], 'a group with no verbs is a dead card on the tab');
 });
 
+test('a group is named twice: as a list, and as one verb on its own', () => {
+  // the card on the tab says Irregulares; the verb screen behind it says
+  // "poner · verbo irregular em -or", which is not the same word
+  const bad = VGRUPOS.filter(G => !G.name || !G.one || !G.desc).map(G => G.id);
+  assert.deepStrictEqual(bad, []);
+  assert.ok(VGRUPOS.every(G => G.one === G.one.toLowerCase()),
+    'the singular is set inside a sentence, so it stays lower case');
+});
+
 test('every group has its own colour', () => {
   // the same trap as the topics and the categories: a missing .vg- rule goes
   // grey beside the rest, and it happens silently
