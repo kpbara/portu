@@ -31,12 +31,30 @@ material rather than reproducing it.
 
 ## How the app is put together
 
-**Four tabs, not one stacked screen** — `Treinar` (the round), `Falhas` (misses
-grouped by the kind of error), `Assuntos` (the material, browsable) and `Exame`
-(the provas). The home screen used to grow by one row per class; the tabs exist
-to stop that. `Exame` went on the end rather than anywhere more prominent: the
-app is already installed on phones, and moving a tab a thumb has learned costs
-more than any ordering gains.
+**Five tabs, not one stacked screen** — `Treinar` (the round), `Falhas` (misses
+grouped by the kind of error), `Assuntos` (the material, browsable), `Verbos`
+(one verb at a time, conjugated) and `Exame` (the provas). The home screen used
+to grow by one row per class; the tabs exist to stop that. `Exame` went on the
+end rather than anywhere more prominent: the app is already installed on phones,
+and moving a tab a thumb has learned costs more than any ordering gains. A fifth
+tab shifts all five of them whatever you do, so `Verbos` went in front of `Exame`
+rather than after it: the one position worth protecting is the edge.
+
+**A verb writes down only what cannot be worked out.** `VERBS` in `index.html`
+is fifty-three of them in three groups — regulares, semirregulares, irregulares
+— and a regular verb is five fields, because `VEND` already holds the endings
+of its class. The others override the one tense the rule cannot reach. The
+gerúndio needs no override from anybody: stem + -ndo holds for all fifty-three,
+pôr and ir included. `Assuntos` cuts this same grammar by tense; `Verbos` cuts
+it by verb, which is the question a learner asks out loud.
+
+**The verb tables are the verb question bank.** Every verb, tense and box makes
+one question, filed under that triple, so missing *nós almoçamos* brings that
+box back rather than the whole verb. The drill is scoped by whichever screen
+starts it — a tense, a group, or one verb — and the wrong answers it offers are
+the slips the lessons already name. A table that drifted from the drill would
+teach one form and mark another right, so both read `vformas()` and a test
+holds them to it.
 
 **A prova is a date plus the teacher's own list.** `PROVAS` in `index.html`
 holds them. Each carries a date, a `size`, and `points` — the numbered list as

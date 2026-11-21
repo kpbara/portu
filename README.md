@@ -91,11 +91,13 @@ categorías no, para que la pantalla siga siendo legible en la clase número tre
 
 ## Cómo funciona
 
-La app tiene cuatro pestañas:
+La app tiene cinco pestañas:
 
 - **Treinar** — la ronda de práctica.
 - **Falhas** — tus errores, agrupados por el tipo de fallo, no por el tema.
 - **Assuntos** — todo el material, por categoría, para repasar lo que quieras.
+- **Verbos** — cincuenta y tres verbos en tres grupos, cada uno con su tabla en
+  los cuatro tiempos que hemos dado, y un test que solo pregunta verbos.
 - **Exame** — la prueba que viene, con sus assuntos y un simulacro.
 
 La pestaña **Exame** guarda las pruebas que estamos preparando. La primera es
