@@ -73,7 +73,7 @@ Después puedes cerrar el navegador; la app abre sola desde el ícono.
 
 Hasta ahora, 25 handouts de clase convertidos en práctica:
 
-- **362 ejercicios** repartidos en **25 assuntos**.
+- **363 ejercicios** repartidos en **25 assuntos**.
 - **31 generadores de frases**, al menos uno por assunto, que escriben
   oraciones nuevas en cada ronda en lugar de repetir siempre la misma.
 - **56 mini-lecciones**: cuarenta y cinco explican un assunto y once atacan un
