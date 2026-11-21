@@ -71,4 +71,21 @@ const lessons = new Function('LESS', [
   fnSource('tagHit'), fnSource('matches'), fnSource('fit'), fnSource('lessonsFor'),
 ].join('\n') + '; return {matches, fit, lessonsFor};')(LESSONS);
 
-module.exports = { HTML, B, LESSONS, TOPICS, WEAK, GEN, answers, validate, lessons };
+/* the verb tables and the drill that reads them. The engine leans on four
+   things declared further up the same file — the random picker, the
+   lowercaser, and estar/ir/the past markers — so those come along, and state
+   is the empty one a fresh install starts with. */
+const verbs = new Function([
+  'var state = {xp:0, days:0, last:"", items:{}};',
+  fnSource('r'), fnSource('lowerFirst'),
+  'var ESTARP = ' + arrayAfter('var ESTARP = [') + ';',
+  'var IRP = ' + arrayAfter('var IRP = [') + ';',
+  'var PASSADO = ' + arrayAfter('var PASSADO = [') + ';',
+  HTML.slice(HTML.indexOf('var VBOX = ['), HTML.indexOf('/* ---------------- packs')),
+].join('\n') + '; return {VBOX:VBOX, VEND:VEND, VERBS:VERBS, VGRUPOS:VGRUPOS,' +
+  ' VTEMPOS:VTEMPOS, vstem:vstem, vger:vger, vgerx:vgerx, vformas:vformas,' +
+  ' vregra:vregra, vgrupo:vgrupo, verbById:verbById, vtempo:vtempo, vid:vid,' +
+  ' veach:veach, vopts:vopts, vitem:vitem, vitems:vitems, vmastery:vmastery,' +
+  ' vcount:vcount, vscope:vscope};')();
+
+module.exports = { HTML, B, LESSONS, TOPICS, WEAK, GEN, answers, validate, lessons, verbs };

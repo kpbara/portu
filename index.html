@@ -105,6 +105,13 @@
   .c-som        {--hue:#C06239}
   .c-vocab      {--hue:#6B7A2E}
   .c-outros     {--hue:var(--muted)}
+
+  /* ---------- one hue per grupo de verbos ----------
+     The Verbos tab is its own screen rather than a category of assuntos, so
+     these three stand beside the lists above instead of borrowing from them. */
+  .vg-reg       {--hue:#3F7351}
+  .vg-semi      {--hue:#9B6B1C}
+  .vg-irreg     {--hue:#AF4034}
 </style>
 </head>
 <body>
@@ -428,6 +435,28 @@ window.addEventListener("appinstalled", function(){
   .inst li{margin-bottom:4px}
   .inst .note{font-size:12px;font-style:italic;margin:10px 0 0}
   .inst .no{display:block;margin:12px 0 0;text-align:right}
+
+/* ---------- a verb, conjugated ----------
+     Four small tables stacked rather than one wide one: a phone shows four
+     rows of two columns without scrolling sideways, and a 4x4 grid of
+     "estamos almoçando" does not. */
+  .vinf{
+    font-family:var(--serif);font-size:30px;line-height:1.1;
+    margin:0 0 3px;letter-spacing:-.015em;
+  }
+  .conj{width:100%;border-collapse:collapse}
+  .conj td{
+    padding:11px var(--pad);
+    border-bottom:1px solid var(--line);
+    vertical-align:baseline;
+  }
+  .conj tr:last-child td{border-bottom:none}
+  .conj .pes{width:46%;padding-right:0;color:var(--muted);font-size:13px}
+  .conj .fo{font-family:var(--serif);font-size:17px}
+  .vrule{
+    font-size:12.5px;color:var(--muted);margin:0;
+    padding:12px var(--pad) 13px;background:var(--wash);
+  }
 
   /* ---------- the tab bar ---------- */
   .tabs{
@@ -2572,6 +2601,375 @@ function generated(){
   return out;
 }
 
+/* ---------------- os verbos, um por um ----------------
+   The Assuntos tab cuts the material by tense: here is the presente, here is
+   the pretérito, each with every verb that fits. This is the other cut
+   through the same grammar - one verb, its four tenses side by side - because
+   that is the question a learner asks out loud: how does *this* one go?
+
+   Three groups, and the line between them is drawn by what has to be
+   memorised rather than by a taxonomy out of a grammar book:
+
+     reg    the endings of its class, with nothing else to learn
+     semi   the endings hold; one box swaps a letter so the sound survives
+            (almocei, cheguei, fiquei) or moves the stem vowel in the eu box
+            alone (durmo, peço, sirvo)
+     irreg  the forms are known one by one - and these are exactly the twelve
+            the class dictated, plus querer and saber from the past list
+
+   A verb writes down only what cannot be worked out: a regular one is five
+   fields, and the rest carry an override for the tense that breaks the rule.
+   The gerúndio never needs one. Stem + -ndo holds for all fifty-three, pôr
+   and ir included (p + ondo, "" + indo), which makes it the one corner of
+   this grammar with no exception at all - so there is no ger field, only the
+   gx the drill needs in order to offer a wrong one.
+
+   Four tenses, because four is what the course has taught. A fifth is one
+   entry in VTEMPOS plus an override field: the tables, the lists and the
+   drill all read these two lists rather than naming tenses themselves. */
+
+/* the four boxes this class uses - six persons collapsed into four forms.
+   pron is who can ask from that box, since Você, Ele and Ela share one and
+   which of the three is doing the asking is not what is being learned. */
+var VBOX = [
+  {nome:"Eu",                  pron:["Eu"]},
+  {nome:"Você / Ele / Ela",    pron:["Você","Ele","Ela"]},
+  {nome:"Nós",                 pron:["Nós"]},
+  {nome:"Vocês / Eles / Elas", pron:["Vocês","Eles","Elas"]}
+];
+
+/* the endings, per class, in the order of the boxes above. -or holds one
+   verb, pôr, which overrides both its tenses - it is here because the
+   gerúndio rule the lesson teaches (compor da compondo) runs through it. */
+var VEND = {
+  ar:{pres:["o","a","amos","am"], pret:["ei","ou","amos","aram"], ger:"ando"},
+  er:{pres:["o","e","emos","em"], pret:["i","eu","emos","eram"],  ger:"endo"},
+  ir:{pres:["o","e","imos","em"], pret:["i","iu","imos","iram"],  ger:"indo"},
+  or:{pres:["o","e","emos","em"], pret:["i","eu","emos","eram"],  ger:"ondo"}
+};
+
+/* v infinitive · es the Spanish one · cl the class whose endings it takes ·
+   gr its group · c a complement, so the drill can ask inside a whole
+   sentence - invariable on purpose, because the subject changes under it ·
+   n the one thing to notice, in Spanish · pres/pret the four forms when the
+   endings cannot reach them · fut when ir plus the infinitive is not how it
+   builds · gx a wrong gerúndio for the drill, where the rule makes a weak
+   one · nocont when this class never puts the verb in the contínuo. */
+var VERBS = [
+  {v:"falar",     es:"hablar",          cl:"ar", gr:"reg", c:"português"},
+  {v:"estudar",   es:"estudiar",        cl:"ar", gr:"reg", c:"na aula"},
+  {v:"trabalhar", es:"trabajar",        cl:"ar", gr:"reg", c:"muito"},
+  {v:"morar",     es:"vivir, residir",  cl:"ar", gr:"reg", c:"no Brasil"},
+  {v:"comprar",   es:"comprar",         cl:"ar", gr:"reg", c:"o jornal"},
+  {v:"gostar",    es:"gustar",          cl:"ar", gr:"reg", c:"de café",
+   n:"Quien siente el gusto es el sujeto: eu gosto, nunca me gosta. Y delante de un infinitivo la de es obligatoria."},
+  {v:"viajar",    es:"viajar",          cl:"ar", gr:"reg", c:"para o Rio"},
+  {v:"cozinhar",  es:"cocinar",         cl:"ar", gr:"reg", c:"muito bem"},
+  {v:"esperar",   es:"esperar",         cl:"ar", gr:"reg", c:"o ônibus"},
+  {v:"amar",      es:"amar",            cl:"ar", gr:"reg", c:"o Brasil"},
+  {v:"comer",     es:"comer",           cl:"er", gr:"reg", c:"em casa"},
+  {v:"aprender",  es:"aprender",        cl:"er", gr:"reg", c:"rápido"},
+  {v:"vender",    es:"vender",          cl:"er", gr:"reg", c:"o carro"},
+  {v:"beber",     es:"beber",           cl:"er", gr:"reg", c:"suco"},
+  {v:"escrever",  es:"escribir",        cl:"er", gr:"reg", c:"uma carta"},
+  {v:"viver",     es:"vivir",           cl:"er", gr:"reg", c:"bem"},
+  {v:"abrir",     es:"abrir",           cl:"ir", gr:"reg", c:"a porta"},
+  {v:"partir",    es:"partir, salir",   cl:"ir", gr:"reg", c:"cedo"},
+  {v:"dividir",   es:"dividir",         cl:"ir", gr:"reg", c:"a conta"},
+  {v:"assistir",  es:"ver, presenciar", cl:"ir", gr:"reg", c:"ao filme"},
+
+  {v:"almoçar", es:"almorzar", cl:"ar", gr:"semi", c:"ao meio-dia",
+   pret:["almocei","almoçou","almoçamos","almoçaram"],
+   n:"La ç se escribe c delante de la e: eu almocei, nunca almoçei. El sonido no cambia, la letra sí."},
+  {v:"começar", es:"empezar", cl:"ar", gr:"semi", c:"a aula",
+   pret:["comecei","começou","começamos","começaram"],
+   n:"Mismo cambio que almoçar: eu comecei con c, porque la ç no se pone delante de la e."},
+  {v:"dançar", es:"bailar", cl:"ar", gr:"semi", c:"forró",
+   pret:["dancei","dançou","dançamos","dançaram"],
+   n:"Eu dancei con c. Las otras tres casillas conservan la ç: dançou, dançamos, dançaram."},
+  {v:"chegar", es:"llegar", cl:"ar", gr:"semi", c:"tarde",
+   pret:["cheguei","chegou","chegamos","chegaram"],
+   n:"La g pide una u delante de la e para seguir sonando igual: eu cheguei."},
+  {v:"pagar", es:"pagar", cl:"ar", gr:"semi", c:"a conta",
+   pret:["paguei","pagou","pagamos","pagaram"],
+   n:"Igual que chegar: eu paguei lleva una u que no se pronuncia."},
+  {v:"ficar", es:"quedarse", cl:"ar", gr:"semi", c:"em casa",
+   pret:["fiquei","ficou","ficamos","ficaram"],
+   n:"La c pasa a qu delante de la e: eu fiquei."},
+  {v:"conhecer", es:"conocer", cl:"er", gr:"semi", c:"o Brasil",
+   pres:["conheço","conhece","conhecemos","conhecem"],
+   n:"Solo la casilla de eu cambia la c por ç: eu conheço. El pasado es regular entero."},
+  {v:"esquecer", es:"olvidar", cl:"er", gr:"semi", c:"o nome",
+   pres:["esqueço","esquece","esquecemos","esquecem"],
+   n:"Mismo cambio que conhecer: eu esqueço con ç, y nada más se mueve."},
+  {v:"perder", es:"perder", cl:"er", gr:"semi", c:"as chaves",
+   pres:["perco","perde","perdemos","perdem"],
+   n:"Eu perco pierde la d. Las otras tres son regulares: perde, perdemos, perdem."},
+  {v:"dormir", es:"dormir", cl:"ir", gr:"semi", c:"até tarde",
+   pres:["durmo","dorme","dormimos","dormem"],
+   n:"La o del radical se cierra en u solo en eu durmo. El gerundio no la toca: dormindo, nunca durmindo."},
+  {v:"pedir", es:"pedir", cl:"ir", gr:"semi", c:"um café",
+   pres:["peço","pede","pedimos","pedem"],
+   n:"Eu peço con ç. El gerundio deja la vocal quieta: pedindo, nunca pidindo."},
+  {v:"preferir", es:"preferir", cl:"ir", gr:"semi", c:"o verde",
+   pres:["prefiro","prefere","preferimos","preferem"],
+   n:"La e del radical se abre en i solo en eu prefiro."},
+  {v:"vestir", es:"vestir", cl:"ir", gr:"semi", c:"o uniforme",
+   pres:["visto","veste","vestimos","vestem"],
+   n:"La e del radical se cierra en i en la casilla de eu: eu visto o uniforme."},
+  {v:"subir", es:"subir", cl:"ir", gr:"semi", c:"a escada",
+   pres:["subo","sobe","subimos","sobem"],
+   n:"Aquí no se mueve la casilla de eu, se mueven otras dos: ele sobe y eles sobem abren la u en o."},
+  {v:"seguir", es:"seguir", cl:"ir", gr:"semi", c:"a receita",
+   pres:["sigo","segue","seguimos","seguem"],
+   n:"Eu sigo deja caer la u que las otras tres necesitan para sonar igual: segue, seguimos, seguem."},
+  {v:"servir", es:"servir", cl:"ir", gr:"semi", c:"o jantar",
+   pres:["sirvo","serve","servimos","servem"],
+   n:"La e del radical se cierra en i en eu sirvo."},
+  {v:"repetir", es:"repetir", cl:"ir", gr:"semi", c:"a frase",
+   pres:["repito","repete","repetimos","repetem"],
+   n:"Mismo movimiento que servir: eu repito."},
+  {v:"ouvir", es:"oír", cl:"ir", gr:"semi", c:"música",
+   pres:["ouço","ouve","ouvimos","ouvem"],
+   n:"Eu ouço con ç. El resto es regular: ouve, ouvimos, ouvem."},
+  {v:"sair", es:"salir", cl:"ir", gr:"semi", c:"de casa",
+   pres:["saio","sai","saímos","saem"],
+   pret:["saí","saiu","saímos","saíram"],
+   n:"La i se queda sola en su sílaba y pide acento: eu saí, nós saímos, eles saíram."},
+
+  {v:"ser", es:"ser", cl:"er", gr:"irreg", c:"assim", nocont:1,
+   pres:["sou","é","somos","são"], pret:["fui","foi","fomos","foram"],
+   n:"Ser e ir comparten el pasado entero: fui, foi, fomos, foram. Solo lo que viene detrás decide cuál de los dos es."},
+  {v:"estar", es:"estar", cl:"ar", gr:"irreg", c:"em casa", nocont:1,
+   pres:["estou","está","estamos","estão"], pret:["estive","esteve","estivemos","estiveram"],
+   n:"El pasado carga un radical nuevo, estiv-, que se repite en las cuatro casillas."},
+  {v:"ter", es:"tener", cl:"er", gr:"irreg", c:"tempo",
+   pres:["tenho","tem","temos","têm"], pret:["tive","teve","tivemos","tiveram"],
+   n:"Tem es uno y têm son varios. Al hablar suenan casi igual y solo el acento los separa por escrito."},
+  {v:"ir", es:"ir", cl:"ir", gr:"irreg", c:"ao mercado",
+   pres:["vou","vai","vamos","vão"], pret:["fui","foi","fomos","foram"],
+   fut:["vou","vai","vamos","vão"], gx:"iendo",
+   n:"Su futuro inmediato es él mismo: eu vou ao mercado, nunca eu vou ir. Vou ya es el verbo ir."},
+  {v:"ver", es:"ver", cl:"er", gr:"irreg", c:"o filme",
+   pres:["vejo","vê","vemos","veem"], pret:["vi","viu","vimos","viram"],
+   n:"Nós vimos es el pasado de ver y, al mismo tiempo, el presente de vir. Solo la frase entera lo aclara."},
+  {v:"vir", es:"venir", cl:"ir", gr:"irreg", c:"de ônibus",
+   pres:["venho","vem","vimos","vêm"], pret:["vim","veio","viemos","vieram"],
+   n:"Vem es uno y vêm son varios. Y su gerundio, vindo, es igual que el participio."},
+  {v:"pôr", es:"poner", cl:"or", gr:"irreg", c:"a mesa", gx:"ponendo",
+   pres:["ponho","põe","pomos","põem"], pret:["pus","pôs","pusemos","puseram"],
+   n:"El único verbo en -or de la clase, y aun así su gerundio sale como los demás: pondo."},
+  {v:"dar", es:"dar", cl:"ar", gr:"irreg", c:"um presente",
+   pres:["dou","dá","damos","dão"], pret:["dei","deu","demos","deram"],
+   n:"Dá con acento es el verbo dar; da sin acento es de + a."},
+  {v:"dizer", es:"decir", cl:"er", gr:"irreg", c:"a verdade",
+   pres:["digo","diz","dizemos","dizem"], pret:["disse","disse","dissemos","disseram"],
+   n:"En el pasado la casilla de eu y la de ele son la misma: disse y disse."},
+  {v:"poder", es:"poder", cl:"er", gr:"irreg", c:"esperar", nocont:1,
+   pres:["posso","pode","podemos","podem"], pret:["pude","pôde","pudemos","puderam"],
+   n:"Pude es eu y pôde con acento es ele. El radical del pasado es pud-."},
+  {v:"trazer", es:"traer", cl:"er", gr:"irreg", c:"o almoço",
+   pres:["trago","traz","trazemos","trazem"], pret:["trouxe","trouxe","trouxemos","trouxeram"],
+   n:"El radical del pasado va con x: trouxe, trouxemos, trouxeram."},
+  {v:"fazer", es:"hacer", cl:"er", gr:"irreg", c:"o bolo",
+   pres:["faço","faz","fazemos","fazem"], pret:["fiz","fez","fizemos","fizeram"],
+   n:"El radical del pasado es fiz-, menos en fez: fiz, fez, fizemos, fizeram."},
+  {v:"querer", es:"querer", cl:"er", gr:"irreg", c:"um café",
+   pres:["quero","quer","queremos","querem"], pret:["quis","quis","quisemos","quiseram"],
+   n:"La casilla de você es quer, sin la e final. Y en el pasado eu y ele vuelven a coincidir: quis y quis."},
+  {v:"saber", es:"saber", cl:"er", gr:"irreg", c:"a resposta", nocont:1,
+   pres:["sei","sabe","sabemos","sabem"], pret:["soube","soube","soubemos","souberam"],
+   n:"Eu sei no se parece a nada. En el pasado eu y ele coinciden: soube y soube."}
+];
+
+var VGRUPOS = [
+  {id:"reg", name:"Regulares",
+   desc:"Las terminaciones de su clase, sin una sola sorpresa. Aprendido uno, están aprendidos todos los de su grupo."},
+  {id:"semi", name:"Semirregulares",
+   desc:"Las terminaciones se cumplen. Lo que se mueve es una letra, para que el sonido no cambie, o la vocal del radical en una casilla sola."},
+  {id:"irreg", name:"Irregulares",
+   desc:"No hay regla que los alcance: son los que la clase dictó uno por uno, y justo los que más se usan."}
+];
+
+/* the tenses the course has taught, each pointing at the assunto that
+   teaches it - so a verb question borrows that assunto's colour, its name on
+   the question card and its lição when the answer goes wrong */
+var VTEMPOS = [
+  {id:"pres", name:"Presente do indicativo", topic:"presente"},
+  {id:"pret", name:"Pretérito perfeito",     topic:"preterito"},
+  {id:"cont", name:"Presente contínuo",      topic:"continuo"},
+  {id:"fut",  name:"Futuro imediato",        topic:"futuroim"}
+];
+
+function vstem(v){ return v.v.slice(0, -2); }
+function vger(v){ return vstem(v) + VEND[v.cl].ger; }
+
+/* the gerúndio a Spanish speaker reaches for first: -iendo on an -er verb,
+   and the wrong one of the three endings on the others. The lessons build
+   their own wrong answers exactly this way - falendo, partendo, comiendo -
+   and the two verbs the rule cannot serve write theirs down. */
+function vgerx(v){ return v.gx || vstem(v) + (v.cl === "er" ? "iendo" : "endo"); }
+
+/* the four forms of one tense. pres and pret come off the endings table
+   unless the verb overrode them; cont and fut are built out of estar and ir,
+   which is all those two tenses are. null means the verb has no such tense. */
+function vformas(v, t){
+  if(v[t]) return v[t].slice();
+  if(t === "cont") return v.nocont ? null
+    : ESTARP.map(function(e){ return e + " " + vger(v); });
+  if(t === "fut") return IRP.map(function(i){ return i + " " + v.v; });
+  return VEND[v.cl][t].map(function(e){ return vstem(v) + e; });
+}
+
+function vgrupo(id){
+  var out = null;
+  VGRUPOS.forEach(function(G){ if(G.id === id) out = G; });
+  return out;
+}
+function verbById(name){
+  var out = null;
+  VERBS.forEach(function(v){ if(v.v === name) out = v; });
+  return out;
+}
+function vtempo(id){
+  var out = null;
+  VTEMPOS.forEach(function(T){ if(T.id === id) out = T; });
+  return out;
+}
+
+/* why the four forms above look the way they do - the endings where they
+   apply, and an honest admission where they do not */
+function vregra(v, t){
+  if(t === "cont") return v.nocont
+    ? "En esta clase este verbo no se pone en contínuo: se queda en presente."
+    : "Presente de estar más el gerundio, y el gerundio no cambia nunca: " + vger(v) + ".";
+  if(t === "fut") return v.fut
+    ? "Ir ya es el verbo: eu vou ao mercado, nunca eu vou ir."
+    : "Presente de ir más el infinitivo, sin ninguna preposición en medio.";
+  if(v[t]) return v.gr === "semi"
+    ? "Las terminaciones son las de -" + v.cl + "; lo que cambia es una letra."
+    : "Fuera de regla: estas cuatro se aprenden de memoria.";
+  return "Terminaciones de los verbos en -" + v.cl + ": "
+       + VEND[v.cl][t].map(function(x){ return "-" + x; }).join(", ") + ".";
+}
+
+/* ---- the drill ----
+   Every verbo, tempo and casilla together make one question, and its id is
+   that triple, so progress is filed per form rather than per round: miss nós
+   almoçamos and that box comes back, not the whole verb. Which pronoun asks
+   from the box is drawn fresh each time, same as the sentence makers above. */
+
+function vid(v, t, b){ return "vb:" + v.v + ":" + t + ":" + b; }
+
+/* walks a scope - {} is everything, or any of gr, v, t - and hands each
+   question its coordinates. Everything below is built on this, so the lists,
+   the percentages and the round cannot disagree about what is inside. */
+function veach(scope, fn){
+  VERBS.forEach(function(v){
+    if(scope.gr && v.gr !== scope.gr) return;
+    if(scope.v && v.v !== scope.v) return;
+    VTEMPOS.forEach(function(T){
+      if(scope.t && T.id !== scope.t) return;
+      if(T.id === "fut" && v.fut) return;   /* ir is its own futuro imediato */
+      var f = vformas(v, T.id);
+      if(!f) return;                        /* and this one has no contínuo */
+      for(var b = 0; b < 4; b++) fn(v, T, b, f);
+    });
+  });
+}
+
+/* four distinct options. Four verbs collapse two boxes into one form in the
+   past - disse and disse, quis and quis - so the paradigm alone cannot fill
+   the four buttons; the top-up comes from the same verb in the present,
+   which is the form it would really be confused with. */
+function vopts(right, base, extra){
+  var out = [], seen = {};
+  base.concat(extra || []).forEach(function(x){
+    if(!seen[x] && out.length < 4){ seen[x] = 1; out.push(x); }
+  });
+  if(out.indexOf(right) < 0) out[out.length - 1] = right;
+  return out;
+}
+
+function vitem(v, T, b, f){
+  var P = r(VBOX[b].pron), low = lowerFirst(P);
+  var a = f[b], note = v.n ? " " + v.n : "";
+  var it = {id:vid(v, T.id, b), t:T.topic, k:"mc", a:a, w:[]};
+
+  if(T.id === "pres"){
+    it.q = P + " ___ " + v.c + ".";
+    it.c = vopts(a, f);
+    it.h = "¿Qué casilla del presente de " + v.v + " le toca a " + P + "?";
+    it.e = P + " " + a + " " + v.c + ". Presente: " + f.join(", ") + "." + note;
+
+  } else if(T.id === "pret"){
+    var m = r(PASSADO)[0];
+    it.q = m + " " + low + " ___ " + v.c + ".";
+    it.c = vopts(a, f, vformas(v, "pres"));
+    it.h = "La acción ya terminó. ¿Qué casilla del pasado de " + v.v + " le toca a " + low + "?";
+    it.e = m + " " + low + " " + a + " " + v.c + ". Pasado: " + f.join(", ") + "." + note;
+    if(v.gr === "irreg") it.w = ["pret-irreg"];
+
+  } else if(T.id === "cont"){
+    it.q = "Agora " + low + " ___ " + v.c + ".";
+    it.c = vopts(a, [a, f[(b + 1) % 4],
+                     ESTARP[b] + " " + vgerx(v), ESTARP[b] + " " + v.v]);
+    it.h = "¿Qué forma de estar le toca a " + low + ", y qué le pasa a " + v.v + " detrás?";
+    it.e = "Agora " + low + " " + a + " " + v.c
+         + ". Estar concuerda con el sujeto, y el gerundio no cambia nunca: " + vger(v) + ".";
+
+  } else {
+    it.q = "Amanhã " + low + " ___ " + v.c + ".";
+    it.c = vopts(a, [a, f[(b + 1) % 4],
+                     IRP[b] + " a " + v.v, IRP[b] + " " + vger(v)]);
+    it.h = "¿Qué forma de ir le toca a " + low + ", y va alguna preposición antes de " + v.v + "?";
+    it.e = "Amanhã " + low + " " + a + " " + v.c
+         + ". Entre ir y el infinitivo no va ninguna preposición.";
+  }
+  return it;
+}
+
+function vitems(scope){
+  var out = [];
+  veach(scope || {}, function(v, T, b, f){ out.push(vitem(v, T, b, f)); });
+  return out;
+}
+
+/* the same formula the assuntos use, over the questions a scope holds */
+function vmastery(scope){
+  var n = 0, got = 0;
+  veach(scope || {}, function(v, T, b){
+    n++;
+    var rr = state.items[vid(v, T.id, b)];
+    if(rr && rr.s) got += Math.min(1, (rr.r / rr.s) * Math.min(1, rr.s / 2));
+  });
+  return n ? Math.round(got / n * 100) : 0;
+}
+
+function vcount(gr){
+  return VERBS.filter(function(v){ return v.gr === gr; }).length;
+}
+
+/* what a data-vtest button means. Anything unrecognised falls through to
+   everything, which is the harmless end of the range. */
+function vscope(s){
+  s = String(s || "");
+  if(s.slice(0, 2) === "g:") return {gr:s.slice(2)};
+  if(s.slice(0, 2) === "v:") return {v:s.slice(2)};
+  return vtempo(s) ? {t:s} : {};
+}
+
+function startVerbos(scope, n){
+  var pool = vitems(scope);
+  if(!pool.length) return;
+  ses = {items: pick(pool, Math.min(n || SIZE, pool.length)), i:0, marks:[], tries:0,
+         topic:"all", verbos:scope, gained:0};
+  ses.base = ses.items.length;
+  var d = today();
+  if(state.last !== d){ state.days = (state.days || 0) + 1; state.last = d; }
+  question();
+}
+
 /* ---------------- packs ---------------- */
 /* Extra material, added by hand. Same shape as the built-in bank. */
 var PACKS = [], SITEMS = B.slice(), LESS = LESSONS.slice(), TOPS = TOPICS.slice();
@@ -3264,7 +3662,10 @@ var ICON = {
   treinar:  '<svg viewBox="0 0 24 24"><path d="M5 3.5v17l14-8.5z"/></svg>',
   falhas:   '<svg viewBox="0 0 24 24"><path d="M12 3.5 21.5 20H2.5z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.4" r=".9" fill="currentColor" stroke="none"/></svg>',
   assuntos: '<svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg>',
-  exame:    '<svg viewBox="0 0 24 24"><path d="M6 2.5h8.2L19 7.3v14.2H6z"/><path d="M14.2 2.5v4.8H19"/><path d="M8.8 13.4l2.1 2.1 4.3-4.3"/></svg>'
+  exame:    '<svg viewBox="0 0 24 24"><path d="M6 2.5h8.2L19 7.3v14.2H6z"/><path d="M14.2 2.5v4.8H19"/><path d="M8.8 13.4l2.1 2.1 4.3-4.3"/></svg>',
+  /* a conjugation table: the four boxes down one side and the forms down the
+     other, which is exactly what the screen behind this tab holds */
+  verbos:   '<svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M3.5 9.8h17M10.2 9.8v9.7"/></svg>'
 };
 
 function tabBar(pend){
@@ -3278,6 +3679,7 @@ function tabBar(pend){
        + one("treinar", "Treinar", 0)
        + one("falhas", "Falhas", pend)
        + one("assuntos", "Assuntos", 0)
+       + one("verbos", "Verbos", 0)
        + one("exame", "Exame", 0)
        + '</div></nav>';
 }
@@ -3434,6 +3836,144 @@ function categoria(id){
   });
   app.querySelector("[data-backcat]").onclick = function(){ TAB = "assuntos"; home(); };
   tabWire();
+}
+
+/* ---------------- the verbos tab ----------------
+   Three screens deep and no deeper: the groups, the verbs in one group, and
+   one verb with its four tenses. Every screen can start the drill scoped to
+   what it is showing, which is the whole reason the scope is an object and
+   not a topic id.
+
+   The percentages are the assuntos formula over verb questions, so a verb
+   screen can say how much of that verb is actually in place rather than how
+   much of the tense it belongs to. */
+
+function tabVerbos(){
+  var h = bar('<div class="brand"><span>Verbos</span></div>'
+            + '<span class="chip">' + vmastery({}) + '%</span>')
+        + '<div class="wrap screen"><div style="height:16px"></div>';
+
+  VGRUPOS.forEach(function(G){
+    var n = vcount(G.id);
+    h += '<button class="cat' + hueClass(G.id, "vg-") + '" data-vg="' + esc(G.id) + '">';
+    h += '<span class="swatch">';
+    /* the four tenses, in their own colours: every group is conjugated in
+       all four, which is what the screen behind the card holds */
+    VTEMPOS.forEach(function(T){ h += '<i class="' + hueClass(T.topic).trim() + '"></i>'; });
+    h += '</span>';
+    h += '<span class="txt"><span class="nm">' + esc(G.name) + '</span>'
+       + '<span class="meta">' + n + ' verbo' + (n > 1 ? 's' : '')
+       + ' · ' + vmastery({gr:G.id}) + '% dominado</span></span>';
+    h += '<span class="go">›</span></button>';
+  });
+
+  h += '<h2 class="sec">Treinar os verbos</h2>';
+  h += '<div class="card flush"><div class="rows">';
+  h += '<button class="row" data-vtest="todos"><span class="nm">Todos os tempos</span>'
+     + '<span class="tag">' + vmastery({}) + '%</span>'
+     + '<span class="go">›</span></button>';
+  VTEMPOS.forEach(function(T){
+    h += '<button class="row' + hueClass(T.topic) + '" data-vtest="' + esc(T.id) + '">'
+       + '<span class="key"></span>'
+       + '<span class="nm">' + esc(T.name) + '</span>'
+       + '<span class="tag">' + vmastery({t:T.id}) + '%</span>'
+       + '<span class="go">›</span></button>';
+  });
+  h += '</div></div>';
+  h += '<p class="tail">Las preguntas salen de estas mismas tablas, así que lo que '
+     + 'practicas es lo que acabas de leer.</p>';
+  return h + '</div>';
+}
+
+function grupoVerbos(id){
+  var G = vgrupo(id);
+  if(!G){ TAB = "verbos"; return home(); }
+  var fl = flagged(), pend = 0;
+  for(var k in fl) pend += fl[k];
+
+  var h = bar('<button class="x" data-backv="1" aria-label="Voltar">&lsaquo;</button>'
+            + '<div class="brand"><span>' + esc(G.name) + '</span></div>'
+            + '<span class="chip">' + vmastery({gr:G.id}) + '%</span>')
+        + '<div class="wrap screen">';
+  h += '<p class="hook">' + esc(G.desc) + '</p>';
+  h += '<div class="card flush"><div class="rows">';
+  VERBS.forEach(function(v){
+    if(v.gr !== G.id) return;
+    h += '<button class="row' + hueClass(G.id, "vg-") + '" data-verbo="' + esc(v.v) + '">'
+       + '<span class="key"></span>'
+       + '<span class="nm">' + esc(v.v) + '</span>'
+       + '<span class="tag">' + esc(v.es) + '</span>'
+       + '<span class="go">›</span></button>';
+  });
+  h += '</div></div>';
+  h += '<button class="cta" data-vtest="' + esc("g:" + G.id) + '" style="margin-top:16px">'
+     + 'Treinar os ' + esc(G.name.toLowerCase()) + '</button>';
+  h += '</div>';
+
+  app.innerHTML = h + tabBar(pend);
+  tabWire();
+  vwire();
+}
+
+function verbo(name){
+  var v = verbById(name);
+  if(!v){ TAB = "verbos"; return home(); }
+  var G = vgrupo(v.gr);
+  var fl = flagged(), pend = 0;
+  for(var k in fl) pend += fl[k];
+
+  var h = bar('<button class="x" data-backg="' + esc(v.gr) + '" aria-label="Voltar">&lsaquo;</button>'
+            + '<div class="brand"><span>' + esc(v.v) + '</span></div>'
+            + '<span class="chip">' + vmastery({v:v.v}) + '%</span>')
+        + '<div class="wrap screen"><div class="card">';
+  h += '<p class="vinf">' + esc(v.v) + '</p>';
+  h += '<p class="sub">' + esc(v.es) + ' · ' + esc(G.name.toLowerCase())
+     + ', em -' + esc(v.cl) + '</p>';
+  if(v.n) h += '<p class="mark hint"><span class="lead">Repare</span>' + esc(v.n) + '</p>';
+  h += '</div>';
+
+  VTEMPOS.forEach(function(T){
+    var f = vformas(v, T.id);
+    h += '<h2 class="sec">' + esc(T.name)
+       + '<span class="n">' + vmastery({v:v.v, t:T.id}) + '%</span></h2>';
+    h += '<div class="card flush">';
+    if(f){
+      h += '<table class="conj">';
+      VBOX.forEach(function(Bx, i){
+        h += '<tr><td class="pes">' + esc(Bx.nome) + '</td>'
+           + '<td class="fo">' + esc(f[i]) + '</td></tr>';
+      });
+      h += '</table>';
+    }
+    h += '<p class="vrule">' + esc(vregra(v, T.id)) + '</p>';
+    h += '</div>';
+  });
+
+  h += '<button class="cta" data-vtest="' + esc("v:" + v.v) + '" style="margin-top:20px">'
+     + 'Treinar ' + esc(v.v) + '</button>';
+  h += '</div>';
+
+  app.innerHTML = h + tabBar(pend);
+  tabWire();
+  vwire();
+}
+
+/* every verb screen hangs off these four, so they are wired in one place
+   rather than once per screen */
+function vwire(){
+  app.querySelectorAll("[data-vg]").forEach(function(b){
+    b.onclick = function(){ grupoVerbos(b.getAttribute("data-vg")); };
+  });
+  app.querySelectorAll("[data-verbo]").forEach(function(b){
+    b.onclick = function(){ verbo(b.getAttribute("data-verbo")); };
+  });
+  app.querySelectorAll("[data-vtest]").forEach(function(b){
+    b.onclick = function(){ startVerbos(vscope(b.getAttribute("data-vtest"))); };
+  });
+  var bv = app.querySelector("[data-backv]");
+  if(bv) bv.onclick = function(){ TAB = "verbos"; home(); };
+  var bg = app.querySelector("[data-backg]");
+  if(bg) bg.onclick = function(){ grupoVerbos(bg.getAttribute("data-backg")); };
 }
 
 /* ---------------- the provas ----------------
@@ -3634,11 +4174,13 @@ function home(){
 
   var h = TAB === "falhas"   ? tabFalhas(fl, pend)
         : TAB === "assuntos" ? tabAssuntos(fl)
+        : TAB === "verbos"   ? tabVerbos()
         : TAB === "exame"    ? tabExame(fl)
         : tabTreinar(fl, pend);
 
   app.innerHTML = h + tabBar(pend);
   tabWire();
+  vwire();
 
   app.querySelectorAll("[data-go]").forEach(function(b){
     b.onclick = function(){ start(b.getAttribute("data-go")); };
@@ -3834,9 +4376,10 @@ function done(){
   h += '<button class="cta ghost" data-home="1" style="margin-top:8px">Voltar aos tópicos</button>';
   h += '</div></div>';
   app.innerHTML = h;
-  var topic = ses.topic, L0 = ses.lesson, P0 = ses.prova;
+  var topic = ses.topic, L0 = ses.lesson, P0 = ses.prova, V0 = ses.verbos;
   app.querySelector("[data-again]").onclick = function(){
     if(P0) return startProva(P0);
+    if(V0) return startVerbos(V0);
     return L0 ? startLesson(L0) : start(topic);
   };
   app.querySelector("[data-home]").onclick = home;

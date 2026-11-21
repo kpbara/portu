@@ -9,35 +9,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert');
 const { B, LESSONS, GEN } = require('./_app');
-
-/* Deliberately narrow. Spanish and Portuguese share a great deal with English
-   in this domain ("plural", "singular", "final", "natural"), so the list holds
-   only words that would have to come from untranslated English prose. */
-/* Accented letters count as part of a word, and a leading hyphen marks a
-   suffix rather than a word. The JS word boundary falls between a letter
-   and an accented one, so faróis, fiéis, anéis and papéis all read as the
-   English "is" and notícia as "not" — and those are the handout's own
-   examples. A named suffix (-is, -ões, -inho, -zinho) is Portuguese
-   morphology, never untranslated English prose. */
-const LETTER = 'A-Za-z\u00c0-\u00ff0-9_';
-const ENGLISH = new RegExp('(?<![' + LETTER + '-])(' + [
-  'the', 'what', 'which', 'does', 'is', 'are', 'who', 'can', 'before', 'after',
-  'noun', 'pronoun', 'verb', 'sounds?', 'takes?', 'goes', 'with', 'and', 'not',
-  'only', 'here', 'this', 'that', 'your', 'you', 'for', 'from', 'when', 'where',
-  'how', 'same', 'both', 'never', 'always', 'write', 'think', 'start', 'compare',
-  'say', 'ends?', 'means?', 'subject', 'answer', 'question', 'gender', 'article',
-  'infinitive', 'stress', 'vowels?', 'word', 'sentence', 'stands', 'attaches?',
-  'becomes?', 'between',
-].join('|') + ')(?![' + LETTER + '])', 'i');
-
-/* "de + o = do" and friends are formulas, not prose */
-const isFormula = s => /^[a-zà-ÿ]+\s*\+\s*[a-zà-ÿ]+\s*=/i.test(s.trim());
-
-function scan(label, text, found) {
-  if (!text) return;
-  const m = String(text).match(ENGLISH);
-  if (m && !isFormula(text)) found.push(`${label}: "${String(text).slice(0, 72)}"  <- "${m[0]}"`);
-}
+/* the English and peninsular patterns, and the scan that applies them,
+   live in _language.js: the verb tables are held to the same two. */
+const { PENINSULAR, scan } = require('./_language');
 
 test('no English left in the static bank', () => {
   const found = [];
@@ -98,7 +72,6 @@ test('hints are still questions rather than statements of the answer', () => {
 test('the Spanish is Latin American, not peninsular', () => {
   // the class is in Managua; vosotros would read as foreign
   const found = [];
-  const PENINSULAR = /\b(vosotros|vuestro|os gusta|habéis|tenéis|sois)\b/i;
   B.forEach(it => [it.h, it.e, it.g].forEach(t => {
     if (t && PENINSULAR.test(t)) found.push(`${it.id}: ${t.slice(0, 60)}`);
   }));
