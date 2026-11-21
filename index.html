@@ -1065,7 +1065,7 @@ var LESSONS = [
   trap:"La casilla de nós no cambia del presente al pasado: nós falamos, nós comemos y nós abrimos sirven para los dos. Nada en el verbo lo aclara, así que lo fija el resto de la frase: hoje nós falamos contra ontem nós falamos."
 },
 {
-  id:"preterito-irregulares", name:"Os irregulares do passado", pick:{topic:"preterito",tag:"pret-irreg"},
+  id:"preterito-irregulares", name:"Os irregulares do passado", pick:{topic:"preterito"},
   hook:"Estos cambian de radical entero al pasar al pasado: fazer se vuelve fiz, trazer se vuelve trouxe. Busca en la tabla las dos filas que comparten exactamente las mismas cuatro formas.",
   pairs:[["estar","estive / esteve / estivemos / estiveram"],
          ["tener","tive / teve / tivemos / tiveram"],
@@ -1179,7 +1179,7 @@ var LESSONS = [
   trap:"Animais no lleva l en ninguna parte, y es la forma que más cuesta porque el español conserva la suya: animales. Y fíjate en que lápis ya acaba en s en singular: um lápis, dois lápis. No es un plural disfrazado."
 },
 {
-  id:"plurais-ao", name:"As três saídas do -ão", pick:{topic:"plurais",tag:"plural-ao"},
+  id:"plurais-ao", name:"As três saídas do -ão", pick:{topic:"plurais"},
   hook:"Nueve palabras terminadas en -ão y tres plurales distintos. Antes de leer la regla, intenta adivinar cuál de los tres grupos es el más grande.",
   pairs:[["el avión","o avião / os aviões"],
          ["el camión","o caminhão / os caminhões"],
@@ -1213,7 +1213,7 @@ var LESSONS = [
   trap:"Saco no hace sacinho sino saquinho, y frasco hace frasquinho: la c pasa a qu para que el sonido no cambie. Cheio y feio son las dos excepciones de la lista: cheiinho y feiinho, con dos i seguidas."
 },
 {
-  id:"diminutivos-uso", name:"Não é só tamanho", pick:{topic:"diminutivos",tag:"dim-uso"},
+  id:"diminutivos-uso", name:"Não é só tamanho", pick:{topic:"diminutivos"},
   hook:"Ninguna de estas seis frases habla de algo pequeño. Léelas y pregúntate qué añade el sufijo en cada una: ¿cariño, énfasis, o solo la manera normal de decirlo?",
   pairs:[["¿Acepta un cafecito?","Você aceita um cafezinho?"],
          ["Hoy hace un friíto rico.","Hoje está um friozinho gostoso."],
@@ -1245,7 +1245,7 @@ var LESSONS = [
   trap:"Qualquer hace el plural por dentro: quaisquer, no qualquers. Y cada nunca va solo ni se pluraliza: cada criança, cada um, cada uma. Cadas no existe."
 },
 {
-  id:"indefinidos-tudo", name:"Tudo ou todo", pick:{topic:"indefinidos",tag:"tudo-todo"},
+  id:"indefinidos-tudo", name:"Tudo ou todo", pick:{topic:"indefinidos"},
   hook:"Las dos se traducen por todo, y ahí empieza el problema. Mira las siete frases: una de las dos palabras va siempre sola y la otra siempre se apoya en un sustantivo. ¿Cuál es cuál?",
   pairs:[["Ella compró todo en la tienda.","Ela comprou tudo na loja."],
          ["Él vio todo lo que pasó.","Ele viu tudo o que aconteceu."],
@@ -2932,7 +2932,8 @@ var TAB = "treinar";
 var ICON = {
   treinar:  '<svg viewBox="0 0 24 24"><path d="M5 3.5v17l14-8.5z"/></svg>',
   falhas:   '<svg viewBox="0 0 24 24"><path d="M12 3.5 21.5 20H2.5z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.4" r=".9" fill="currentColor" stroke="none"/></svg>',
-  assuntos: '<svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg>'
+  assuntos: '<svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg>',
+  exame:    '<svg viewBox="0 0 24 24"><path d="M6 2.5h8.2L19 7.3v14.2H6z"/><path d="M14.2 2.5v4.8H19"/><path d="M8.8 13.4l2.1 2.1 4.3-4.3"/></svg>'
 };
 
 function tabBar(pend){
@@ -2946,6 +2947,7 @@ function tabBar(pend){
        + one("treinar", "Treinar", 0)
        + one("falhas", "Falhas", pend)
        + one("assuntos", "Assuntos", 0)
+       + one("exame", "Exame", 0)
        + '</div></nav>';
 }
 
@@ -3103,12 +3105,139 @@ function categoria(id){
   tabWire();
 }
 
+/* ---------------- the provas ----------------
+   A prova is a date plus the teacher's own list of points, and each point
+   names the assuntos that cover it. Keeping the list rather than a flat set
+   of topics is deliberate: the numbering is how the exam was dictated in
+   class, so the screen can be checked against the paper it came from.
+
+   This outlives any one exam. A prova whose date has passed keeps its screen
+   and its drill — the material does not stop being the material — and a new
+   one is a date and a list, nothing more. */
+var PROVAS = [
+{
+  id:"final-dez", name:"Exame final", date:"2026-12-12", size:20,
+  note:"Os sete pontos ditados na aula. A simulação sorteia 20 itens só destes assuntos.",
+  points:[
+    ["Verbos em presente e pretérito perfeito", ["presente","preterito"]],
+    ["Presente contínuo",                       ["continuo"]],
+    ["Futuro imediato",                           ["futuroim"]],
+    ["Plurais",                                   ["plurais"]],
+    ["Diminutivos",                               ["diminutivos"]],
+    ["Contrações",                             ["artigos"]],
+    ["Pronomes indefinidos",                      ["indefinidos"]]
+  ]
+}
+];
+
+var MESES = ["janeiro","fevereiro","março","abril","maio","junho","julho",
+             "agosto","setembro","outubro","novembro","dezembro"];
+
+function dataLonga(iso){
+  var p = iso.split("-");
+  return (+p[2]) + " de " + MESES[(+p[1]) - 1];
+}
+/* UTC on both sides, so a round at midnight does not count a day twice */
+function diasAte(iso){
+  return Math.round((new Date(iso + "T00:00:00Z").getTime()
+                   - new Date(today() + "T00:00:00Z").getTime()) / 86400000);
+}
+function provaById(id){
+  var out = null;
+  PROVAS.forEach(function(p){ if(p.id === id) out = p; });
+  return out;
+}
+/* only the assuntos that exist, in the order the points name them. A prova may
+   name one the course has not reached yet without breaking its screen. */
+function provaTopics(p){
+  var out = [], seen = {};
+  p.points.forEach(function(pt, i){
+    pt[1].forEach(function(id){
+      if(seen[id]) return;
+      TOPS.forEach(function(t){ if(t.id === id){ seen[id] = 1; out.push([i + 1, t]); } });
+    });
+  });
+  return out;
+}
+function provaMastery(p){
+  var ts = provaTopics(p);
+  if(!ts.length) return 0;
+  var sum = 0;
+  ts.forEach(function(x){ sum += mastery(x[1].id); });
+  return Math.round(sum / ts.length);
+}
+function provaPool(p){
+  var set = {};
+  provaTopics(p).forEach(function(x){ set[x[1].id] = 1; });
+  return roundPool("all").filter(function(x){ return set[x.t]; });
+}
+/* the simulation: longer than a round, drawn from the prova's assuntos only,
+   and still weighted toward what this device gets wrong */
+function startProva(p, n){
+  var pool = provaPool(p);
+  if(!pool.length) return home();
+  ses = {items: pick(pool, Math.min(n || p.size || SIZE, pool.length)),
+         i:0, marks:[], tries:0, topic:"all", prova:p, gained:0};
+  ses.base = ses.items.length;
+  var d = today();
+  if(state.last !== d){ state.days = (state.days||0)+1; state.last = d; }
+  question();
+}
+
+/* ---------------- the Exame tab ----------------
+   The fourth tab, and the only screen in the app with a date on it. The
+   course has a destination, and until now nothing here knew that: the
+   material was browsable but not aimable.
+
+   The original three keep their positions. The app is already installed on
+   phones, and moving a tab someone's thumb has learned costs more than any
+   ordering gains, so this one goes on the end. */
+function tabExame(fl){
+  var next = null;
+  PROVAS.forEach(function(p){
+    var d = diasAte(p.date);
+    if(d >= 0 && (!next || d < diasAte(next.date))) next = p;
+  });
+  var nd = next ? diasAte(next.date) : -1;
+
+  var h = bar('<div class="brand"><span>Exame</span></div>'
+            + '<span class="chip">' + (next
+                ? (nd === 0 ? 'hoje' : nd + ' dia' + (nd > 1 ? 's' : ''))
+                : overall() + '%') + '</span>')
+        + '<div class="wrap screen">';
+
+  PROVAS.forEach(function(p){
+    var ts = provaTopics(p), d = diasAte(p.date);
+    h += '<div class="hero"><h1>' + esc(p.name) + '</h1>';
+    h += '<p class="meta">' + esc(dataLonga(p.date))
+       + (d > 0  ? ' · <b>' + d + '</b> dia' + (d > 1 ? 's' : '')
+       : d === 0 ? ' · <b>hoje</b>'
+                 : ' · já passou')
+       + ' · <b>' + provaMastery(p) + '%</b> dominado</p>';
+    if(ts.length)
+      h += '<button class="cta go" data-prova="' + esc(p.id) + '">Simular a prova</button>';
+    h += '</div>';
+    if(p.note) h += '<p class="sub" style="margin:0 0 12px">' + esc(p.note) + '</p>';
+    h += '<div class="card flush"><div class="rows">';
+    ts.forEach(function(x){
+      var t = x[1], tl = lessonForTopic(t.id), tpend = tl ? (fl[tl.id] || 0) : 0;
+      h += '<button class="row' + hueClass(t.id) + '" data-topic="' + esc(t.id) + '">'
+         + (tpend ? '<span class="dot"></span>' : '<span class="key"></span>')
+         + '<span class="nm">' + esc(x[0] + ". " + t.name) + '</span>'
+         + '<span class="tag">' + mastery(t.id) + '%</span></button>';
+    });
+    h += '</div></div>';
+  });
+  return h + '</div>';
+}
+
 function home(){
   var fl = flagged(), pend = 0;
   for(var k in fl) pend += fl[k];
 
   var h = TAB === "falhas"   ? tabFalhas(fl, pend)
         : TAB === "assuntos" ? tabAssuntos(fl)
+        : TAB === "exame"    ? tabExame(fl)
         : tabTreinar(fl, pend);
 
   app.innerHTML = h + tabBar(pend);
@@ -3122,6 +3251,12 @@ function home(){
   });
   app.querySelectorAll("[data-cat]").forEach(function(b){
     b.onclick = function(){ categoria(b.getAttribute("data-cat")); };
+  });
+  app.querySelectorAll("[data-prova]").forEach(function(b){
+    b.onclick = function(){ startProva(provaById(b.getAttribute("data-prova"))); };
+  });
+  app.querySelectorAll("[data-topic]").forEach(function(b){
+    b.onclick = function(){ assunto(b.getAttribute("data-topic")); };
   });
 
   var pk = app.querySelector("[data-packs]");
@@ -3298,8 +3433,11 @@ function done(){
   h += '<button class="cta ghost" data-home="1" style="margin-top:8px">Voltar aos tópicos</button>';
   h += '</div></div>';
   app.innerHTML = h;
-  var topic = ses.topic, L0 = ses.lesson;
-  app.querySelector("[data-again]").onclick = function(){ L0 ? startLesson(L0) : start(topic); };
+  var topic = ses.topic, L0 = ses.lesson, P0 = ses.prova;
+  app.querySelector("[data-again]").onclick = function(){
+    if(P0) return startProva(P0);
+    return L0 ? startLesson(L0) : start(topic);
+  };
   app.querySelector("[data-home]").onclick = home;
   app.querySelectorAll("[data-l]").forEach(function(b){
     b.onclick = function(){ lesson(lessonById(b.getAttribute("data-l")), home); };

@@ -71,14 +71,15 @@ Después puedes cerrar el navegador; la app abre sola desde el ícono.
 
 ## Qué trae
 
-Hasta ahora, 13 handouts de clase convertidos en práctica:
+Hasta ahora, 21 handouts de clase convertidos en práctica:
 
-- **225 ejercicios** repartidos en **14 assuntos**.
-- **18 generadores de frases**, uno por assunto, que escriben oraciones nuevas
-  en cada ronda en lugar de repetir siempre la misma.
-- **32 mini-lecciones**: veinticuatro explican un assunto y ocho atacan un error
-  que se cruza entre varios. Los assuntos largos van por partes — *Os números*
-  lleva cuatro, porque contar de cero a cien no cabe en una sola.
+- **312 ejercicios** repartidos en **21 assuntos**.
+- **27 generadores de frases**, al menos uno por assunto, que escriben
+  oraciones nuevas en cada ronda en lugar de repetir siempre la misma.
+- **48 mini-lecciones**: treinta y siete explican un assunto y once atacan un
+  error que se cruza entre varios. Los assuntos largos van por partes — *Os
+  números* lleva cuatro y *O plural* tres, porque la tabla entera no cabe en
+  una sola pantalla.
 
 Cada assunto trae ahora la materia entera y no solo el error: el alfabeto con
 sus 26 letras, las contracciones con las dieciséis, los días de la semana
@@ -90,11 +91,19 @@ categorías no, para que la pantalla siga siendo legible en la clase número tre
 
 ## Cómo funciona
 
-La app tiene tres pestañas:
+La app tiene cuatro pestañas:
 
 - **Treinar** — la ronda de práctica.
 - **Falhas** — tus errores, agrupados por el tipo de fallo, no por el tema.
 - **Assuntos** — todo el material, por categoría, para repasar lo que quieras.
+- **Exame** — la prueba que viene, con sus assuntos y un simulacro.
+
+La pestaña **Exame** guarda las pruebas que estamos preparando. La primera es
+el examen final del **12 de diciembre**, con los siete puntos que dictó la
+profesora, el porcentaje que llevas en cada uno y un simulacro de 20 preguntas
+sacadas solo de esos assuntos. No desaparece cuando pase la fecha: una prueba
+nueva es una fecha y una lista de assuntos, así que ahí caben también las
+nuestras.
 
 Y dentro de una ronda:
 

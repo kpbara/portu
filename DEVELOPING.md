@@ -23,12 +23,34 @@ tools/make-icons.py     regenerates icons/ from images/logo-master.png
 
 `reference/` is gitignored on purpose. It holds the original Claude-artifact
 prototype and its handoff notes, which name the teacher and a graded score.
+The class handouts themselves live in the owner's Google Drive, in a folder
+called **Portu**; `reference/handouts/` is where local copies go. Neither is
+committed, and neither should be. The README promises the course documents are
+not redistributed here, and that promise is the reason this app paraphrases its
+material rather than reproducing it.
 
 ## How the app is put together
 
-**Three tabs, not one stacked screen** — `Treinar` (the round), `Falhas` (misses
-grouped by the kind of error) and `Assuntos` (the material, browsable). The home
-screen used to grow by one row per class; the tabs exist to stop that.
+**Four tabs, not one stacked screen** — `Treinar` (the round), `Falhas` (misses
+grouped by the kind of error), `Assuntos` (the material, browsable) and `Exame`
+(the provas). The home screen used to grow by one row per class; the tabs exist
+to stop that. `Exame` went on the end rather than anywhere more prominent: the
+app is already installed on phones, and moving a tab a thumb has learned costs
+more than any ordering gains.
+
+**A prova is a date plus the teacher's own list.** `PROVAS` in `index.html`
+holds them. Each carries a date, a `size`, and `points` — the numbered list as
+it was dictated in class, where every point names the assuntos covering it. The
+numbering is kept rather than flattened into a set of topic ids, so the screen
+can be checked against the paper it came from and a point that takes two
+assuntos (presente *and* pretérito perfeito) still reads as one point.
+`startProva` draws `size` items from those assuntos only, still weighted toward
+what this device gets wrong, and *Outra rodada* on the summary re-runs the
+prova instead of falling back to a general round.
+
+A prova outlives its date — the screen and the drill stay once it has passed,
+because the material does not stop being the material. Adding one is a date and
+a list; nothing else here has to change.
 
 **Four fixed categories.** `CATS` in `index.html` maps topics into Verbos,
 Palavras pequenas, Som e letras and Vocabulário. Topics grow with the course;
@@ -136,6 +158,13 @@ agreement and that the Spanish was built from the same slots as the Portuguese.
 
 **No English comes back.** All teaching is Spanish. Since new material arrives a
 pack at a time, one untranslated hint would otherwise slip in unnoticed.
+
+> The boundary is accent-aware, and a leading hyphen marks a suffix. A JS `\b`
+> falls between a letter and an accented one, so `faróis`, `fiéis`, `anéis` and
+> `papéis` all read as the English *is*, and `notícia` as *not* — and those are
+> the plural handout's own examples. Naming a suffix (`-is`, `-ões`, `-inho`) is
+> morphology, not prose. Both exceptions are narrow: `the subject is here` is
+> still caught.
 
 **Answers stay exact.** Accents are graded, so `dancar` must not pass for
 `dançar` — but capitals, trailing punctuation and spacing are ignored, since
