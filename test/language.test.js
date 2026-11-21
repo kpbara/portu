@@ -13,7 +13,14 @@ const { B, LESSONS, GEN } = require('./_app');
 /* Deliberately narrow. Spanish and Portuguese share a great deal with English
    in this domain ("plural", "singular", "final", "natural"), so the list holds
    only words that would have to come from untranslated English prose. */
-const ENGLISH = new RegExp('\\b(' + [
+/* Accented letters count as part of a word, and a leading hyphen marks a
+   suffix rather than a word. The JS word boundary falls between a letter
+   and an accented one, so faróis, fiéis, anéis and papéis all read as the
+   English "is" and notícia as "not" — and those are the handout's own
+   examples. A named suffix (-is, -ões, -inho, -zinho) is Portuguese
+   morphology, never untranslated English prose. */
+const LETTER = 'A-Za-z\u00c0-\u00ff0-9_';
+const ENGLISH = new RegExp('(?<![' + LETTER + '-])(' + [
   'the', 'what', 'which', 'does', 'is', 'are', 'who', 'can', 'before', 'after',
   'noun', 'pronoun', 'verb', 'sounds?', 'takes?', 'goes', 'with', 'and', 'not',
   'only', 'here', 'this', 'that', 'your', 'you', 'for', 'from', 'when', 'where',
@@ -21,7 +28,7 @@ const ENGLISH = new RegExp('\\b(' + [
   'say', 'ends?', 'means?', 'subject', 'answer', 'question', 'gender', 'article',
   'infinitive', 'stress', 'vowels?', 'word', 'sentence', 'stands', 'attaches?',
   'becomes?', 'between',
-].join('|') + ')\\b', 'i');
+].join('|') + ')(?![' + LETTER + '])', 'i');
 
 /* "de + o = do" and friends are formulas, not prose */
 const isFormula = s => /^[a-zà-ÿ]+\s*\+\s*[a-zà-ÿ]+\s*=/i.test(s.trim());

@@ -89,6 +89,9 @@
   .t-preterito  {--hue:#35619B}
   .t-continuo   {--hue:#6B4F9E}
   .t-futuroim   {--hue:#9A7B22}
+  .t-plurais    {--hue:#A14F3C}
+  .t-diminutivos{--hue:#2E7A5C}
+  .t-indefinidos{--hue:#A04A80}
 
   /* The four fixed categories, each borrowing the hue of a topic it holds. A
      topic with no .t- line of its own inherits its category's colour here
@@ -519,14 +522,18 @@ var TOPICS = [
   {id:"presente", name:"Presente do indicativo"},
   {id:"preterito", name:"Pretérito perfeito"},
   {id:"continuo", name:"Presente contínuo"},
-  {id:"futuroim", name:"Futuro imediato"}
+  {id:"futuroim", name:"Futuro imediato"},
+  {id:"plurais", name:"O plural"},
+  {id:"diminutivos", name:"O diminutivo"},
+  {id:"indefinidos", name:"Pronomes indefinidos"}
 ];
 
 /* The slips seen in the notebook, plus escala — which is not a slip but the
    six items about how far up the scale you are, so the lesson that teaches
    them can claim exactly those and drill nothing else. */
 var WEAK = ["p1sg","onde-aonde","que-oque","de-inf","contr","porque","posse","escala",
-            "voce-2p","pret-irreg","ger-endo","vou-a"];
+            "voce-2p","pret-irreg","ger-endo","vou-a",
+            "plural-ao","dim-uso","tudo-todo"];
 
 /* short remedial lessons. pick = which items drill it afterwards */
 var LESSONS = [
@@ -1135,6 +1142,120 @@ var LESSONS = [
          ["Tú vas a viajar.","Você vai viajar."]],
   rule:"Você es de tercera persona por dentro, aunque signifique tú: lleva exactamente la forma de ele y de ela. Fala, come, foi, está, vai. La -s del español se queda fuera.",
   trap:"Pasa en todos los tiempos a la vez, y por eso reaparece: você falas, você comes, você vais, você estás y você tens son todos el mismo error. A gente funciona igual: a gente fala, a gente foi."
+},
+{
+  id:"plurais", name:"Vogal, R, Z e M", pick:{topic:"plurais"},
+  hook:"El plural portugués no se decide por el significado sino por la última letra de la palabra. Recorre la columna de la derecha y agrupa las filas por cómo terminan en singular.",
+  pairs:[["la casa","a casa / as casas"],
+         ["el pie","o pé / os pés"],
+         ["el cuerpo","o corpo / os corpos"],
+         ["el profesor","o professor / os professores"],
+         ["el sabor","o sabor / os sabores"],
+         ["el muchacho","o rapaz / os rapazes"],
+         ["la nariz","o nariz / os narizes"],
+         ["la raíz","a raiz / as raízes"],
+         ["el hombre","o homem / os homens"],
+         ["la imagen","a imagem / as imagens"],
+         ["el mesero","o garçom / os garçons"]],
+  rule:"Cuatro finales, cuatro reglas. Vocal: se añade una -s, igual que en español. En -r: se añade -es, así que professor da professores. En -z: también -es, y rapaz da rapazes. En -m: la m se cambia por -ns.",
+  trap:"La -m es la que delata al hispanohablante, porque en español la n se queda tal cual: hombre da hombres. En portugués homem da homens, imagem da imagens y garçom da garçons. Homems no existe."
+},
+{
+  id:"plurais-l", name:"As palavras em L, em S e em X", pick:{topic:"plurais"},
+  hook:"Aquí no basta la última letra: hay que oír dónde cae el acento. Lee cada palabra en voz alta y fíjate en qué sílaba suena más fuerte antes de mirar su plural.",
+  pairs:[["el animal","o animal / os animais"],
+         ["fiel","fiel / fiéis"],
+         ["el barril","o barril / os barris"],
+         ["el farol","o farol / os faróis"],
+         ["azul","azul / azuis"],
+         ["el reptil","o réptil / os répteis"],
+         ["fértil","fértil / férteis"],
+         ["el autobús","o ônibus / os ônibus"],
+         ["el lápiz","o lápis / os lápis"],
+         ["francés","francês / franceses"],
+         ["el mes","o mês / os meses"],
+         ["el látex","o látex / os látex"]],
+  rule:"En -al, -el, -il, -ol, -ul con el acento en la última sílaba, la l se cambia por -is: animais, fiéis, barris, faróis, azuis. En -il con el acento antes del final, se cambia por -eis: répteis, férteis, têxteis. En -s con el acento en la primera sílaba no pasa nada: ônibus, lápis, pires, tênis, vírus. En -s con el acento al final se añade -es y el acento escrito desaparece: franceses, ingleses, meses. En -x tampoco pasa nada: látex, xérox, pirex.",
+  trap:"Animais no lleva l en ninguna parte, y es la forma que más cuesta porque el español conserva la suya: animales. Y fíjate en que lápis ya acaba en s en singular: um lápis, dois lápis. No es un plural disfrazado."
+},
+{
+  id:"plurais-ao", name:"As três saídas do -ão", pick:{topic:"plurais",tag:"plural-ao"},
+  hook:"Nueve palabras terminadas en -ão y tres plurales distintos. Antes de leer la regla, intenta adivinar cuál de los tres grupos es el más grande.",
+  pairs:[["el avión","o avião / os aviões"],
+         ["el camión","o caminhão / os caminhões"],
+         ["el castigo","a punição / as punições"],
+         ["el sótano","o porão / os porões"],
+         ["el pan","o pão / os pães"],
+         ["el alemán","o alemão / os alemães"],
+         ["el capitán","o capitão / os capitães"],
+         ["el ciudadano","o cidadão / os cidadãos"],
+         ["el hermano","o irmão / os irmãos"],
+         ["el grano","o grão / os grãos"]],
+  rule:"Tres salidas y ninguna señal que las anuncie. La mayoría hace -ões: aviões, caminhões, punições, porões. Un puñado hace -ães: pães, alemães, capitães. Y unas pocas solo añaden la s: irmãos, cidadãos, grãos.",
+  trap:"Si no te acuerdas, -ões es la apuesta con más probabilidad de acertar, porque cubre la gran mayoría. Pero las tres que más vas a usar en la vida diaria están justo en los otros dos grupos: pães, irmãos y alemães."
+},
+{
+  id:"diminutivos", name:"-inho ou -zinho", pick:{topic:"diminutivos"},
+  hook:"Dos sufijos para una sola idea, y la palabra decide cuál le toca. Mira la columna portuguesa: seis llevan -inho y seis llevan -zinho. ¿Qué tienen en común las que piden la z?",
+  pairs:[["la casita","a casa / casinha"],
+         ["la escuelita","a escola / escolinha"],
+         ["el vasito","o copo / copinho"],
+         ["el muchachito","o rapaz / rapazinho"],
+         ["la naricita","o nariz / narizinho"],
+         ["la bolsita","o saco / saquinho"],
+         ["el cafecito","o café / cafezinho"],
+         ["la mujercita","a mulher / mulherzinha"],
+         ["el papelito","o papel / papelzinho"],
+         ["el papito","o pai / paizinho"],
+         ["la ciudadita","a cidade / cidadezinha"],
+         ["la manita","a mão / mãozinha"]],
+  rule:"-inho e -inha es el normal, y se come la vocal final: casa da casinha, copo da copinho, santo da santinho. Entra la z cuando la palabra termina en sílaba tónica (café, mulher, papel, anel, só), en dos vocales juntas (pai, boa, relógio), en sonido nasal (bom, homem, mãe, irmão, avião, mão) o en -dade (cidade, saudade, verdade). Las que acaban en -s o en -z se quedan con -inho: tênis da tenisinho, arroz da arrozinho, nariz da narizinho.",
+  trap:"Saco no hace sacinho sino saquinho, y frasco hace frasquinho: la c pasa a qu para que el sonido no cambie. Cheio y feio son las dos excepciones de la lista: cheiinho y feiinho, con dos i seguidas."
+},
+{
+  id:"diminutivos-uso", name:"Não é só tamanho", pick:{topic:"diminutivos",tag:"dim-uso"},
+  hook:"Ninguna de estas seis frases habla de algo pequeño. Léelas y pregúntate qué añade el sufijo en cada una: ¿cariño, énfasis, o solo la manera normal de decirlo?",
+  pairs:[["¿Acepta un cafecito?","Você aceita um cafezinho?"],
+         ["Hoy hace un friíto rico.","Hoje está um friozinho gostoso."],
+         ["Mamita, ¿me traes un vasito de agua?","Mãezinha, traz um copinho d'água para mim?"],
+         ["Quiero un pedacito de pastel.","Quero um pedacinho de bolo."],
+         ["Déjame echar un ojito.","Deixa eu dar uma olhadinha."],
+         ["El solecito está rico hoy.","O solzinho está gostoso hoje."]],
+  rule:"En Brasil el diminutivo casi nunca mide el tamaño. Sirve para el cariño (mãezinha, filhinho), para suavizar un pedido (uma olhadinha, um minutinho), para el énfasis (cheiinho, pouquinho) y para cosas que ya se llaman así y nada más: um cafezinho es un café normal, servido corto.",
+  trap:"Cuidado con el otro filo: el mismo sufijo puede marcar desprecio. Um homenzinho y um cantorzinho no son un hombre bajito ni un cantante joven, son un hombre y un cantante a los que se les está quitando peso. El tono y el contexto deciden."
+},
+{
+  id:"indefinidos", name:"Os variáveis e os invariáveis", pick:{topic:"indefinidos"},
+  hook:"Los pronombres indefinidos apuntan a alguien o a algo sin decir quién. Unos cambian de forma según lo que acompañan y otros no cambian nunca. Mira la columna derecha: ¿cuáles traen cuatro formas y cuáles solo una?",
+  pairs:[["alguno","algum / alguma / alguns / algumas"],
+         ["ninguno","nenhum / nenhuma / nenhuns / nenhumas"],
+         ["otro","outro / outra / outros / outras"],
+         ["mucho","muito / muita / muitos / muitas"],
+         ["poco","pouco / pouca / poucos / poucas"],
+         ["cierto","certo / certa / certos / certas"],
+         ["tanto","tanto / tanta / tantos / tantas"],
+         ["varios","vários / várias"],
+         ["cualquiera","qualquer / quaisquer"],
+         ["alguien","alguém"],
+         ["nadie","ninguém"],
+         ["todo, la totalidad","tudo"],
+         ["nada","nada"],
+         ["cada","cada"]],
+  rule:"Los variables concuerdan en género y número con el sustantivo, igual que un adjetivo: algum livro, alguma casa, alguns livros, algumas casas. Los invariables tienen una sola forma y no admiten plural: alguém, ninguém, tudo, nada, cada.",
+  trap:"Qualquer hace el plural por dentro: quaisquer, no qualquers. Y cada nunca va solo ni se pluraliza: cada criança, cada um, cada uma. Cadas no existe."
+},
+{
+  id:"indefinidos-tudo", name:"Tudo ou todo", pick:{topic:"indefinidos",tag:"tudo-todo"},
+  hook:"Las dos se traducen por todo, y ahí empieza el problema. Mira las siete frases: una de las dos palabras va siempre sola y la otra siempre se apoya en un sustantivo. ¿Cuál es cuál?",
+  pairs:[["Ella compró todo en la tienda.","Ela comprou tudo na loja."],
+         ["Él vio todo lo que pasó.","Ele viu tudo o que aconteceu."],
+         ["Di todo lo que sabes.","Diga tudo o que você sabe."],
+         ["Todos los días trabajo.","Todos os dias eu trabalho."],
+         ["Él trabaja todo el día.","Ele trabalha todo o dia."],
+         ["Cada vez que puedo, la visito.","Toda vez que posso, visito ela."],
+         ["Ella no compró nada.","Ela não comprou nada."]],
+  rule:"Tudo es invariable y quiere decir todas las cosas: va solo, sin sustantivo detrás, y su contrario es nada. Todo concuerda — todo, toda, todos, todas — y siempre se apoya en un sustantivo.",
+  trap:"El artículo cambia el sentido. Todo dia, sin artículo, quiere decir cada día; todo o dia, con artículo, quiere decir el día entero. La frase de la clase lo junta: todos os dias eu vou ao centro, mas não fico lá todo o dia."
 }
 ];
 function lessonById(id){
@@ -1416,7 +1537,45 @@ var B = [
 {id:"fut-7",t:"futuroim",k:"mc",q:"Minha mãe ___ feijoada para nós.",g:"Mi mamá va a cocinar feijoada para nosotros.",c:["vai cozinhar","vai a cozinhar","vai cozinhando","vão cozinhar"],a:"vai cozinhar",h:"¿El verbo principal se queda en infinitivo o cambia de forma?",e:"Vai cozinhar, el infinitivo sin tocarlo.",w:[]},
 {id:"fut-8",t:"futuroim",k:"mc",q:"Meus netos ___ para as férias.",g:"Mis nietos van a venir para las vacaciones.",c:["vão vir","vão venir","vai vir","vão vindo"],a:"vão vir",h:"El sujeto es plural. ¿Y el segundo verbo se queda en infinitivo?",e:"Meus netos vão vir. Vir no se transforma.",w:[]},
 {id:"fut-9",t:"futuroim",k:"mc",q:"Amanhã nós ___ para o Pantanal.",g:"Mañana vamos al Pantanal.",c:["vamos","vamos ir","vamos a","vão"],a:"vamos",h:"El destino ya está en la frase. ¿Hace falta repetir el verbo ir?",e:"Nós vamos para o Pantanal. Vamos ir sería decirlo dos veces.",w:[]},
-{id:"fut-10",t:"futuroim",k:"w",q:"Escríbelo en portugués: “Yo voy a estudiar portugués en Brasil.”",g:"",a:"eu vou estudar português no brasil",alt:["vou estudar português no brasil"],h:"¿Qué palabra del español desaparece entre los dos verbos?",e:"Eu vou estudar português no Brasil.",w:["vou-a"]}
+{id:"fut-10",t:"futuroim",k:"w",q:"Escríbelo en portugués: “Yo voy a estudiar portugués en Brasil.”",g:"",a:"eu vou estudar português no brasil",alt:["vou estudar português no brasil"],h:"¿Qué palabra del español desaparece entre los dos verbos?",e:"Eu vou estudar português no Brasil.",w:["vou-a"]},
+{id:"plur-0",t:"plurais",k:"mc",q:"O plural de homem é:",g:"el hombre / los hombres",c:["homens","homems","homenes","homeis"],a:"homens",h:"¿En qué letra termina homem? Esa letra es la que manda.",e:"En -m la m se cambia por -ns: homens, imagens, garagens.",w:[]},
+{id:"plur-1",t:"plurais",k:"mc",q:"O plural de animal é:",g:"el animal / los animales",c:["animais","animales","animals","animaus"],a:"animais",h:"¿Dónde cae el acento en animal, al principio o al final?",e:"Acento al final, así que la l se vuelve -is: animais. El español conserva su l y el portugués la pierde.",w:[]},
+{id:"plur-2",t:"plurais",k:"mc",q:"O plural de professor é:",g:"el profesor / los profesores",c:["professores","professors","professoros","professeres"],a:"professores",h:"¿Qué se le añade a una palabra terminada en -r?",e:"En -r se añade -es: professores, atores, cantores, sabores.",w:[]},
+{id:"plur-3",t:"plurais",k:"mc",q:"O plural de rapaz é:",g:"el muchacho / los muchachos",c:["rapazes","rapaz","rapazs","rapaces"],a:"rapazes",h:"Termina en -z. ¿Se le añade -s o -es?",e:"En -z se añade -es: rapazes, narizes, raízes, gravidezes.",w:[]},
+{id:"plur-4",t:"plurais",k:"mc",q:"O plural de pão é:",g:"el pan / los panes",c:["pães","pãos","pões","panes"],a:"pães",h:"El -ão tiene tres salidas. ¿Cuál le toca a esta, que es de las más usadas del idioma?",e:"Pão da pães, igual que alemão da alemães y capitão da capitães.",w:["plural-ao"]},
+{id:"plur-5",t:"plurais",k:"mc",q:"O plural de avião é:",g:"el avión / los aviones",c:["aviões","aviães","aviãos","avions"],a:"aviões",h:"¿Cuál de las tres salidas del -ão cubre la mayoría de las palabras?",e:"Avião da aviões. La salida -ões es la más común con diferencia.",w:["plural-ao"]},
+{id:"plur-6",t:"plurais",k:"mc",q:"O plural de irmão é:",g:"el hermano / los hermanos",c:["irmãos","irmães","irmões","irmanos"],a:"irmãos",h:"Esta es de las pocas que solo añaden una letra. ¿Cuál?",e:"Irmão da irmãos, como cidadão da cidadãos y grão da grãos.",w:["plural-ao"]},
+{id:"plur-7",t:"plurais",k:"mc",q:"O plural de azul é:",g:"azul / azules",c:["azuis","azules","azuls","azúis"],a:"azuis",h:"Termina en -ul con el acento al final. ¿Qué le pasa a la l?",e:"Azul da azuis: la l se va y entra -is.",w:[]},
+{id:"plur-8",t:"plurais",k:"mc",q:"O plural de ônibus é:",g:"el autobús / los autobuses",c:["ônibus","ônibuses","ônibuss","ónibus"],a:"ônibus",h:"El acento cae en la primera sílaba. ¿Cambia algo entonces?",e:"No cambia nada: um ônibus, dois ônibus. Igual lápis, pires, tênis y vírus.",w:[]},
+{id:"plur-9",t:"plurais",k:"mc",q:"O plural de francês é:",g:"francés / franceses",c:["franceses","francêses","francesos","franceis"],a:"franceses",h:"El acento cae al final. ¿Sobrevive el acento escrito en el plural?",e:"Francês da franceses: se añade -es y el acento escrito desaparece.",w:[]},
+{id:"plur-10",t:"plurais",k:"mc",q:"O plural de réptil é:",g:"el reptil / los reptiles",c:["répteis","réptis","reptiles","réptils"],a:"répteis",h:"En réptil el acento no cae en la última sílaba. ¿Eso cambia la regla del -l?",e:"Réptil da répteis. Cuando el -il no es tónico se cambia por -eis: férteis, têxteis.",w:[]},
+{id:"plur-11",t:"plurais",k:"mc",q:"O plural de garçom é:",g:"el mesero / los meseros",c:["garçons","garçoms","garçones","garções"],a:"garçons",h:"Termina en -m. ¿Qué le pasa siempre a esa m?",e:"En -m entra -ns: garçons, homens, imagens.",w:[]},
+{id:"plur-12",t:"plurais",k:"w",q:"Escríbelo en portugués: “los faroles azules”",g:"",a:"os faróis azuis",alt:["faróis azuis"],h:"Las dos palabras terminan en -l. ¿Les pasa lo mismo a las dos?",e:"Os faróis azuis. El adjetivo también concuerda y también pierde la l.",w:[]},
+{id:"plur-13",t:"plurais",k:"mc",q:"O plural de látex é:",g:"el látex",c:["látex","látexes","látexs","láteces"],a:"látex",h:"Termina en -x. ¿Cambian las palabras en -x?",e:"No cambian: látex, xérox, pirex, ônix, durex.",w:[]},
+{id:"dim-0",t:"diminutivos",k:"mc",q:"O diminutivo de casa é:",g:"la casa / la casita",c:["casinha","casazinha","casinho","casita"],a:"casinha",h:"¿Qué le pasa a la vocal final antes de que entre el sufijo?",e:"Casa da casinha: se come la a final y entra -inha.",w:[]},
+{id:"dim-1",t:"diminutivos",k:"mc",q:"O diminutivo de café é:",g:"el café / el cafecito",c:["cafezinho","cafeinho","cafézinho","cafinho"],a:"cafezinho",h:"¿Dónde cae el acento en café, y qué sufijo piden las palabras así?",e:"Café termina en sílaba tónica, así que pide -zinho: cafezinho.",w:[]},
+{id:"dim-2",t:"diminutivos",k:"mc",q:"O diminutivo de saco é:",g:"la bolsa / la bolsita",c:["saquinho","sacinho","saquinha","saconho"],a:"saquinho",h:"Si escribieras sacinho, ¿seguiría sonando igual la c?",e:"Saco da saquinho: la c pasa a qu para conservar el sonido. Frasco da frasquinho.",w:[]},
+{id:"dim-3",t:"diminutivos",k:"mc",q:"O diminutivo de cidade é:",g:"la ciudad / la ciudadita",c:["cidadezinha","cidadinha","cidadezinho","cidadinho"],a:"cidadezinha",h:"Termina en -dade. ¿Ese final pide la z o no?",e:"Las palabras en -dade hacen -zinha: cidadezinha, saudadezinha, verdadezinha.",w:[]},
+{id:"dim-4",t:"diminutivos",k:"mc",q:"O diminutivo de mão é:",g:"la mano / la manita",c:["mãozinha","mãinha","mãozinho","manzinha"],a:"mãozinha",h:"El final es nasal. ¿Qué sufijo piden los sonidos nasales?",e:"Mão da mãozinha. Igual irmão da irmãozinho y avião da aviãozinho.",w:[]},
+{id:"dim-5",t:"diminutivos",k:"mc",q:"O diminutivo de pai é:",g:"el papá / el papito",c:["paizinho","painho","paiinho","pazinho"],a:"paizinho",h:"Pai termina en dos vocales juntas. ¿Y entonces qué sufijo le toca?",e:"Dos vocales al final piden -zinho: paizinho, boazinha, relogiozinho.",w:[]},
+{id:"dim-6",t:"diminutivos",k:"mc",q:"O diminutivo de nariz é:",g:"la nariz / la naricita",c:["narizinho","narizzinho","narinho","narizinha"],a:"narizinho",h:"Las palabras en -s y en -z, ¿piden la z del sufijo o no?",e:"En -z entra -inho sin más: narizinho, arrozinho, cruzinha.",w:[]},
+{id:"dim-7",t:"diminutivos",k:"mc",q:"O diminutivo de papel é:",g:"el papel / el papelito",c:["papelzinho","papelinho","papezinho","papelinha"],a:"papelzinho",h:"¿Dónde cae el acento en papel?",e:"Papel termina en sílaba tónica: papelzinho. Igual anel da anelzinho.",w:[]},
+{id:"dim-8",t:"diminutivos",k:"mc",q:"Você aceita um ___?",g:"¿Acepta un cafecito?",c:["cafezinho","café pequeno","cafeziho","cafedinho"],a:"cafezinho",h:"¿Se está ofreciendo un café chico, o es simplemente así como se ofrece un café?",e:"Um cafezinho es un café normal, servido corto. El diminutivo aquí no mide nada.",w:["dim-uso"]},
+{id:"dim-9",t:"diminutivos",k:"mc",q:"O que mãezinha acrescenta a mãe?",g:"",c:["carinho","tamanho","desprezo","pressa"],a:"carinho",h:"Si alguien llama así a su madre, ¿está hablando de su estatura?",e:"El diminutivo carga cariño, no tamaño: mãezinha, filhinho, amorzinho.",w:["dim-uso"]},
+{id:"dim-10",t:"diminutivos",k:"mc",q:"Deixa eu dar uma ___.",g:"Déjame echar un ojito.",c:["olhadinha","olhada pequena","olhadazinha","olhinha"],a:"olhadinha",h:"¿Para qué sirve el diminutivo en un pedido: para medirlo o para suavizarlo?",e:"Uma olhadinha suaviza el pedido. Igual um minutinho y um pouquinho.",w:["dim-uso"]},
+{id:"dim-11",t:"diminutivos",k:"w",q:"Escríbelo en portugués: “un vasito de agua”",g:"",a:"um copinho de água",alt:["um copinho d'água","copinho de água","copinho d'água"],h:"Copo termina en vocal átona. ¿Lleva z el sufijo?",e:"Um copinho de água: se come la o final y entra -inho.",w:[]},
+{id:"ind-0",t:"indefinidos",k:"mc",q:"Você sabe de ___ lugar para comprar bons livros?",g:"¿Sabes de algún lugar para comprar buenos libros?",c:["algum","alguma","alguns","algumas"],a:"algum",h:"Lugar es masculino singular. ¿Qué forma le toca al indefinido?",e:"Algum lugar. Los indefinidos variables concuerdan como un adjetivo.",w:[]},
+{id:"ind-1",t:"indefinidos",k:"mc",q:"Ele conhece ___ que já visitou mais de dez países.",g:"Él conoce a alguien que ya visitó más de diez países.",c:["alguém","algum","alguma","ninguém"],a:"alguém",h:"¿Se está nombrando una cosa o una persona sin decir quién?",e:"Alguém apunta a una persona indeterminada, y no cambia nunca de forma.",w:[]},
+{id:"ind-2",t:"indefinidos",k:"mc",q:"Eu fui até sua casa, mas ___ estava lá.",g:"Fui hasta tu casa, pero no había nadie.",c:["ninguém","nenhum","nada","alguém"],a:"ninguém",h:"Lo que falta es una persona, no una cosa. ¿Cuál de las invariables es esa?",e:"Ninguém es el contrario de alguém, y es invariable.",w:[]},
+{id:"ind-3",t:"indefinidos",k:"mc",q:"Eu não tenho ___, estou lisa.",g:"No tengo nada, estoy sin plata.",c:["nada","ninguém","nenhum","nenhuma"],a:"nada",h:"Lo que falta son cosas, no personas. ¿Cuál es el contrario de tudo?",e:"Nada es el contrario de tudo, y tampoco cambia de forma.",w:["tudo-todo"]},
+{id:"ind-4",t:"indefinidos",k:"mc",q:"Não tenho ___ problema com ela.",g:"No tengo ningún problema con ella.",c:["nenhum","nenhuma","nenhuns","nenhumas"],a:"nenhum",h:"Problema termina en -a, pero ¿de qué género es en portugués?",e:"O problema es masculino, así que nenhum problema. El final en -a engaña.",w:[]},
+{id:"ind-5",t:"indefinidos",k:"mc",q:"Comprei um presente para ___ criança.",g:"Compré un regalo para cada niño.",c:["cada","cadas","toda","todas"],a:"cada",h:"¿Tiene plural esta palabra?",e:"Cada es invariable y no se pluraliza: cada criança, cada um, cada uma.",w:[]},
+{id:"ind-6",t:"indefinidos",k:"mc",q:"Nós bebemos ___ cervejas ontem.",g:"Tomamos muchas cervezas ayer.",c:["muitas","muito","muitos","muita"],a:"muitas",h:"Cervejas es femenino plural. ¿Y el indefinido que lo acompaña?",e:"Muitas cervejas. Muito concuerda siempre que acompañe a un sustantivo.",w:[]},
+{id:"ind-7",t:"indefinidos",k:"mc",q:"___ problemas que surjam, contem comigo.",g:"Cualesquiera problemas que surjan, cuenten conmigo.",c:["Quaisquer","Qualquers","Qualquer","Quaisqueres"],a:"Quaisquer",h:"El plural de esta palabra no se forma al final. ¿Dónde se forma?",e:"Qualquer da quaisquer: el plural entra por dentro de la palabra.",w:[]},
+{id:"ind-8",t:"indefinidos",k:"mc",q:"Ela comprou ___ na loja.",g:"Ella compró todo en la tienda.",c:["tudo","todo","todos","todas"],a:"tudo",h:"¿Hay algún sustantivo detrás del espacio en el que la palabra se pueda apoyar?",e:"No hay sustantivo detrás, así que va tudo, que se sostiene solo.",w:["tudo-todo"]},
+{id:"ind-9",t:"indefinidos",k:"mc",q:"___ os dias eu trabalho.",g:"Todos los días trabajo.",c:["Todos","Tudo","Toda","Todo"],a:"Todos",h:"Dias está ahí mismo y es masculino plural. ¿Concuerda la palabra con él o no?",e:"Todos os dias. Con sustantivo detrás va todo, y concuerda con él.",w:["tudo-todo"]},
+{id:"ind-10",t:"indefinidos",k:"mc",q:"Ele trabalha ___ dia e chega em casa à noite.",g:"Él trabaja todo el día y llega a casa de noche.",c:["todo o","tudo o","toda a","todos os"],a:"todo o",h:"¿Se habla de cada día, o del día completo?",e:"Todo o dia, con artículo, es el día entero. Todo dia, sin artículo, es cada día.",w:["tudo-todo"]},
+{id:"ind-11",t:"indefinidos",k:"w",q:"Escríbelo en portugués: “Él vio todo lo que pasó.”",g:"",a:"ele viu tudo o que aconteceu",alt:["viu tudo o que aconteceu"],h:"Delante de o que, ¿va la forma invariable o la que concuerda?",e:"Ele viu tudo o que aconteceu.",w:["tudo-todo"]}
 ];
 
 /* Ids are written into each item by hand and must never change: progress is
@@ -1737,6 +1896,97 @@ function gerNote(inf){
 }
 function lowerFirst(s){ return s.charAt(0).toLowerCase() + s.slice(1); }
 
+/* ---- slots for plural, diminutive and indefinite ----
+   The wrong options are written by hand per word rather than generated,
+   because a plausible wrong plural is word-specific: homems and animales are
+   each wrong in their own way, and a rule that produced them both would be
+   teaching a pattern that does not exist. */
+
+/* [singular, plural, three wrong plurals, Spanish singular, Spanish plural, why] */
+var NPLU = [
+  ["homem","homens","homems","homenes","homeis","el hombre","los hombres","En -m la m se cambia por -ns."],
+  ["imagem","imagens","imagems","imagenes","imageis","la imagen","las imágenes","En -m la m se cambia por -ns."],
+  ["garçom","garçons","garçoms","garçones","garções","el mesero","los meseros","En -m la m se cambia por -ns."],
+  ["professor","professores","professors","professoros","professeres","el profesor","los profesores","En -r se añade -es."],
+  ["sabor","sabores","sabors","saboros","sabories","el sabor","los sabores","En -r se añade -es."],
+  ["rapaz","rapazes","rapazs","rapaces","rapazis","el muchacho","los muchachos","En -z se añade -es."],
+  ["nariz","narizes","narizs","narices","narizis","la nariz","las narices","En -z se añade -es."],
+  ["animal","animais","animales","animals","animaus","el animal","los animales","El -l tónico se vuelve -is."],
+  ["farol","faróis","faroles","farols","farónis","el farol","los faroles","El -l tónico se vuelve -is."],
+  ["barril","barris","barriles","barrils","barrís","el barril","los barriles","El -l tónico se vuelve -is."],
+  ["réptil","répteis","réptis","reptiles","réptils","el reptil","los reptiles","El -il átono se vuelve -eis."],
+  ["ônibus","ônibus","ônibuses","ônibuss","ónibus","el autobús","los autobuses","Con el acento al principio, en -s no cambia nada."],
+  ["lápis","lápis","lápises","lápizes","lapis","el lápiz","los lápices","Con el acento al principio, en -s no cambia nada."],
+  ["francês","franceses","francêses","francesos","franceis","francés","franceses","Con el acento al final se añade -es y el acento escrito se cae."],
+  ["mês","meses","mêses","mesos","meis","el mes","los meses","Monosílabo en -s: se añade -es."],
+  ["látex","látex","látexes","látexs","láteces","el látex","los látex","En -x no cambia nada."],
+  ["avião","aviões","aviães","aviãos","avions","el avión","los aviones","El -ão suele hacer -ões."],
+  ["caminhão","caminhões","caminhães","caminhãos","caminhons","el camión","los camiones","El -ão suele hacer -ões."],
+  ["pão","pães","pãos","pões","panes","el pan","los panes","Pão es del grupo pequeño que hace -ães."],
+  ["capitão","capitães","capitãos","capitões","capitanes","el capitán","los capitanes","Capitão es del grupo que hace -ães."],
+  ["irmão","irmãos","irmães","irmões","irmanos","el hermano","los hermanos","Irmão solo añade la s."],
+  ["cidadão","cidadãos","cidadães","cidadões","cidadanos","el ciudadano","los ciudadanos","Cidadão solo añade la s."]
+];
+
+/* [word, diminutive, three wrong ones, Spanish word, Spanish diminutive, why] */
+var NDIM = [
+  ["casa","casinha","casazinha","casinho","casinhazinha","la casa","la casita","Se come la vocal final y entra -inha."],
+  ["escola","escolinha","escolazinha","escolinho","escolzinha","la escuela","la escuelita","Se come la vocal final y entra -inha."],
+  ["copo","copinho","copozinho","copinha","coponho","el vaso","el vasito","Se come la vocal final y entra -inho."],
+  ["livro","livrinho","livrozinho","livrinha","livronho","el libro","el librito","Se come la vocal final y entra -inho."],
+  ["saco","saquinho","sacinho","saquinha","saconho","la bolsa","la bolsita","La c pasa a qu para conservar el sonido."],
+  ["frasco","frasquinho","frascinho","frasquinha","frasconho","el frasco","el frasquito","La c pasa a qu para conservar el sonido."],
+  ["café","cafezinho","cafeinho","cafézinho","cafinho","el café","el cafecito","Termina en sílaba tónica, así que pide -zinho."],
+  ["mulher","mulherzinha","mulherinha","mulhezinha","mulherinho","la mujer","la mujercita","Termina en sílaba tónica, así que pide -zinha."],
+  ["papel","papelzinho","papelinho","papezinho","papelinha","el papel","el papelito","Termina en sílaba tónica, así que pide -zinho."],
+  ["pai","paizinho","painho","paiinho","pazinho","el papá","el papito","Dos vocales al final piden -zinho."],
+  ["cidade","cidadezinha","cidadinha","cidadezinho","cidadinho","la ciudad","la ciudadita","Las palabras en -dade hacen -zinha."],
+  ["verdade","verdadezinha","verdadinha","verdadezinho","verdadezim","la verdad","la verdadita","Las palabras en -dade hacen -zinha."],
+  ["mão","mãozinha","mãinha","mãozinho","manzinha","la mano","la manita","El sonido nasal pide -zinha."],
+  ["irmão","irmãozinho","irmãinho","irmãozim","irmanzinho","el hermano","el hermanito","El sonido nasal pide -zinho."],
+  ["homem","homenzinho","homeminho","homemzinho","homeninho","el hombre","el hombrecito","El sonido nasal pide -zinho, y la m pasa a n."],
+  ["nariz","narizinho","narizzinho","narinho","narizim","la nariz","la naricita","En -s y en -z entra -inho sin la z."],
+  ["arroz","arrozinho","arrozzinho","arrinho","arrozim","el arroz","el arrocito","En -s y en -z entra -inho sin la z."]
+];
+
+/* [masculine, feminine, masculine plural, feminine plural, Spanish m.pl, Spanish f.pl] */
+var NIND = [
+  ["algum","alguma","alguns","algumas","algunos","algunas"],
+  ["outro","outra","outros","outras","otros","otras"],
+  ["muito","muita","muitos","muitas","muchos","muchas"],
+  ["pouco","pouca","poucos","poucas","pocos","pocas"],
+  ["certo","certa","certos","certas","ciertos","ciertas"]
+];
+var NINDN = [
+  ["livros","m","libros"], ["casas","f","casas"], ["amigos","m","amigos"],
+  ["amigas","f","amigas"], ["lugares","m","lugares"], ["coisas","f","cosas"],
+  ["pessoas","f","personas"], ["problemas","m","problemas"]
+];
+
+/* [frame, answer, four options, gloss, hint, why] */
+var NTUDO = [
+  ["Ela comprou ___ na loja.","tudo",["tudo","todo","todos","todas"],"Ella compró todo en la tienda.",
+   "¿Hay un sustantivo detrás del espacio con el que concordar?","Sin sustantivo detrás va tudo."],
+  ["Ele viu ___ o que aconteceu.","tudo",["tudo","todo","toda","todos"],"Él vio todo lo que pasó.",
+   "¿Qué forma va siempre delante de o que?","Delante de o que va tudo."],
+  ["Diga ___ o que você sabe.","tudo",["tudo","todo","todos","todas"],"Di todo lo que sabes.",
+   "¿Qué forma va siempre delante de o que?","Delante de o que va tudo."],
+  ["Ele perdeu ___ o que tinha.","tudo",["tudo","todo","todos","todas"],"Él perdió todo lo que tenía.",
+   "¿Qué forma va siempre delante de o que?","Delante de o que va tudo."],
+  ["___ os dias eu trabalho.","Todos",["Todos","Tudo","Toda","Todo"],"Todos los días trabajo.",
+   "Dias está ahí mismo. ¿De qué género y número es?","Dias es masculino plural: todos os dias."],
+  ["Ele trabalha ___ o dia.","todo",["todo","tudo","toda","todos"],"Él trabaja todo el día.",
+   "¿Se habla de cada día o del día completo?","Todo o dia, con artículo, es el día entero."],
+  ["___ vez que posso, visito meus avós.","Toda",["Toda","Tudo","Todo","Todas"],"Cada vez que puedo, visito a mis abuelos.",
+   "Vez es femenino singular. ¿Y qué quiere decir la frase, cada vez o la vez entera?","Toda vez quiere decir cada vez."],
+  ["___ família tem seus problemas.","Toda",["Toda","Tudo","Todo","Todas"],"Toda familia tiene sus problemas.",
+   "Família es femenino singular. ¿Concuerda la palabra con ella?","Família es femenino singular: toda família."],
+  ["Ela não comprou ___.","nada",["nada","tudo","todo","nenhum"],"Ella no compró nada.",
+   "La frase va en negativo. ¿Cuál es el contrario de tudo?","El contrario de tudo es nada."],
+  ["Elas conhecem ___ as praias daqui.","todas",["todas","tudo","todos","toda"],"Ellas conocen todas las playas de aquí.",
+   "Praias es femenino plural. ¿Qué forma le toca?","Praias es femenino plural: todas as praias."]
+];
+
 var GEN = [
 { id:"g-gostar-pessoa", t:"gostar", w:["p1sg"], make:function(){
   var s = Math.random() < .45 ? GOSTAR[0] : r(GOSTAR), n = r(NOUNS);
@@ -1949,6 +2199,34 @@ var GEN = [
     c:["(nada)","a","de","para"], a:"(nada)",
     h:"El español dice "+IRS[p[3]]+" "+v[1]+". ¿Sobrevive esa a al pasar al portugués?",
     e:p[0]+" "+IRP[p[2]]+" "+v[0]+", sin ninguna preposición en medio."};
+}},
+{ id:"g-plurais", t:"plurais", w:[], make:function(){
+  var n = r(NPLU);
+  return {q:"O plural de "+n[0]+" é:", g:n[5]+" / "+n[6]+".",
+    c:[n[1],n[2],n[3],n[4]], a:n[1],
+    h:"¿En qué termina "+n[0]+", y dónde le cae el acento?",
+    e:n[0]+" da "+n[1]+". "+n[7]};
+}},
+{ id:"g-diminutivos", t:"diminutivos", w:[], make:function(){
+  var n = r(NDIM);
+  return {q:"O diminutivo de "+n[0]+" é:", g:n[5]+" / "+n[6]+".",
+    c:[n[1],n[2],n[3],n[4]], a:n[1],
+    h:"¿"+n[0]+" acaba en vocal átona, en sílaba tónica o en sonido nasal?",
+    e:n[0]+" da "+n[1]+". "+n[7]};
+}},
+{ id:"g-indefinidos", t:"indefinidos", w:[], make:function(){
+  var s = r(NIND), n = r(NINDN), masc = n[1] === "m";
+  var a = masc ? s[2] : s[3];
+  return {q:"Ele conhece ___ "+n[0]+".",
+    g:"Él conoce "+(masc ? s[4] : s[5])+" "+n[2]+".",
+    c:[s[0],s[1],s[2],s[3]], a:a,
+    h:"¿"+n[0]+" es masculino o femenino? ¿Y está en singular o en plural?",
+    e:n[0]+" pide "+a+". Los indefinidos variables concuerdan como un adjetivo."};
+}},
+{ id:"g-tudo-todo", t:"indefinidos", w:["tudo-todo"], make:function(){
+  var f = r(NTUDO);
+  return {q:f[0], g:f[3], c:f[2].slice(), a:f[1], h:f[4],
+    e:f[0].replace("___", f[1])+" "+f[5]};
 }}
 ];
 GEN.forEach(function(g){ g.k = "mc"; });
@@ -2175,7 +2453,8 @@ var CATS = [
    topics:["gostar","estarcom","serestar","nosagente",
            "presente","preterito","continuo","futuroim"]},
   {id:"palavras", name:"Palavras pequenas",
-   topics:["interrog","artigos","prep","possessivos","paises"]},
+   topics:["interrog","artigos","prep","possessivos","paises",
+           "plurais","diminutivos","indefinidos"]},
   {id:"som",      name:"Som e letras",
    topics:["fonetica","alfabeto"]},
   {id:"vocab",    name:"Vocabul\u00e1rio",
